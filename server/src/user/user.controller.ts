@@ -3,17 +3,18 @@ import {
   Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
   UsePipes,
   ValidationPipe,
+  UseGuards,
+  Param,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from '@prisma/client';
 import { IUserResponse } from '@/user/types/user.interface';
+import { AuthGuard } from '@/guards/auth.guard';
+import { LoginUserDto } from '@/user/dto/login-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -21,30 +22,35 @@ export class UserController {
 
   @Post('create-user')
   @UsePipes(new ValidationPipe())
-  async create(
+  async createUser(
     @Body('user') createUserDto: CreateUserDto,
   ): Promise<IUserResponse> {
     const createdUser: User = await this.userService.createUser(createUserDto);
+
     return this.userService.generateUserResponse(createdUser);
   }
 
-  @Get()
-  findAll() {
-    return this.userService.findAll();
+  @Get('login')
+  @UsePipes(
+    new ValidationPipe({
+      whitelist: true,
+    }),
+  )
+  async loginUser(
+    @Body('user') loginUserDto: LoginUserDto,
+  ): Promise<IUserResponse> {
+    const user: User = await this.userService.loginUser(loginUserDto);
+
+    return this.userService.generateUserResponse(user);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
-  }
+  @Get('get/:username')
+  @UseGuards(AuthGuard)
+  async getUserProfile(
+    @Param('username') username: string,
+  ): Promise<IUserResponse> {
+    const user: User = await this.userService.getUserProfile(username);
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+    return this.userService.generateUserResponse(user);
   }
 }

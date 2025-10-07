@@ -1,3 +1,5 @@
+@jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ2dkajhneTAwMDA1M3dnMzc5M2wxdmciLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc1OTgzMTg5MSwiZXhwIjoxNzU5OTE4MjkxfQ.gmGp3TY2G7r8HGy8nurRIF_99Z_Khk5SmgN9v2JRFOw
+
 ### Create new user
 POST http://localhost:5000/user/create-user
 Content-Type: application/json
@@ -9,3 +11,63 @@ Content-Type: application/json
     "password": "jebesh123"
   }
 }
+
+### Create new user with invaild email and password
+POST http://localhost:5000/user/create-user
+Content-Type: application/json
+
+{
+  "user": {
+    "username": "jebesh",
+    "email": "jebesh67mail.com",
+    "password": "jebes"
+  }
+}
+
+### Login with valid user
+GET http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+  "user": {
+    "username": "jebesh",
+    "password": "jebesh123"
+  }
+}
+
+### Login with invalid username
+GET http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+  "user": {
+    "username": "jebesh11",
+    "password": "jebesh123"
+  }
+}
+
+### Login with wong password
+GET http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+  "user": {
+    "username": "jebesh",
+    "password": "jebesh127773"
+  }
+}
+
+### Get user
+GET http://localhost:5000/user/get/jebesh
+Content-Type: application/json
+Authorization: Bearer {{jebeshToken}}
+
+### Get invalid user
+GET http://localhost:5000/user/get/jebeshasfsaf
+Content-Type: application/json
+Authorization: Bearer {{jebeshToken}}
+
+### Get user with wrong token
+GET http://localhost:5000/user/get/jebesh
+Content-Type: application/json
+Authorization: Bearer sagsdagasg

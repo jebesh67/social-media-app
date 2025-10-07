@@ -1,5 +1,6 @@
-import { User } from '@prisma/client';
+import { SafeUser } from '@/user/types/user.type';
 
 export interface IUserResponse {
-  user: Omit<User, 'password'>;
+  user: SafeUser;
+  token: string;
 }
