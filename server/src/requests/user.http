@@ -1,4 +1,4 @@
-@jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ2dkajhneTAwMDA1M3dnMzc5M2wxdmciLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc1OTgzMTg5MSwiZXhwIjoxNzU5OTE4MjkxfQ.gmGp3TY2G7r8HGy8nurRIF_99Z_Khk5SmgN9v2JRFOw
+@jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ2dxa3J0MTAwMDA1MzdiMDJlejczem0iLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc1OTg1MjI5NCwiZXhwIjoxNzU5OTM4Njk0fQ.sMqmbO1aE38rlo5tYuqHFxDENrmK8PyEGH-GFdBFfh4
 
 ### Create new user
 POST http://localhost:5000/user/create-user
@@ -25,7 +25,7 @@ Content-Type: application/json
 }
 
 ### Login with valid user
-GET http://localhost:5000/user/login
+POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
@@ -36,7 +36,7 @@ Content-Type: application/json
 }
 
 ### Login with invalid username
-GET http://localhost:5000/user/login
+POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
@@ -47,7 +47,7 @@ Content-Type: application/json
 }
 
 ### Login with wong password
-GET http://localhost:5000/user/login
+POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
@@ -71,3 +71,8 @@ Authorization: Bearer {{jebeshToken}}
 GET http://localhost:5000/user/get/jebesh
 Content-Type: application/json
 Authorization: Bearer sagsdagasg
+
+### logout
+POST http://localhost:5000/user/logout
+Content-Type: application/json
+Authorization: Bearer {{jebeshToken}}

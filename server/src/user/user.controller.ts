@@ -7,7 +7,11 @@ import {
   ValidationPipe,
   UseGuards,
   Param,
+  Res,
+  HttpStatus,
+  HttpCode,
 } from '@nestjs/common';
+import type { Response } from 'express';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -30,7 +34,7 @@ export class UserController {
     return await this.userService.generateUserResponse(createdUser);
   }
 
-  @Get('login')
+  @Post('login')
   @UsePipes(
     new ValidationPipe({
       whitelist: true,
@@ -42,6 +46,13 @@ export class UserController {
     const user: User = await this.userService.loginUser(loginUserDto);
 
     return await this.userService.generateUserResponse(user);
+  }
+
+  @Post('logout')
+  @UseGuards(AuthGuard)
+  async logoutUser(@Res() res: Response) {
+    await this.userService.logoutUser();
+    return res.status(HttpStatus.OK).json({ message: 'User logged out' });
   }
 
   @Get('get/:username')

@@ -1,6 +1,8 @@
 import {
   BadRequestException,
+  HttpStatus,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -70,6 +72,14 @@ export class UserService {
     await this.cache.set<User>(`user:${user.username}`, user, 20);
 
     return user;
+  }
+
+  async logoutUser(): Promise<void> {
+    try {
+      await this.cache.clearAll();
+    } catch (err) {
+      throw new InternalServerErrorException('Failed to clear caches');
+    }
   }
 
   async getUserProfile(username: string): Promise<User> {
