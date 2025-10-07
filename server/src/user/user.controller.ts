@@ -27,7 +27,7 @@ export class UserController {
   ): Promise<IUserResponse> {
     const createdUser: User = await this.userService.createUser(createUserDto);
 
-    return this.userService.generateUserResponse(createdUser);
+    return await this.userService.generateUserResponse(createdUser);
   }
 
   @Get('login')
@@ -41,7 +41,7 @@ export class UserController {
   ): Promise<IUserResponse> {
     const user: User = await this.userService.loginUser(loginUserDto);
 
-    return this.userService.generateUserResponse(user);
+    return await this.userService.generateUserResponse(user);
   }
 
   @Get('get/:username')
@@ -51,6 +51,6 @@ export class UserController {
   ): Promise<IUserResponse> {
     const user: User = await this.userService.getUserProfile(username);
 
-    return this.userService.generateUserResponse(user);
+    return await this.userService.generateUserResponse(user);
   }
 }

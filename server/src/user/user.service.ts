@@ -11,10 +11,15 @@ import * as bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { IUserResponse } from '@/user/types/user.interface';
 import { LoginUserDto } from '@/user/dto/login-user.dto';
+import { CacheService } from '@/cache/cache.service';
+import { UserDataCount } from '@/user/types/user.type';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly cache: CacheService,
+  ) {}
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     const isExistingUser: boolean = await this.checkExistingUser(
@@ -29,13 +34,18 @@ export class UserService {
       12,
     );
 
-    return this.prisma.user.create({
+    const createdUser: User = await this.prisma.user.create({
       data: {
         username: createUserDto.username,
         email: createUserDto.email,
         password: hashedPassword,
       },
     });
+
+    // cache user
+    await this.cache.set<User>(`user:${createdUser.username}`, createdUser, 20);
+
+    return createdUser;
   }
 
   async loginUser(loginUserDto: LoginUserDto): Promise<User> {
@@ -56,15 +66,27 @@ export class UserService {
       throw new BadRequestException('Invalid credentials');
     }
 
+    // cache user
+    await this.cache.set<User>(`user:${user.username}`, user, 20);
+
     return user;
   }
 
   async getUserProfile(username: string): Promise<User> {
-    const user: User | null = await this.getUserByUsername(username);
-
-    if (!user) {
-      throw new NotFoundException('User not found!');
+    // check for caches
+    const cachedUser: User | undefined = await this.cache.get<User>(
+      `user:${username}`,
+    );
+    if (cachedUser) {
+      console.log('got cached user');
+      return cachedUser;
     }
+
+    const user: User | null = await this.getUserByUsername(username);
+    if (!user) throw new NotFoundException('User not found!');
+
+    // cache user
+    await this.cache.set<User>(`user:${username}`, user, 20);
 
     return user;
   }
@@ -93,12 +115,34 @@ export class UserService {
     });
   }
 
-  generateUserResponse(user: User): IUserResponse {
+  async getUserCounts(user: User): Promise<UserDataCount> {
+    const [followersCount, followingCount, postsCount] = await Promise.all([
+      this.prisma.follow.count({ where: { followingId: user.id } }),
+      this.prisma.follow.count({ where: { followerId: user.id } }),
+      this.prisma.post.count({ where: { authorId: user.id } }),
+    ]);
+
+    return {
+      counts: {
+        followersCount,
+        followingCount,
+        postsCount,
+      },
+    };
+  }
+
+  async generateUserResponse(user: User): Promise<IUserResponse> {
     const { password, ...safeUser } = user;
+
+    const counts: UserDataCount = await this.getUserCounts(user);
+
     const token: string = this.generateToken(user);
 
     return {
-      user: safeUser,
+      user: {
+        ...safeUser,
+        ...counts,
+      },
       token,
     };
   }

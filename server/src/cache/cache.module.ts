@@ -11,7 +11,6 @@ import { CacheService } from './cache.service';
       useFactory: async () => ({
         store: await redisStore({
           socket: { host: 'localhost', port: 6379 },
-          ttl: 60 * 20,
         }),
       }),
     }),

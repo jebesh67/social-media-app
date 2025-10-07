@@ -1,6 +1,6 @@
-import { SafeUser } from '@/user/types/user.type';
+import { SafeUser, UserDataCount } from '@/user/types/user.type';
 
 export interface IUserResponse {
-  user: SafeUser;
+  user: SafeUser & UserDataCount;
   token: string;
 }

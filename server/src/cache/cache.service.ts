@@ -11,8 +11,10 @@ export class CacheService {
   }
 
   async set<T>(key: string, value: T, ttl?: number): Promise<void> {
-    const defaultTTL: number = 60 * 20;
-    await this.cache.set(key, value, ttl ?? defaultTTL);
+    const defaultTTL: number = 1800 * 60 * 20;
+    const TTL_MS: number = ttl ? ttl * 60 * 1000 : defaultTTL;
+
+    await this.cache.set(key, value, TTL_MS);
   }
 
   async del(key: string): Promise<void> {
