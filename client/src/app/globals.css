@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 body {
   @apply text-sm sm:text-base xl:text-lg;
@@ -11,6 +14,17 @@ body {
 
 .css-theme-dark {
   @apply bg-zinc-800 text-zinc-100;
+}
+
+/* Header Text */
+.css-header-text {
+  @apply text-xl sm:text-2xl xl:text-2xl;
+  @apply font-semibold;
+}
+
+/* Top Padding For Content */
+.css-body-top-padding {
+  @apply pt-20 sm:pt-22;
 }
 
 /* Transitions */
@@ -26,12 +40,12 @@ body {
 /* Inactive Buttons*/
 .css-light-nav-button {
   @apply px-4 py-2 rounded-md hover:cursor-pointer;
-  @apply hover:bg-zinc-400/50 hover:backdrop-blur-md;
+  @apply hover:bg-zinc-400/50 active:bg-zinc-400/70 hover:backdrop-blur-md;
 }
 
 .css-dark-nav-button {
   @apply px-4 py-2 rounded-md hover:cursor-pointer;
-  @apply hover:bg-zinc-700/50 hover:backdrop-blur-md;
+  @apply hover:bg-zinc-700/50 active:bg-zinc-700/70 hover:backdrop-blur-md;
 }
 
 /* Active Buttons */
@@ -47,9 +61,56 @@ body {
 
 /* Navigation Container */
 .css-light-nav-container {
-  @apply bg-zinc-200/20 backdrop-blur-sm border-1 border-zinc-700/50;
+  @apply bg-zinc-200/20 backdrop-blur-sm border-1 border-zinc-400/40;
 }
 
 .css-dark-nav-container {
   @apply bg-zinc-700/20 backdrop-blur-sm border-1 border-zinc-700/50;
 }
+
+/* Shiny Text */
+.css-shiny-text-dark {
+  color: #b5b5b5a4;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  display: inline-block;
+  animation: shine 5s linear infinite;
+}
+
+.css-shiny-text-light {
+  color: #2d2d2da4;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, 0.7) 50%,
+    rgba(0, 0, 0, 0) 60%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  display: inline-block;
+  animation: shine 5s linear infinite;
+}
+
+
+@keyframes shine {
+  0% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: -100%;
+  }
+}
+
+.css-shiny-text-dark.disabled,
+.css-shiny-text-light.disabled {
+  animation: none;
+}
+

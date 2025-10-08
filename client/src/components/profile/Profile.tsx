@@ -7,7 +7,7 @@ export const Profile = () => {
   const {theme} = useThemeStore();
   
   return (
-    <div>
+    <div className={ "css-body-top-padding" }>
       profile
     </div>
   );

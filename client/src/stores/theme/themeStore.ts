@@ -12,8 +12,10 @@ export const useThemeStore: UseBoundStore<StoreApi<ThemeState>> = create<ThemeSt
   
   nextTheme: (): void => {
     const themes: Theme[] = ["light", "dark"];
+    
     const currentIndex: number = themes.indexOf(get().theme);
     const nextIndex: number = (currentIndex + 1) % themes.length;
+    
     set({theme: themes[nextIndex]});
     setCookie("theme", themes[nextIndex], {maxAge: 60 * 60 * 24 * 30});
   },
