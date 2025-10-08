@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import ThemeProvider from "@/providers/theme/ThemeProvider";
-import { cookies } from "next/headers";
 import clsx from "clsx";
+import { getTheme } from "@/utils/theme/theme.helper";
+import { Navigation } from "@/components/navigation/Navigation";
 
 export const metadata: Metadata = {
   title: "SocialMedia",
@@ -14,14 +15,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
-  const cookieTheme: string | undefined = (await cookies()).get("theme")?.value;
-  const allowedThemes: string[] = ["light", "dark"];
-  const initialTheme: string | undefined = allowedThemes.includes(cookieTheme ?? "") ? cookieTheme : "light";
+  const initialTheme: string | undefined = await getTheme();
   
   return (
-    <html lang="en"
-    >
+    <html lang="en">
       <body className={ clsx(
         initialTheme === "dark"
           ? "css-theme-dark"
@@ -29,6 +26,7 @@ export default async function RootLayout({
       ) }>
         <ThemeProvider initialTheme={ initialTheme }>
           { children }
+          <Navigation />
         </ThemeProvider>
       </body>
     </html>

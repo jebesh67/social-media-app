@@ -13,7 +13,7 @@ export default function ThemeProvider({
   const {theme, setTheme} = useThemeStore();
   
   useEffect(() => {
-    if (initialTheme && initialTheme !== theme) {
+    if (initialTheme !== theme) {
       setTheme(initialTheme as typeof theme);
     }
   }, [initialTheme]);
@@ -22,7 +22,6 @@ export default function ThemeProvider({
     const body: HTMLElement = document.body;
     
     body.classList.remove(theme === "dark" ? "css-theme-light" : "css-theme-dark");
-    
     body.classList.add(theme === "dark" ? "css-theme-dark" : "css-theme-light");
   }, [theme]);
   

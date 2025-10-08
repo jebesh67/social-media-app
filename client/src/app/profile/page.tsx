@@ -1,9 +1,11 @@
 import { Profile } from "@/components/profile/Profile";
 
-export default function Home() {
+const ProfilePage = () => {
   return (
     <>
       <Profile />
     </>
   );
-}
+};
+
+export default ProfilePage;
