@@ -4,6 +4,8 @@ import ThemeProvider from "@/providers/theme/ThemeProvider";
 import clsx from "clsx";
 import { getTheme } from "@/utils/theme/theme.helper";
 import { Navigation } from "@/components/navigation/Navigation";
+import { Theme } from "@/utils/theme/types/theme.types";
+import { ifTheme } from "@/utils/theme/theme.internal";
 
 export const metadata: Metadata = {
   title: "SocialMedia",
@@ -15,14 +17,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialTheme: string | undefined = await getTheme();
+  const initialTheme: Theme | undefined = await getTheme();
   
   return (
     <html lang="en">
       <body className={ clsx(
-        initialTheme === "dark"
-          ? "css-theme-dark"
-          : "css-theme-light",
+        ifTheme(initialTheme, "css-theme-dark", "css-theme-light"),
       ) }>
         <ThemeProvider initialTheme={ initialTheme }>
           { children }

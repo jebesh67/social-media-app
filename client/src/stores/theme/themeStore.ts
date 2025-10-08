@@ -1,6 +1,6 @@
 import { create, StoreApi, UseBoundStore } from "zustand";
 import { setCookie } from "cookies-next";
-import { ThemeState, Theme } from "@/stores/theme/types/theme.types";
+import { ThemeState, Theme } from "@/utils/theme/types/theme.types";
 
 export const useThemeStore: UseBoundStore<StoreApi<ThemeState>> = create<ThemeState>((set, get) => ({
   theme: "light",

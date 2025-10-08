@@ -1,9 +1,55 @@
 @import "tailwindcss";
 
+body {
+  @apply text-sm sm:text-base xl:text-lg;
+}
+
+/* Global Themes */
 .css-theme-light {
   @apply bg-zinc-300 text-zinc-900;
 }
 
 .css-theme-dark {
   @apply bg-zinc-800 text-zinc-100;
+}
+
+/* Transitions */
+.css-transition {
+  @apply transition-all duration-150 ease-in-out;
+}
+
+/* Navigation Buttons */
+.css-react-icon-size {
+  @apply text-2xl sm:text-3xl xl:text-3xl;
+}
+
+/* Inactive Buttons*/
+.css-light-nav-button {
+  @apply px-4 py-2 rounded-md hover:cursor-pointer;
+  @apply hover:bg-zinc-400/50 hover:backdrop-blur-md;
+}
+
+.css-dark-nav-button {
+  @apply px-4 py-2 rounded-md hover:cursor-pointer;
+  @apply hover:bg-zinc-700/50 hover:backdrop-blur-md;
+}
+
+/* Active Buttons */
+.css-light-nav-button-active {
+  @apply px-4 py-2 rounded-md hover:cursor-pointer;
+  @apply bg-zinc-400/50 backdrop-blur-md;
+}
+
+.css-dark-nav-button-active {
+  @apply px-4 py-2 rounded-md hover:cursor-pointer;
+  @apply bg-zinc-700/50 backdrop-blur-md;
+}
+
+/* Navigation Container */
+.css-light-nav-container {
+  @apply bg-zinc-200/20 backdrop-blur-sm border-1 border-zinc-700/50;
+}
+
+.css-dark-nav-container {
+  @apply bg-zinc-700/20 backdrop-blur-sm border-1 border-zinc-700/50;
 }
