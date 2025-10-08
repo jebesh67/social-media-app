@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.css-theme-light {
+  @apply bg-zinc-300 text-zinc-900;
+}
+
+.css-theme-dark {
+  @apply bg-zinc-800 text-zinc-100;
+}
