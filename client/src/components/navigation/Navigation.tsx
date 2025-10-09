@@ -1,12 +1,12 @@
 "use client";
 
-import { PrintNavElements } from "@/components/navigation/services/navigation.internal";
+import { RenderNavs } from "@/components/navigation/services/RenderNavs.internal";
 
 export const Navigation = () => {
   
   return (
     <footer className={ "fixed bottom-0 w-full flex justify-center select-none" }>
-      <PrintNavElements />
+      <RenderNavs />
     </footer>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { ProfileHeaderInternal } from "@/components/profile/services/profileHeader.internal";
+import { ProfileHeaderInternal } from "@/components/profile/services/ProfileHeader.internal";
 
 export const ProfileHeader = () => {
   return (

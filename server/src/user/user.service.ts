@@ -14,7 +14,7 @@ import { sign } from 'jsonwebtoken';
 import { IUserResponse } from '@/user/types/user.interface';
 import { LoginUserDto } from '@/user/dto/login-user.dto';
 import { CacheService } from '@/cache/cache.service';
-import { UserDataCount } from '@/user/types/user.type';
+import { SafeUser, UserDataCount } from '@/user/types/user.type';
 
 @Injectable()
 export class UserService {
@@ -83,6 +83,14 @@ export class UserService {
     }
   }
 
+  async getCurrentUser(currentUser: Partial<SafeUser>): Promise<SafeUser> {
+    if (!currentUser?.id) {
+      throw new BadRequestException('Invalid or expired token, User not found');
+    }
+
+    return currentUser as SafeUser;
+  }
+
   async getUserProfile(username: string): Promise<User> {
     // check for caches
     const cachedUser: User | undefined = await this.cache.get<User>(
@@ -118,7 +126,7 @@ export class UserService {
     });
   }
 
-  generateToken(user: User): string {
+  generateToken(user: User | SafeUser): string {
     const payload = { id: user.id, username: user.username };
 
     return sign(payload, process.env.JWT_SECRET!, {
@@ -126,7 +134,7 @@ export class UserService {
     });
   }
 
-  async getUserCounts(user: User): Promise<UserDataCount> {
+  async getUserCounts(user: User | SafeUser): Promise<UserDataCount> {
     const [followersCount, followingCount, postsCount] = await Promise.all([
       this.prisma.follow.count({ where: { followingId: user.id } }),
       this.prisma.follow.count({ where: { followerId: user.id } }),
@@ -152,6 +160,19 @@ export class UserService {
     return {
       user: {
         ...safeUser,
+        ...counts,
+      },
+      token,
+    };
+  }
+
+  async generateSafeUserResponse(user: SafeUser): Promise<IUserResponse> {
+    const counts: UserDataCount = await this.getUserCounts(user);
+    const token: string = this.generateToken(user);
+
+    return {
+      user: {
+        ...user,
         ...counts,
       },
       token,

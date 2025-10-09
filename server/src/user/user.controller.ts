@@ -9,7 +9,6 @@ import {
   Param,
   Res,
   HttpStatus,
-  HttpCode,
 } from '@nestjs/common';
 import type { Response } from 'express';
 import { UserService } from './user.service';
@@ -19,6 +18,8 @@ import { User } from '@prisma/client';
 import { IUserResponse } from '@/user/types/user.interface';
 import { AuthGuard } from '@/guards/auth.guard';
 import { LoginUserDto } from '@/user/dto/login-user.dto';
+import { CurrentUser } from '@/decorator/currentUser.decorator';
+import { SafeUser } from '@/user/types/user.type';
 
 @Controller('user')
 export class UserController {
@@ -53,6 +54,15 @@ export class UserController {
   async logoutUser(@Res() res: Response) {
     await this.userService.logoutUser();
     return res.status(HttpStatus.OK).json({ message: 'User logged out' });
+  }
+
+  @Get('current-user')
+  @UseGuards(AuthGuard)
+  async getCurrentUser(
+    @CurrentUser() currentUser: Partial<SafeUser>,
+  ): Promise<IUserResponse> {
+    const user: SafeUser = await this.userService.getCurrentUser(currentUser);
+    return this.userService.generateSafeUserResponse(user);
   }
 
   @Get('get/:username')

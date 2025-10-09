@@ -1,6 +1,7 @@
 @jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ2poNjF5dDAwMDA1MzU2dzQ5MXk3dmkiLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc2MDAxNzgyMCwiZXhwIjoxNzYwMTA0MjIwfQ.t7A_CZ1QaTsPvj-AIJ1m9DVQCT8VILi-Wvm9QUiaF-E
+@sodaToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ2ptamVmODAwMDA1M2I4a2phMG85dHAiLCJ1c2VybmFtZSI6Il9zb2RhIiwiaWF0IjoxNzYwMDI2ODQxLCJleHAiOjE3NjAxMTMyNDF9.PIOyIHuuUdhTQ5UtMDNaPuMk6NCxM1Q27b6qIvQspt4
 
-### Create new user
+### Create user jebesh
 POST http://localhost:5000/user/create-user
 Content-Type: application/json
 
@@ -10,6 +11,19 @@ Content-Type: application/json
     "username": "jebesh",
     "email": "jebesh67@gmail.com",
     "password": "jebesh123"
+  }
+}
+
+### Create user soda
+POST http://localhost:5000/user/create-user
+Content-Type: application/json
+
+{
+  "user": {
+    "name": "SodaPop",
+    "username": "_soda",
+    "email": "sodaeleven@gmail.com",
+    "password": "soda123"
   }
 }
 
@@ -62,6 +76,11 @@ Content-Type: application/json
 GET http://localhost:5000/user/get/jebesh
 Content-Type: application/json
 Authorization: Bearer {{jebeshToken}}
+
+### Get current user
+GET http://localhost:5000/user/current-user
+Content-Type: application/json
+Authorization: Bearer {{sodaToken}}
 
 ### Get invalid user
 GET http://localhost:5000/user/get/jebeshasfsaf

@@ -6,6 +6,9 @@ import { getTheme } from "@/utils/theme/theme.helper";
 import { Navigation } from "@/components/navigation/Navigation";
 import { Theme } from "@/utils/theme/types/theme.types";
 import { ifTheme } from "@/utils/theme/theme.internal";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/query-core";
+import { ReactQueryProvider } from "@/providers/react-query/ReactQueryProvider";
 
 export const metadata: Metadata = {
   title: "SocialMedia",
@@ -24,10 +27,12 @@ export default async function RootLayout({
       <body className={ clsx(
         ifTheme(initialTheme, "css-theme-dark", "css-theme-light"),
       ) }>
-        <ThemeProvider initialTheme={ initialTheme }>
-          { children }
-          <Navigation />
-        </ThemeProvider>
+        <ReactQueryProvider>
+          <ThemeProvider initialTheme={ initialTheme }>
+            { children }
+            <Navigation />
+          </ThemeProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

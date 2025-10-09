@@ -7,7 +7,7 @@ import { ifTheme } from "@/utils/theme/theme.internal";
 import { usePathname } from "next/navigation";
 import { getNavButtonClass } from "@/components/navigation/services/navigation.helper";
 
-export const PrintNavElements = () => {
+export const RenderNavs = () => {
   const {theme, nextTheme} = useThemeStore();
   const pathname: string = usePathname();
   

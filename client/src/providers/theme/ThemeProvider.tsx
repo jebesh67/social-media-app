@@ -2,19 +2,20 @@
 
 import { useEffect } from "react";
 import { useThemeStore } from "@/stores/theme/themeStore";
+import { Theme } from "@/utils/theme/types/theme.types";
 
 export default function ThemeProvider({
   children,
   initialTheme,
 }: {
   children: React.ReactNode;
-  initialTheme: string | undefined;
+  initialTheme: Theme | undefined;
 }) {
   const {theme, setTheme} = useThemeStore();
   
-  useEffect(() => {
+  useEffect((): void => {
     if (initialTheme !== theme) {
-      setTheme(initialTheme as typeof theme);
+      setTheme(initialTheme || "light");
     }
   }, [initialTheme]);
   
