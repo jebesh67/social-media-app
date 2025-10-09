@@ -1,12 +1,10 @@
 import {
   BadRequestException,
-  HttpStatus,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
@@ -88,7 +86,17 @@ export class UserService {
       throw new BadRequestException('Invalid or expired token, User not found');
     }
 
-    return currentUser as SafeUser;
+    const cacheKey = `user:${currentUser.username}`;
+    const cachedUser: SafeUser | undefined =
+      await this.cache.get<SafeUser>(cacheKey);
+    if (cachedUser) return cachedUser;
+
+    const newUser = currentUser as SafeUser;
+
+    // cache user
+    await this.cache.set<SafeUser>(cacheKey, newUser, 20);
+
+    return newUser;
   }
 
   async getUserProfile(username: string): Promise<User> {
@@ -97,7 +105,6 @@ export class UserService {
       `user:${username}`,
     );
     if (cachedUser) {
-      console.log('got cached user');
       return cachedUser;
     }
 
