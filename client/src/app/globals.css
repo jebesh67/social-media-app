@@ -22,6 +22,11 @@ body {
   @apply font-semibold;
 }
 
+/* semi-big text */
+.css-text-sub-head {
+  @apply text-lg sm:text-xl xl:text-xl;
+}
+
 /* Top Padding For Content */
 .css-body-top-padding {
   @apply pt-20 sm:pt-22;
