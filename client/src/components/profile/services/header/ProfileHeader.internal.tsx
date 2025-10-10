@@ -22,13 +22,23 @@ export const ProfileHeaderInternal = () => {
       }
     >
       
-      { currentUser ? <ShinyText
-        text={ `${ currentUser.username }` }
-        disabled={ false }
-        speed={ 3 }
-        className="css-header-text flex justify-start w-full ml-6 sm:ml-8 xl:ml-10 py-2"
-        theme={ theme }
-      /> : isFetched && <div>No User Found</div> }
+      { isLoading ?
+        <ShinyText
+          text="Loading..."
+          disabled={ false }
+          speed={ 3 }
+          className="css-header-text flex justify-start w-full ml-6 sm:ml-8 xl:ml-10 py-2"
+          theme={ theme }
+        /> :
+        currentUser ?
+          <ShinyText
+            text={ `${ currentUser.username }` }
+            disabled={ false }
+            speed={ 3 }
+            className="css-header-text flex justify-start w-full ml-6 sm:ml-8 xl:ml-10 py-2"
+            theme={ theme }
+          /> :
+          isFetched && <div>No User Found</div> }
     </div>
   );
 };

@@ -1,14 +1,13 @@
 "use client";
 
 import { useThemeStore } from "@/stores/theme/themeStore";
-import clsx from "clsx";
+import { ProfileCard } from "@/components/profile/ProfileCard";
 
 export const Profile = () => {
-  const {theme} = useThemeStore();
   
   return (
-    <div className={ "css-body-top-padding" }>
-      profile
+    <div className={ "css-body-top-padding w-full flex justify-center" }>
+      <ProfileCard />
     </div>
   );
 };

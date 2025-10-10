@@ -19,7 +19,6 @@ import { IOtherUserResponse, IUserResponse } from '@/user/types/user.interface';
 import { AuthGuard } from '@/guards/auth.guard';
 import { LoginUserDto } from '@/user/dto/login-user.dto';
 import { CurrentUser } from '@/decorator/currentUser.decorator';
-import { SafeUser } from '@/user/types/user.type';
 
 @Controller('user')
 export class UserController {

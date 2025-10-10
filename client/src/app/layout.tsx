@@ -8,7 +8,7 @@ import { Theme } from "@/utils/theme/types/theme.types";
 import { ifTheme } from "@/utils/theme/theme.internal";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { QueryClient } from "@tanstack/query-core";
-import { ReactQueryProvider } from "@/providers/react-query/ReactQueryProvider";
+import { ReactQueryProvider } from "@/providers/react-query/ReactQuery.provider";
 
 export const metadata: Metadata = {
   title: "SocialMedia",
