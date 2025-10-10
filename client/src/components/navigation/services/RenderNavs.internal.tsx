@@ -14,7 +14,7 @@ export const RenderNavs = () => {
   return (
     <nav
       className={ clsx(
-        "w-full max-w-300 z-50 flex items-center justify-around m-2 rounded-full py-2 css-transition",
+        "w-full max-w-300 z-50 flex items-center justify-around m-2 rounded-full py-2 css-transition shadow-md",
         ifTheme(theme, "css-dark-nav-container", "css-light-nav-container"),
       ) }
     >

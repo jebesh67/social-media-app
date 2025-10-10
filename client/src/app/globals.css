@@ -68,6 +68,15 @@ body {
   @apply bg-zinc-700/20 backdrop-blur-sm border-1 border-zinc-700/50;
 }
 
+/* Common Container */
+.css-light-container {
+  @apply bg-zinc-200/20;
+}
+
+.css-dark-container {
+  @apply bg-zinc-700/20;
+}
+
 /* Shiny Text */
 .css-shiny-text-dark {
   color: #b5b5b5a4;
