@@ -6,7 +6,7 @@ import {
   IUserApiResponse,
 } from "@/types/user/getUser.response";
 import { getAuthToken, setAuthToken } from "@/utils/cookie/cookie.helper";
-import { IApiError, IBackendError } from "@/types/response/error.response";
+import { IApiError, IBackendError } from "@/types/response/global-error/error.response";
 import { parseJsonResponse } from "@/utils/http/response.helper";
 
 export async function GET(req: NextRequest): Promise<NextResponse<IUserApiResponse | IApiError>> {

@@ -10,32 +10,35 @@ import { ifTheme } from "@/utils/theme/theme.internal";
 
 
 export const ProfileCard = () => {
-  const {data: currentUser, isLoading, isFetched} = useUser();
+  const {data: currentUser, isLoading} = useUser();
   const {theme} = useThemeStore();
   
   return (
-    <div
-      className={ clsx(
-        "grid grid-cols-10 max-w-200 mx-4 p-6 rounded-lg shadow-md select-none",
-        ifTheme(theme, "css-dark-container", "css-light-container"))
-      }
-    >
-      {
-        isLoading ? (
-          <div className={ "col-span-10 p-3 flex items-center justify-center" }>
-            <ClientGridLoader
-              color={ clsx(ifTheme(theme, "#4c4c4c", "#ababab")) }
-            />
-          </div>
-        ) : (
-          (isFetched && currentUser) && (
-            <>
-              <ProfileAvatarInternal url={ currentUser.avatar } />
-              <ProfileInfoInternal currentUser={ currentUser } />
-            </>
+    <main className={ "px-4 w-full flex justify-center items-center" }>
+      <div
+        className={ clsx(
+          "grid grid-cols-10 max-w-200 w-full p-6 rounded-lg shadow-md select-none",
+          ifTheme(theme, "css-dark-container", "css-light-container"))
+        }
+      >
+        {
+          isLoading ? (
+            <div className={ "col-span-10 p-3 flex items-center justify-center w-full" }>
+              <ClientGridLoader
+                color={ ifTheme(theme, "#4c4c4c", "#ababab") }
+              />
+            </div>
+          ) : (
+            (!isLoading && currentUser) && (
+              <>
+                <ProfileAvatarInternal url={ currentUser.avatar } />
+                <ProfileInfoInternal currentUser={ currentUser } />
+              </>
+            )
           )
-        )
-      }
-    </div>
+        }
+      </div>
+    </main>
+  
   );
 };
