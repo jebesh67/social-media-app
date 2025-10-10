@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { ifTheme } from "@/utils/theme/theme.internal";
+import { ifTheme } from "@/utils/theme/helper/theme.helper";
 import { useThemeStore } from "@/stores/theme/themeStore";
 import ShinyText from "@/effects/shinyText/ShinyText";
 import { useUser } from "@/hooks/user/useUser";

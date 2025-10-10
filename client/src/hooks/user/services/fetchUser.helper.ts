@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { User } from "@/types/user/user.type";
-import { IUserApiResponse } from "@/types/user/getUser.response";
-import { IApiError } from "@/types/response/global-error/error.response";
+import { IUserApiResponse } from "@/types/user/response/getUser.response";
+import { IApiError } from "@/types/error-response/global-error/globalError.response";
 
 export const fetchUser = async (username: string): Promise<User | null> => {
   try {

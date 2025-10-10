@@ -2,8 +2,8 @@ import { NavElement } from "@/components/navigation/services/types/navigation.ty
 import Link from "next/link";
 import clsx from "clsx";
 import { useThemeStore } from "@/stores/theme/themeStore";
-import { navElement } from "@/components/navigation/services/navigation.data";
-import { ifTheme } from "@/utils/theme/theme.internal";
+import { navElement } from "@/components/navigation/data/navigation.data";
+import { ifTheme } from "@/utils/theme/helper/theme.helper";
 import { usePathname } from "next/navigation";
 import { getNavButtonClass } from "@/components/navigation/services/navigation.helper";
 

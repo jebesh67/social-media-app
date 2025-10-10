@@ -1,6 +1,6 @@
 "use client";
 
-import { RenderNavs } from "@/components/navigation/services/RenderNavs.internal";
+import { RenderNavs } from "@/components/navigation/internal/RenderNavs.internal";
 
 export const Navigation = () => {
   
