@@ -1,10 +1,17 @@
+type Count = {
+  followersCount: number;
+  followingCount: number;
+  postsCount: number;
+}
+
 export type User = {
-  user: {
-    id: string;
-    name: string;
-    username: string;
-    email: string;
-    avatar: string;
-    bio: string;
-  }
-};
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  avatar: string;
+  bio: string;
+  counts: Count;
+  createdAt: Date,
+  updatedAt: Date,
+}

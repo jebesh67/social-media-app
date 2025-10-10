@@ -72,7 +72,7 @@ Content-Type: application/json
   }
 }
 
-### Get user
+### Get other user
 GET http://localhost:5000/user/get/jebesh
 Content-Type: application/json
 Authorization: Bearer {{jebeshToken}}

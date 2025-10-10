@@ -4,3 +4,7 @@ export interface IUserResponse {
   user: SafeUser & UserDataCount;
   token: string;
 }
+
+export interface IOtherUserResponse {
+  user: SafeUser & UserDataCount;
+}

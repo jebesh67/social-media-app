@@ -15,7 +15,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from '@prisma/client';
-import { IUserResponse } from '@/user/types/user.interface';
+import { IOtherUserResponse, IUserResponse } from '@/user/types/user.interface';
 import { AuthGuard } from '@/guards/auth.guard';
 import { LoginUserDto } from '@/user/dto/login-user.dto';
 import { CurrentUser } from '@/decorator/currentUser.decorator';
@@ -59,19 +59,23 @@ export class UserController {
   @Get('current-user')
   @UseGuards(AuthGuard)
   async getCurrentUser(
-    @CurrentUser() currentUser: Partial<SafeUser>,
+    @CurrentUser() currentUser: Partial<User>,
   ): Promise<IUserResponse> {
-    const user: SafeUser = await this.userService.getCurrentUser(currentUser);
-    return this.userService.generateSafeUserResponse(user);
+    const user: User = await this.userService.getCurrentUser(currentUser);
+    return this.userService.generateUserResponse(user);
   }
 
   @Get('get/:username')
   @UseGuards(AuthGuard)
-  async getUserProfile(
+  async getOtherUserProfile(
     @Param('username') username: string,
-  ): Promise<IUserResponse> {
-    const user: User = await this.userService.getUserProfile(username);
+    @CurrentUser() currentUser: Partial<User>,
+  ): Promise<IOtherUserResponse> {
+    const user: User = await this.userService.getOtherUserProfile(
+      username,
+      currentUser,
+    );
 
-    return await this.userService.generateUserResponse(user);
+    return await this.userService.generateOtherUserResponse(user);
   }
 }

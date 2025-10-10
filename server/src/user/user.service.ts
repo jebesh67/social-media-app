@@ -9,7 +9,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { IUserResponse } from '@/user/types/user.interface';
+import { IOtherUserResponse, IUserResponse } from '@/user/types/user.interface';
 import { LoginUserDto } from '@/user/dto/login-user.dto';
 import { CacheService } from '@/cache/cache.service';
 import { SafeUser, UserDataCount } from '@/user/types/user.type';
@@ -81,25 +81,28 @@ export class UserService {
     }
   }
 
-  async getCurrentUser(currentUser: Partial<SafeUser>): Promise<SafeUser> {
+  async getCurrentUser(currentUser: Partial<User>): Promise<User> {
     if (!currentUser?.id) {
       throw new BadRequestException('Invalid or expired token, User not found');
     }
 
     const cacheKey = `user:${currentUser.username}`;
-    const cachedUser: SafeUser | undefined =
-      await this.cache.get<SafeUser>(cacheKey);
+    const cachedUser: User | undefined = await this.cache.get<User>(cacheKey);
     if (cachedUser) return cachedUser;
 
-    const newUser = currentUser as SafeUser;
+    const newUser = currentUser as User;
 
     // cache user
-    await this.cache.set<SafeUser>(cacheKey, newUser, 20);
+    await this.cache.set<User>(cacheKey, newUser, 20);
 
     return newUser;
   }
 
-  async getUserProfile(username: string): Promise<User> {
+  async getOtherUserProfile(
+    username: string,
+    currentUser: Partial<User>,
+  ): Promise<User> {
+    if (currentUser.username === username) return currentUser as User;
     // check for caches
     const cachedUser: User | undefined = await this.cache.get<User>(
       `user:${username}`,
@@ -173,16 +176,16 @@ export class UserService {
     };
   }
 
-  async generateSafeUserResponse(user: SafeUser): Promise<IUserResponse> {
+  async generateOtherUserResponse(user: User): Promise<IOtherUserResponse> {
+    const { password, ...safeUser } = user;
+
     const counts: UserDataCount = await this.getUserCounts(user);
-    const token: string = this.generateToken(user);
 
     return {
       user: {
-        ...user,
+        ...safeUser,
         ...counts,
       },
-      token,
     };
   }
 }

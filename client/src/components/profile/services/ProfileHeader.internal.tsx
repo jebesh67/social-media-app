@@ -4,9 +4,13 @@ import clsx from "clsx";
 import { ifTheme } from "@/utils/theme/theme.internal";
 import { useThemeStore } from "@/stores/theme/themeStore";
 import ShinyText from "@/effects/shinyText/ShinyText";
+import { useUser } from "@/hooks/user/useUser";
 
 export const ProfileHeaderInternal = () => {
   const {theme} = useThemeStore();
+  
+  const {data: currentUser, isLoading, isFetched} = useUser();
+  isFetched && console.log("user", currentUser);
   
   return (
     <div
@@ -17,13 +21,14 @@ export const ProfileHeaderInternal = () => {
         )
       }
     >
-      <ShinyText
-        text="_jebexhh"
+      
+      { currentUser ? <ShinyText
+        text={ `${ currentUser.username }` }
         disabled={ false }
         speed={ 3 }
         className="css-header-text flex justify-start w-full ml-6 sm:ml-8 xl:ml-10 py-2"
         theme={ theme }
-      />
+      /> : isFetched && <div>No User Found</div> }
     </div>
   );
 };

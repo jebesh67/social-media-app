@@ -31,8 +31,7 @@ export class AuthMiddleware implements NestMiddleware {
       });
 
       if (user) {
-        const { password, ...safeUser }: User = user;
-        req.user = safeUser;
+        req.user = user;
       } else {
         req.user = {};
       }
