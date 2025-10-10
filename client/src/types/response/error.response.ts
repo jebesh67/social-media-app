@@ -1,5 +1,10 @@
-export interface IErrorResponse {
+export interface IApiError {
   success: boolean;
   message: string;
-  status: number;
+}
+
+export interface IBackendError {
+  message: string;
+  error: string;
+  statusCode: number;
 }

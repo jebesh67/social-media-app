@@ -1,11 +1,15 @@
 import { User } from "@/types/user/user.type";
 
-export interface IUserBackendResponse {
+export interface ICurrentUserBackendResponse {
   user: User;
   token: string;
 }
 
-export interface IUserRouteResponse {
+export interface IOtherUserBackendResponse {
+  user: User;
+}
+
+export interface IUserApiResponse {
   success: boolean;
   message: string;
   user: User;
