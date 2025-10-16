@@ -1,4 +1,4 @@
-import { SafeUserType } from '@/user/types/user.type';
+import { SafeUserType } from '@/modules/user/types/user.type';
 import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()

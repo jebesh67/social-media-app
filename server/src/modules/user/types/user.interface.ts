@@ -1,4 +1,4 @@
-import { SafeUser, UserDataCount } from '@/user/types/user.type';
+import { SafeUser, UserDataCount } from '@/modules/user/types/user.type';
 
 export interface IUserResponse {
   user: SafeUser & UserDataCount;

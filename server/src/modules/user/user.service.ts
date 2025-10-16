@@ -5,14 +5,17 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { IOtherUserResponse, IUserResponse } from '@/user/types/user.interface';
-import { LoginUserDto } from '@/user/dto/login-user.dto';
+import {
+  IOtherUserResponse,
+  IUserResponse,
+} from '@/modules/user/types/user.interface';
+import { LoginUserDto } from '@/modules/user/dto/login-user.dto';
 import { CacheService } from '@/cache/cache.service';
-import { SafeUser, UserDataCount } from '@/user/types/user.type';
+import { SafeUser, UserDataCount } from '@/modules/user/types/user.type';
 
 @Injectable()
 export class UserService {

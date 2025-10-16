@@ -15,9 +15,12 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from '@prisma/client';
-import { IOtherUserResponse, IUserResponse } from '@/user/types/user.interface';
+import {
+  IOtherUserResponse,
+  IUserResponse,
+} from '@/modules/user/types/user.interface';
 import { AuthGuard } from '@/guards/auth.guard';
-import { LoginUserDto } from '@/user/dto/login-user.dto';
+import { LoginUserDto } from '@/modules/user/dto/login-user.dto';
 import { CurrentUser } from '@/decorator/currentUser.decorator';
 
 @Controller('user')

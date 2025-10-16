@@ -1,15 +1,15 @@
 import { Resolver, Query } from '@nestjs/graphql';
-import { UserResponse } from '@/user/types/response/user.response';
-import { UserService } from '@/user/user.service';
-import { AuthGuard } from '@/guards/auth.guard';
-import { UseMiddleware } from 'type-graphql';
+import { UserResponse } from '@/modules/user/types/response/user.response';
+import { UserService } from '@/modules/user/user.service';
+import { AuthGuard } from '@/guards/authGuard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver()
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
   @Query(() => UserResponse)
-  @UseMiddleware(AuthGuard)
+  @UseGuards(AuthGuard)
   async getCurrentUser() {
     return {
       user: {
