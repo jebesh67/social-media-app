@@ -96,3 +96,13 @@ Authorization: Bearer sagsdagasg
 POST http://localhost:5000/user/logout
 Content-Type: application/json
 Authorization: Bearer {{jebeshToken}}
+
+
+### Test graphql
+POST http://localhost:5000/graphql
+Content-Type: application/json
+Authorization: Bearer {{jebeshToken}}
+
+{
+  "query": "query { getCurrentUser { user { name, id, createdAt, updatedAt } } }"
+}

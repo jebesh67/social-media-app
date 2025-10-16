@@ -1,17 +1,25 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { AppController } from '@/app.controller';
-import { AppService } from '@/app.service';
 import { PrismaModule } from '../prisma/prisma.module';
 import { UserModule } from '@/user/user.module';
 import { AuthMiddleware } from '@/middlewares/auth.middleware';
-import { redisStore } from 'cache-manager-redis-yet';
 import { CacheService } from './cache/cache.service';
 import { CacheModule } from '@/cache/cache.module';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
-  imports: [PrismaModule, UserModule, CacheModule],
-  controllers: [AppController],
-  providers: [AppService, CacheService],
+  imports: [
+    PrismaModule,
+    UserModule,
+    CacheModule,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: true,
+      debug: true,
+      playground: true,
+    }),
+  ],
+  providers: [CacheService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
