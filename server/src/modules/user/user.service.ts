@@ -4,18 +4,16 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import {
-  IOtherUserResponse,
-  IUserResponse,
-} from '@/modules/user/types/user.interface';
-import { LoginUserDto } from '@/modules/user/dto/login-user.dto';
 import { CacheService } from '@/cache/cache.service';
-import { SafeUser, UserDataCount } from '@/modules/user/types/user.type';
+import { SafeUserType, UserDataCount } from '@/modules/user/types/user.type';
+import { LoginUserInput } from '@/modules/user/types/inputs/loginUser.input';
+import { CreateUserInput } from '@/modules/user/types/inputs/createUser.input';
+import { OtherUserResponse } from '@/modules/user/types/response/otherUser.response';
+import { UserResponse } from '@/modules/user/types/response/user.response';
 
 @Injectable()
 export class UserService {
@@ -24,24 +22,24 @@ export class UserService {
     private readonly cache: CacheService,
   ) {}
 
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
+  async createUser(createUserInput: CreateUserInput): Promise<User> {
     const isExistingUser: boolean = await this.checkExistingUser(
-      createUserDto.username,
+      createUserInput.username,
     );
 
     if (isExistingUser)
       throw new BadRequestException({ error: 'User already exists' });
 
     const hashedPassword: string = await bcrypt.hash(
-      createUserDto.password,
+      createUserInput.password,
       12,
     );
 
     const createdUser: User = await this.prisma.user.create({
       data: {
-        name: createUserDto.name,
-        username: createUserDto.username,
-        email: createUserDto.email,
+        name: createUserInput.name,
+        username: createUserInput.username,
+        email: createUserInput.email,
         password: hashedPassword,
       },
     });
@@ -52,9 +50,9 @@ export class UserService {
     return createdUser;
   }
 
-  async loginUser(loginUserDto: LoginUserDto): Promise<User> {
+  async loginUser(loginUserInput: LoginUserInput): Promise<User> {
     const user: User | null = await this.getUserByUsername(
-      loginUserDto.username,
+      loginUserInput.username,
     );
 
     if (!user) {
@@ -62,7 +60,7 @@ export class UserService {
     }
 
     const isPasswordMatching: boolean = await bcrypt.compare(
-      loginUserDto.password,
+      loginUserInput.password,
       user.password,
     );
 
@@ -139,7 +137,7 @@ export class UserService {
     });
   }
 
-  generateToken(user: User | SafeUser): string {
+  generateToken(user: User | SafeUserType): string {
     const payload = { id: user.id, username: user.username };
 
     return sign(payload, process.env.JWT_SECRET!, {
@@ -147,7 +145,7 @@ export class UserService {
     });
   }
 
-  async getUserCounts(user: User | SafeUser): Promise<UserDataCount> {
+  async getUserCounts(user: User | SafeUserType): Promise<UserDataCount> {
     const [followersCount, followingCount, postsCount] = await Promise.all([
       this.prisma.follow.count({ where: { followingId: user.id } }),
       this.prisma.follow.count({ where: { followerId: user.id } }),
@@ -163,7 +161,7 @@ export class UserService {
     };
   }
 
-  async generateUserResponse(user: User): Promise<IUserResponse> {
+  async generateUserResponse(user: User): Promise<UserResponse> {
     const { password, ...safeUser } = user;
 
     const counts: UserDataCount = await this.getUserCounts(user);
@@ -179,7 +177,7 @@ export class UserService {
     };
   }
 
-  async generateOtherUserResponse(user: User): Promise<IOtherUserResponse> {
+  async generateOtherUserResponse(user: User): Promise<OtherUserResponse> {
     const { password, ...safeUser } = user;
 
     const counts: UserDataCount = await this.getUserCounts(user);

@@ -1,10 +1,10 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { AuthRequest } from '@/types/expressRequest.interface';
-import { SafeUser } from '@/modules/user/types/user.type';
+import { GqlExecutionContext } from '@nestjs/graphql';
+import { User } from '@prisma/client';
 
 export const CurrentUser = createParamDecorator(
-  (data: unknown, context: ExecutionContext): Partial<SafeUser> => {
-    const request: AuthRequest = context.switchToHttp().getRequest();
-    return request.user;
+  (_data: unknown, context: ExecutionContext): User | undefined => {
+    const ctx = GqlExecutionContext.create(context).getContext();
+    return ctx.user;
   },
 );
