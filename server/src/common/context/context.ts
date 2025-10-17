@@ -1,9 +1,9 @@
 import { User } from '@prisma/client';
-import { MyJwtPayload } from '@/jwt/type/myJwtPayload.interface';
-import { AuthRequest } from '@/types/expressRequest.interface';
-import { ContextType } from '@/context/types/context.type';
-import { decodeFromToken, extractToken } from '@/jwt/helper/jwt.helper';
-import { getUserById } from '@/context/helper/context.helper';
+import { MyJwtPayload } from '@/common/jwt/type/myJwtPayload.interface';
+import { AuthRequest } from '@/common/types/expressRequest.interface';
+import { ContextType } from '@/common/context/types/context.type';
+import { decodeFromToken, extractToken } from '@/common/jwt/util/jwt.util';
+import { getUserById } from '@/common/context/helper/context.helper';
 
 export const Context = async ({
   req,

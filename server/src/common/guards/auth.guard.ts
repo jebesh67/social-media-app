@@ -4,7 +4,8 @@ import {
   ExecutionContext,
   UnauthorizedException,
 } from '@nestjs/common';
-import { ContextType } from '@/context/types/context.type';
+import { ContextType } from '@/common/context/types/context.type';
+import { BackendError } from '@/common/backend-error/util/backendError.util';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -15,6 +16,6 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    throw new UnauthorizedException('Unauthorized');
+    throw BackendError.Unauthorized('Unauthorized');
   }
 }

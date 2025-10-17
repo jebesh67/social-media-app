@@ -1,9 +1,9 @@
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { AuthGuard } from '@/guards/auth.guard';
+import { AuthGuard } from '@/common/guards/auth.guard';
 import { User } from '@prisma/client';
-import { CurrentUser } from '@/decorator/currentUser.decorator';
+import { CurrentUser } from '@/modules/user/decorator/currentUser.decorator';
 import { CreateUserInput } from '@/modules/user/types/inputs/createUser.input';
 import { LoginUserInput } from '@/modules/user/types/inputs/loginUser.input';
 import { OtherUserResponse } from '@/modules/user/types/response/otherUser.response';

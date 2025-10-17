@@ -1,19 +1,15 @@
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { CacheService } from '@/cache/cache.service';
+import { CacheService } from '@/common/cache/cache.service';
 import { SafeUserType, UserDataCount } from '@/modules/user/types/user.type';
 import { LoginUserInput } from '@/modules/user/types/inputs/loginUser.input';
 import { CreateUserInput } from '@/modules/user/types/inputs/createUser.input';
 import { OtherUserResponse } from '@/modules/user/types/response/otherUser.response';
 import { UserResponse } from '@/modules/user/types/response/user.response';
+import { BackendError } from '@/common/backend-error/util/backendError.util';
 
 @Injectable()
 export class UserService {
@@ -27,8 +23,7 @@ export class UserService {
       createUserInput.username,
     );
 
-    if (isExistingUser)
-      throw new BadRequestException({ error: 'User already exists' });
+    if (isExistingUser) throw BackendError.Conflict('User already exists');
 
     const hashedPassword: string = await bcrypt.hash(
       createUserInput.password,
@@ -56,7 +51,7 @@ export class UserService {
     );
 
     if (!user) {
-      throw new BadRequestException('Invalid credentials');
+      throw BackendError.Unauthorized('Invalid credentials');
     }
 
     const isPasswordMatching: boolean = await bcrypt.compare(
@@ -65,7 +60,7 @@ export class UserService {
     );
 
     if (!isPasswordMatching) {
-      throw new BadRequestException('Invalid credentials');
+      throw BackendError.Unauthorized('Invalid credentials');
     }
 
     // cache user
@@ -78,17 +73,18 @@ export class UserService {
     try {
       await this.cache.clearAll();
     } catch (err) {
-      throw new InternalServerErrorException('Failed to clear caches');
+      throw BackendError.Internal('Failed to clear caches');
     }
   }
 
   async getCurrentUser(currentUser: Partial<User>): Promise<User> {
     if (!currentUser?.id) {
-      throw new BadRequestException('Invalid or expired token, User not found');
+      throw BackendError.BadRequest('Invalid or expired token, User not found');
     }
 
     const cacheKey = `user:${currentUser.username}`;
     const cachedUser: User | undefined = await this.cache.get<User>(cacheKey);
+
     if (cachedUser) return cachedUser;
 
     const newUser = currentUser as User;
@@ -113,7 +109,7 @@ export class UserService {
     }
 
     const user: User | null = await this.getUserByUsername(username);
-    if (!user) throw new NotFoundException('User not found!');
+    if (!user) throw BackendError.NotFound('User not found!');
 
     // cache user
     await this.cache.set<User>(`user:${username}`, user, 20);
@@ -141,7 +137,7 @@ export class UserService {
     const payload = { id: user.id, username: user.username };
 
     return sign(payload, process.env.JWT_SECRET!, {
-      expiresIn: '1d',
+      expiresIn: '7d',
     });
   }
 

@@ -20,13 +20,13 @@ export class CacheService {
   async del(key: string): Promise<void> {
     await this.cache.del(key);
   }
-
+  
   async clearAll(): Promise<void> {
-    const client: any = (this.cache as any).store?.getClient?.();
-    if (client?.flushAll) {
-      await client.flushAll();
+    if (typeof (this.cache as any).clear === 'function') {
+      await (this.cache as any).clear();
+      console.log('Cache cleared via Keyv');
     } else {
-      console.warn('Cannot flush cache: store is not Redis');
+      console.warn('Cannot flush cache: unknown store type');
     }
   }
 }

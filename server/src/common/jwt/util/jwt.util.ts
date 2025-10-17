@@ -1,5 +1,5 @@
 import { verify } from 'jsonwebtoken';
-import { MyJwtPayload } from '@/jwt/type/myJwtPayload.interface';
+import { MyJwtPayload } from '@/common/jwt/type/myJwtPayload.interface';
 
 export const extractToken = (authHeader: string): string | undefined => {
   return authHeader.startsWith('Bearer ')

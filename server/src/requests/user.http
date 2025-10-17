@@ -1,6 +1,6 @@
-@jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3QydDFjczAwMDA1M3Jwc3lydGxjejMiLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc2MDU5ODM2MCwiZXhwIjoxNzYwNjg0NzYwfQ.lYwssbU--KN0FrRULSWCKeyBEor67fLXlCzHk5k03qM
-@sodaToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3QydGx6dzAwMDE1M3JwOGcwa2liYTYiLCJ1c2VybmFtZSI6Il9zb2RhIiwiaWF0IjoxNzYwNTk4Mzg3LCJleHAiOjE3NjA2ODQ3ODd9.t7WqRiDHWFDjj3gcq-iamvQ_KND8SZBmj_ho4e-aMh8
-@lemonToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3Q4azV6cjAwMDA1M2hhMnZlcXUzbzciLCJ1c2VybmFtZSI6ImxlbW9uMjIiLCJpYXQiOjE3NjA2MDgwMjQsImV4cCI6MTc2MDY5NDQyNH0.UqeX2LChoX1egQ2Ywa0_R-o8lED7NbRvQJLKqiuVbM8
+@jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZ3VtODAwMDE1M3cwN3llaWJmamkiLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc2MDY5MDE3MCwiZXhwIjoxNzYxMjk0OTcwfQ.VwQ4DbOgCkiwN7Z4tp6Z5OZebDdMu_8l8iEgTPxD0P0
+@sodaToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZzk1ZTAwMDA1M3cwdTdqcjZ2d28iLCJ1c2VybmFtZSI6Il9zb2RhIiwiaWF0IjoxNzYwNjkwMTQzLCJleHAiOjE3NjEyOTQ5NDN9.NDdsWLt0-qMPE9M5cU1tAhXzMaQ5XY9YvBAE8b7U5ho
+@lemonToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsaDVuZzAwMDI1M3cweHRobHFtaGsiLCJ1c2VybmFtZSI6ImxlbW9uMjIiLCJpYXQiOjE3NjA2OTAxODUsImV4cCI6MTc2MTI5NDk4NX0.s8T-G4jAodri1JDzKNxEvdJYsOsGVsy03TTE7NZB1Ks
 
 ### Create user jebesh
 POST http://localhost:5000/graphql
@@ -59,6 +59,7 @@ Content-Type: application/json
   "query": "mutation($input: CreateUserInput!) { createUser(createUserInput: $input) { user { name, username, email, id }, token } }",
   "variables": {
     "input": {
+      "name": "lalala",
       "username": "jebesh",
       "email": "jebesh67mail.com",
       "password": "jebes"
@@ -142,7 +143,7 @@ Content-Type: application/json
 Authorization: Bearer {{jebeshToken}}
 
 {
-  "query": "query($username: String!) { otherUserProfile(username: $username) { username, id } }",
+  "query": "query($username: String!) { otherUserProfile(username: $username) { user { username } } }",
   "variables": {
     "username": "jebeshasfsaf"
   }
@@ -155,7 +156,7 @@ Content-Type: application/json
 Authorization: Bearer sagsdagasg
 
 {
-  "query": "query { currentUser { username, id } }"
+  "query": "query { currentUser { user { username, id } } }"
 }
 
 
