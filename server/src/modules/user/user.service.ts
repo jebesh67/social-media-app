@@ -10,6 +10,8 @@ import { CreateUserInput } from '@/modules/user/types/inputs/createUser.input';
 import { OtherUserResponse } from '@/modules/user/types/response/otherUser.response';
 import { UserResponse } from '@/modules/user/types/response/user.response';
 import { BackendError } from '@/common/backend-error/util/backendError.util';
+import { ExistingUsernameResponse } from '@/modules/user/types/response/existingUsername.response';
+import { UsernameInput } from '@/modules/user/types/inputs/username.input';
 
 @Injectable()
 export class UserService {
@@ -17,6 +19,19 @@ export class UserService {
     private readonly prisma: PrismaService,
     private readonly cache: CacheService,
   ) {}
+
+  async verifyUsername(username: string): Promise<ExistingUsernameResponse> {
+    const isTaken: boolean = await this.checkExistingUser(username);
+
+    return {
+      username: {
+        isAvailable: isTaken,
+        message: isTaken
+          ? `${username} is not available`
+          : `${username} is available`,
+      },
+    };
+  }
 
   async createUser(createUserInput: CreateUserInput): Promise<User> {
     const isExistingUser: boolean = await this.checkExistingUser(

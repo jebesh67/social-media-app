@@ -171,11 +171,16 @@ Authorization: Bearer {{jebeshToken}}
 
 
 
-### Test graphql
+### Check for existing username
 POST http://localhost:5000/graphql
 Content-Type: application/json
 Authorization: Bearer {{jebeshToken}}
 
 {
-  "query": "query { currentUser { user { name, id, createdAt, updatedAt } } }"
+  "query": "query($input: UsernameInput!) { verifyUsername(input: $input) { username { isAvailable message } } }",
+  "variables": {
+    "input": {
+      "username": "jebesh"
+    }
+  }
 }

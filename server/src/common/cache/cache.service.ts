@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { Cache } from 'cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { BackendError } from '@/common/backend-error/util/backendError.util';
 
 @Injectable()
 export class CacheService {
@@ -20,13 +21,12 @@ export class CacheService {
   async del(key: string): Promise<void> {
     await this.cache.del(key);
   }
-  
+
   async clearAll(): Promise<void> {
     if (typeof (this.cache as any).clear === 'function') {
       await (this.cache as any).clear();
-      console.log('Cache cleared via Keyv');
     } else {
-      console.warn('Cannot flush cache: unknown store type');
+      throw BackendError.Internal('Cannot flush cache');
     }
   }
 }

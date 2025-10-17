@@ -8,10 +8,20 @@ import { CreateUserInput } from '@/modules/user/types/inputs/createUser.input';
 import { LoginUserInput } from '@/modules/user/types/inputs/loginUser.input';
 import { OtherUserResponse } from '@/modules/user/types/response/otherUser.response';
 import { UserResponse } from '@/modules/user/types/response/user.response';
+import { ExistingUsernameResponse } from '@/modules/user/types/response/existingUsername.response';
+import { UsernameStatusType } from '@/modules/user/types/objects/usernameStatus.object';
+import { UsernameInput } from '@/modules/user/types/inputs/username.input';
 
 @Resolver()
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
+
+  @Query(() => ExistingUsernameResponse)
+  async verifyUsername(
+    @Args('input') input: UsernameInput,
+  ): Promise<ExistingUsernameResponse> {
+    return await this.userService.verifyUsername(input.username);
+  }
 
   @Mutation(() => UserResponse)
   async createUser(
