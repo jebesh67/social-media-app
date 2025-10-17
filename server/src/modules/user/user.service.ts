@@ -11,7 +11,6 @@ import { OtherUserResponse } from '@/modules/user/types/response/otherUser.respo
 import { UserResponse } from '@/modules/user/types/response/user.response';
 import { BackendError } from '@/common/backend-error/util/backendError.util';
 import { ExistingUsernameResponse } from '@/modules/user/types/response/existingUsername.response';
-import { UsernameInput } from '@/modules/user/types/inputs/username.input';
 
 @Injectable()
 export class UserService {
