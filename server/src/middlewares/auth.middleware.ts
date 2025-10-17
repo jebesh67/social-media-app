@@ -4,7 +4,7 @@ import { NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 import { AuthRequest } from '@/types/expressRequest.interface';
 import { User } from '@prisma/client';
-import { MyJwtPayload } from '@/types/myJwtPayload.interface';
+import { MyJwtPayload } from '@/jwt/type/myJwtPayload.interface';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {

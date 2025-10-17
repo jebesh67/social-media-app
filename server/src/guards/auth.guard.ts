@@ -4,12 +4,12 @@ import {
   ExecutionContext,
   UnauthorizedException,
 } from '@nestjs/common';
-import { CreateContext } from '@/context/types/createContext.type';
+import { ContextType } from '@/context/types/context.type';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
-    const ctx = context.getArgByIndex(2) as CreateContext;
+    const ctx = context.getArgByIndex(2) as ContextType;
 
     if (ctx.user?.id) {
       return true;

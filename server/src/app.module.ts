@@ -6,7 +6,7 @@ import { CacheService } from './cache/cache.service';
 import { CacheModule } from '@/cache/cache.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { createContext } from '@/context/createContext';
+import { Context } from '@/context/context';
 import { AuthRequest } from '@/types/expressRequest.interface';
 
 @Module({
@@ -19,7 +19,7 @@ import { AuthRequest } from '@/types/expressRequest.interface';
       autoSchemaFile: true,
       debug: true,
       playground: true,
-      context: ({ req }: { req: AuthRequest }) => createContext({ req }),
+      context: ({ req }: { req: AuthRequest }) => Context({ req }),
     }),
   ],
   providers: [CacheService],
