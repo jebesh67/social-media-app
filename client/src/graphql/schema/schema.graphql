@@ -1,0 +1,68 @@
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
+  username: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ExistingUsernameResponse {
+  username: UsernameStatusType!
+}
+
+input LoginUserInput {
+  password: String!
+  username: String!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): UserResponse!
+  loginUser(loginUserInput: LoginUserInput!): UserResponse!
+  logoutUser: Boolean!
+}
+
+type OtherUserResponse {
+  user: SafeUserType!
+}
+
+type Query {
+  currentUser: UserResponse!
+  otherUserProfile(username: String!): OtherUserResponse!
+  verifyUsername(input: UsernameInput!): ExistingUsernameResponse!
+}
+
+type SafeUserType {
+  avatar: String!
+  bio: String!
+  counts: UserCountType!
+  createdAt: DateTime!
+  email: String!
+  id: String!
+  name: String!
+  updatedAt: DateTime!
+  username: String!
+}
+
+type UserCountType {
+  followersCount: Int!
+  followingCount: Int!
+  postsCount: Int!
+}
+
+type UserResponse {
+  token: String!
+  user: SafeUserType!
+}
+
+input UsernameInput {
+  username: String!
+}
+
+type UsernameStatusType {
+  isAvailable: Boolean!
+  message: String!
+}
