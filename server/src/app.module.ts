@@ -1,7 +1,6 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { PrismaModule } from '../prisma/prisma.module';
 import { UserModule } from '@/modules/user/user.module';
-import { AuthMiddleware } from '@/common/middlewares/auth.middleware';
 import { CacheService } from '@/common/cache/cache.service';
 import { CacheModule } from '@/common/cache/cache.module';
 import { GraphQLModule } from '@nestjs/graphql';
