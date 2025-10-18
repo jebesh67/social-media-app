@@ -1,14 +1,5 @@
 schema: 'http://localhost:5000/graphql'
-documents: 'src/graphql/query/query/**/*.graphql'
 generates:
-  # TypeScript types for queries
-  src/graphql/query/user/generated.ts:
-    plugins:
-      - typescript
-      - typescript-operations
-    config:
-      avoidOptionals: true
-
   # GraphQL SDL schema for IDE validation
   src/graphql/schema/schema.graphql:
     plugins:
