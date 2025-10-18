@@ -24,7 +24,7 @@ export class UserService {
 
     return {
       username: {
-        isAvailable: isTaken,
+        isAvailable: !isTaken,
         message: isTaken
           ? `${username} is not available`
           : `${username} is available`,
