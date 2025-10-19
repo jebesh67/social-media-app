@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString, Matches, MaxLength } from 'class-validator';
 
 @InputType()
 export class UsernameInput {
-  @Field(() => String)
+  @Field()
   @IsNotEmpty({ message: 'Username cannot be empty' })
   @IsString({ message: 'Username must be a string' })
   @MaxLength(14, { message: 'Username cannot exceed 14 characters' })
