@@ -21,8 +21,6 @@ input LoginUserInput {
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): UserResponse!
-  loginUser(loginUserInput: LoginUserInput!): UserResponse!
-  logoutUser: Boolean!
 }
 
 type OtherUserResponse {
@@ -31,6 +29,8 @@ type OtherUserResponse {
 
 type Query {
   currentUser: UserResponse!
+  loginUser(loginUserInput: LoginUserInput!): UserResponse!
+  logoutUser: Boolean!
   otherUserProfile(username: String!): OtherUserResponse!
   verifyUsername(input: UsernameInput!): ExistingUsernameResponse!
 }
