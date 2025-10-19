@@ -1,58 +1,56 @@
 "use server";
 
 import { NextRequest, NextResponse } from "next/server";
+import { request, ClientError } from "graphql-request";
+import CurrentUserQuery from "@/graphql/user/query/currentUser.query.graphql";
 import {
   ICurrentUserBackendResponse,
-  IUserApiResponse,
-} from "@/types/user/response/getUser.response";
+  
+} from "@/types/user/response/currentUserBackend.response";
 import { getAuthToken, setAuthToken } from "@/common/utils/cookie/cookie.helper";
-import { IApiError, IBackendError } from "@/types/error-response/global-error/globalError.response";
-import { parseJsonResponse } from "@/common/utils/http/response.helper";
+import { IOriginalError } from "@/types/error-response/graphql-error/originalError.response";
+import { IApiError } from "@/types/error-response/api-error/apiError.response";
+import { IBackendErrorResponse } from "@/types/error-response/graphql-error/backendError.response";
+import { IUserApiResponse } from "@/types/user/response/userApi.response";
 
 export async function GET(req: NextRequest): Promise<NextResponse<IUserApiResponse | IApiError>> {
   try {
     const token: string = await getAuthToken();
-    const backendUrl = `${ process.env.NEXT_PUBLIC_API_URL }/user/current-user`;
+    const GRAPHQL_URL: string = process.env.NEST_GRAPHQL_URL!;
     
-    const response: Response = await fetch(backendUrl, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${ token }`,
-      },
-      credentials: "include",
+    const response: ICurrentUserBackendResponse = await request(GRAPHQL_URL, CurrentUserQuery, {}, {
+      Authorization: `Bearer ${ token }`,
     });
-    
-    const data: ICurrentUserBackendResponse | IBackendError = await parseJsonResponse<ICurrentUserBackendResponse, IBackendError>(response);
-    
-    if (!response.ok) {
-      const errData = data as IBackendError;
-      
-      return NextResponse.json<IApiError>(
-        {
-          success: false,
-          message: errData.message || "Something went wrong",
-        },
-        {status: errData.statusCode || response.status},
-      );
-    }
-    
-    const userData = data as ICurrentUserBackendResponse;
-    
-    if (userData.token) {
-      await setAuthToken(userData.token);
-    }
     
     return NextResponse.json<IUserApiResponse>({
       success: true,
       message: "User fetched successfully",
-      user: {...userData.user},
+      user: response.currentUserProfile.user,
     });
-  } catch (err) {
-    console.error("Error fetching user:", err);
-    return NextResponse.json<IApiError>(
-      {success: false, message: "Internal server error"},
-      {status: 500},
-    );
+  } catch (err: any) {
+    if (err instanceof ClientError) {
+      const backendError: IBackendErrorResponse = err as unknown as IBackendErrorResponse;
+      
+      const originalError: IOriginalError = backendError.response.errors[0].extensions.originalError;
+      
+      return NextResponse.json<IApiError>({
+        success: false,
+        message: originalError.message,
+        statusCode: originalError.statusCode,
+      }, {status: originalError.statusCode});
+    }
+    
+    return NextResponse.json<IApiError>({
+      success: false,
+      message: err.message || "Internal server error",
+      statusCode: 500,
+    }, {status: 500});
   }
 }
+
+
+
+
+
+
+

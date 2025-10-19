@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from "axios";
 import { User } from "@/types/user/user.type";
-import { IUserApiResponse } from "@/types/user/response/getUser.response";
-import { IApiError } from "@/types/error-response/global-error/globalError.response";
+import { IUserApiResponse } from "@/types/user/response/userApi.response";
+import { IApiError } from "@/types/error-response/api-error/apiError.response";
 
-export const fetchUser = async (username: string): Promise<User | null> => {
+export const fetchUserByUsername = async (username: string): Promise<User | null> => {
   try {
-    const response: AxiosResponse<IUserApiResponse | IApiError> = await axios.get(`${ process.env.NEXT_PUBLIC_API_URL }/user/get/${ username }`, {
+    const response = await axios.get(`${ process.env.NEXT_PUBLIC_API_URL }/user/get/${ username }`, {
       withCredentials: true,
     });
     
@@ -37,6 +37,8 @@ export const fetchCurrentUser = async (): Promise<User | null> => {
       `/api/user/current-user`,
       {withCredentials: true},
     );
+    
+    console.log("response: ", response);
     
     if (!response.data.success) {
       console.warn("Backend error:", response.data.message);

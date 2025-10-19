@@ -1,4 +1,4 @@
-query CurrentUser {
+query CurrentUserQuery {
     currentUserProfile {
         user {
             username
@@ -7,6 +7,11 @@ query CurrentUser {
             id
             createdAt
             updatedAt
+            counts {
+                postsCount
+                followersCount
+                followingCount
+            }
         }
     }
 }
