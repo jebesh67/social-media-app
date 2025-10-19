@@ -180,7 +180,7 @@ Authorization: Bearer {{jebeshToken}}
   "query": "query($input: UsernameInput!) { verifyUsername(input: $input) { username { isAvailable message } } }",
   "variables": {
     "input": {
-      "username": "jebesh"
+      "username": "jebeshs"
     }
   }
 }
