@@ -5,7 +5,7 @@ import { ContextType } from '@/common/context/type/context.type';
 import { decodeFromToken, extractToken } from '@/common/jwt/util/jwt.util';
 import { getUserById } from '@/common/context/helper/context.helper';
 
-export const Context = async ({
+export const createGraphQLContext = async ({
   req,
 }: {
   req: AuthRequest;

@@ -5,19 +5,20 @@ import { CacheService } from '@/common/cache/cache.service';
 import { CacheModule } from '@/common/cache/cache.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Context } from '@/common/context/context';
+import { createGraphQLContext } from '@/common/context/createGraphQLContext';
 import { AuthRequest } from '@/common/types/expressRequest.interface';
+import { GraphQLConfig } from '@/common/graphql/graphql.config';
+import { ContextType } from '@/common/context/type/context.type';
 
 @Module({
   imports: [
     PrismaModule,
     UserModule,
     CacheModule,
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      autoSchemaFile: true,
-      debug: true,
-      context: ({ req }: { req: AuthRequest }) => Context({ req }),
+    GraphQLModule.forRoot({
+      ...GraphQLConfig,
+      context: ({ req }: { req: AuthRequest }): Promise<ContextType> =>
+        createGraphQLContext({ req }),
     }),
   ],
   providers: [CacheService],

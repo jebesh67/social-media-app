@@ -191,7 +191,6 @@ Authorization: Bearer {{jebeshToken}}
 ### Check for existing username
 POST http://localhost:5000/graphql
 Content-Type: application/json
-Authorization: Bearer {{jebeshToken}}
 
 {
   "query": "query($input: UsernameInput!) { verifyUsername(input: $input) { username { isAvailable, message } } }",
