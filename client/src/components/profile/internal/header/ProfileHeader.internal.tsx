@@ -1,10 +1,10 @@
 "use client";
 
 import clsx from "clsx";
-import { ifTheme } from "@/utils/theme/helper/theme.helper";
-import { useThemeStore } from "@/stores/theme/themeStore";
-import ShinyText from "@/effects/shinyText/ShinyText";
-import { useUser } from "@/hooks/user/useUser";
+import { ifTheme } from "@/common/utils/theme/helper/theme.helper";
+import { useThemeStore } from "@/common/stores/theme/themeStore";
+import ShinyText from "@/common/effects/shinyText/ShinyText";
+import { useUser } from "@/common/hooks/user/useUser";
 
 export const ProfileHeaderInternal = () => {
   const {theme} = useThemeStore();

@@ -5,9 +5,9 @@ import {
   ICurrentUserBackendResponse,
   IUserApiResponse,
 } from "@/types/user/response/getUser.response";
-import { getAuthToken, setAuthToken } from "@/utils/cookie/cookie.helper";
+import { getAuthToken, setAuthToken } from "@/common/utils/cookie/cookie.helper";
 import { IApiError, IBackendError } from "@/types/error-response/global-error/globalError.response";
-import { parseJsonResponse } from "@/utils/http/response.helper";
+import { parseJsonResponse } from "@/common/utils/http/response.helper";
 
 export async function GET(req: NextRequest): Promise<NextResponse<IUserApiResponse | IApiError>> {
   try {

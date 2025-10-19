@@ -1,5 +1,5 @@
-import { ifTheme } from "@/utils/theme/helper/theme.helper";
-import { Theme } from "@/utils/theme/types/theme.types";
+import { ifTheme } from "@/common/utils/theme/helper/theme.helper";
+import { Theme } from "@/common/utils/theme/types/theme.types";
 
 export const getNavButtonClass = (path: string, pathname: string, theme: Theme): string =>
   pathname === path

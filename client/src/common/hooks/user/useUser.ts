@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { User } from "@/types/user/user.type";
-import { fetchUser, fetchCurrentUser } from "@/hooks/user/services/fetchUser.helper";
+import { fetchUser, fetchCurrentUser } from "@/common/hooks/user/services/fetchUser.helper";
 
 export const useUser = (username?: string) => {
   return useQuery<User | null>({

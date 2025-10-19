@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import ThemeProvider from "@/providers/theme/ThemeProvider";
+import ThemeProvider from "@/common/providers/theme/ThemeProvider";
 import clsx from "clsx";
-import { getTheme } from "@/utils/theme/helper/server-only/getTheme.helper";
+import { getTheme } from "@/common/utils/theme/helper/server-only/getTheme.helper";
 import { Navigation } from "@/components/navigation/Navigation";
-import { Theme } from "@/utils/theme/types/theme.types";
-import { ifTheme } from "@/utils/theme/helper/theme.helper";
-import { ReactQueryProvider } from "@/providers/react-query/ReactQuery.provider";
+import { Theme } from "@/common/utils/theme/types/theme.types";
+import { ifTheme } from "@/common/utils/theme/helper/theme.helper";
+import { ReactQueryProvider } from "@/common/providers/react-query/ReactQuery.provider";
 
 export const metadata: Metadata = {
   title: "SocialMedia",

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { useThemeStore } from "@/stores/theme/themeStore";
-import { Theme } from "@/utils/theme/types/theme.types";
+import { useThemeStore } from "@/common/stores/theme/themeStore";
+import { Theme } from "@/common/utils/theme/types/theme.types";
 
 export default function ThemeProvider({
   children,
