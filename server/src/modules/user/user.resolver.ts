@@ -19,7 +19,7 @@ export class UserResolver {
   async verifyUsername(
     @Args('input') input: UsernameInput,
   ): Promise<ExistingUsernameResponse> {
-    return await this.userService.verifyUsername(input.username);
+    return this.userService.verifyUsername(input.username);
   }
 
   @Mutation(() => UserResponse)
@@ -32,7 +32,7 @@ export class UserResolver {
     return this.userService.generateUserResponse(createdUser);
   }
 
-  @Mutation(() => UserResponse)
+  @Query(() => UserResponse)
   async loginUser(
     @Args('loginUserInput', { type: () => LoginUserInput })
     loginUserInput: LoginUserInput,
@@ -41,7 +41,7 @@ export class UserResolver {
     return this.userService.generateUserResponse(user);
   }
 
-  @Mutation(() => Boolean)
+  @Query(() => Boolean)
   @UseGuards(AuthGuard)
   async logoutUser(): Promise<boolean> {
     await this.userService.logoutUser();

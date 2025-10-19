@@ -73,7 +73,7 @@ POST http://localhost:5000/graphql
 Content-Type: application/json
 
 {
-  "query": "mutation($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
+  "query": "query($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
   "variables": {
     "input": {
       "username": "jebesh",
@@ -88,7 +88,7 @@ POST http://localhost:5000/graphql
 Content-Type: application/json
 
 {
-  "query": "mutation($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
+  "query": "query($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
   "variables": {
     "input": {
       "username": "jebesh11",
@@ -103,7 +103,7 @@ POST http://localhost:5000/graphql
 Content-Type: application/json
 
 {
-  "query": "mutation($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
+  "query": "query($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
   "variables": {
     "input": {
       "username": "jebesh",
@@ -150,7 +150,7 @@ Authorization: Bearer {{jebeshToken}}
 }
 
 
-### Get user with wrong token
+### Get current user with wrong token
 POST http://localhost:5000/graphql
 Content-Type: application/json
 Authorization: Bearer sagsdagasg
@@ -166,7 +166,7 @@ Content-Type: application/json
 Authorization: Bearer {{jebeshToken}}
 
 {
-  "query": "mutation { logoutUser }"
+  "query": "query { logoutUser }"
 }
 
 
@@ -180,7 +180,7 @@ Authorization: Bearer {{jebeshToken}}
   "query": "query($input: UsernameInput!) { verifyUsername(input: $input) { username { isAvailable, message } } }",
   "variables": {
     "input": {
-      "username": "jebeshs"
+      "username": "_jebexhh"
     }
   }
 }
