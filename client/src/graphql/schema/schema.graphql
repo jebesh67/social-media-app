@@ -1,3 +1,8 @@
+type AuthUserResponse {
+  token: String!
+  user: SafeUserType!
+}
+
 input CreateUserInput {
   email: String!
   name: String!
@@ -20,18 +25,14 @@ input LoginUserInput {
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): UserResponse!
-}
-
-type OtherUserResponse {
-  user: SafeUserType!
+  createUser(createUserInput: CreateUserInput!): AuthUserResponse!
+  loginUser(loginUserInput: LoginUserInput!): AuthUserResponse!
 }
 
 type Query {
-  currentUser: UserResponse!
-  loginUser(loginUserInput: LoginUserInput!): UserResponse!
+  currentUserProfile: UserResponse!
   logoutUser: Boolean!
-  otherUserProfile(username: String!): OtherUserResponse!
+  otherUserProfile(username: String!): UserResponse!
   verifyUsername(input: UsernameInput!): ExistingUsernameResponse!
 }
 
@@ -54,7 +55,6 @@ type UserCountType {
 }
 
 type UserResponse {
-  token: String!
   user: SafeUserType!
 }
 

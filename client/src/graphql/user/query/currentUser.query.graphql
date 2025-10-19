@@ -1,5 +1,5 @@
 query CurrentUser {
-    currentUser {
+    currentUserProfile {
         user {
             username
             name
@@ -8,6 +8,5 @@ query CurrentUser {
             createdAt
             updatedAt
         }
-        token
     }
 }
