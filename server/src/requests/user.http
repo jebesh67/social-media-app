@@ -177,7 +177,7 @@ Content-Type: application/json
 Authorization: Bearer {{jebeshToken}}
 
 {
-  "query": "query($input: UsernameInput!) { verifyUsername(input: $input) { username { isAvailable message } } }",
+  "query": "query($input: UsernameInput!) { verifyUsername(input: $input) { username { isAvailable, message } } }",
   "variables": {
     "input": {
       "username": "jebeshs"
