@@ -6,8 +6,8 @@ import { User } from '@prisma/client';
 import { CurrentUser } from '@/modules/user/decorator/currentUser.decorator';
 import { CreateUserInput } from '@/modules/user/types/inputs/createUser.input';
 import { LoginUserInput } from '@/modules/user/types/inputs/loginUser.input';
-import { OtherUserResponse } from '@/modules/user/types/response/otherUser.response';
 import { UserResponse } from '@/modules/user/types/response/user.response';
+import { AuthUserResponse } from '@/modules/user/types/response/authUser.response';
 import { ExistingUsernameResponse } from '@/modules/user/types/response/existingUsername.response';
 import { UsernameInput } from '@/modules/user/types/inputs/username.input';
 
@@ -22,23 +22,23 @@ export class UserResolver {
     return this.userService.verifyUsername(input.username);
   }
 
-  @Mutation(() => UserResponse)
+  @Mutation(() => AuthUserResponse)
   async createUser(
     @Args('createUserInput', { type: () => CreateUserInput })
     createUserInput: CreateUserInput,
-  ): Promise<UserResponse> {
+  ): Promise<AuthUserResponse> {
     const createdUser: User =
       await this.userService.createUser(createUserInput);
-    return this.userService.generateUserResponse(createdUser);
+    return this.userService.generateAuthUserResponse(createdUser);
   }
 
-  @Query(() => UserResponse)
+  @Mutation(() => AuthUserResponse)
   async loginUser(
     @Args('loginUserInput', { type: () => LoginUserInput })
     loginUserInput: LoginUserInput,
-  ): Promise<UserResponse> {
+  ): Promise<AuthUserResponse> {
     const user: User = await this.userService.loginUser(loginUserInput);
-    return this.userService.generateUserResponse(user);
+    return this.userService.generateAuthUserResponse(user);
   }
 
   @Query(() => Boolean)
@@ -50,23 +50,23 @@ export class UserResolver {
 
   @Query(() => UserResponse)
   @UseGuards(AuthGuard)
-  async currentUser(
+  async currentUserProfile(
     @CurrentUser() currentUser: Partial<User>,
   ): Promise<UserResponse> {
     const user: User = await this.userService.getCurrentUser(currentUser);
     return this.userService.generateUserResponse(user);
   }
 
-  @Query(() => OtherUserResponse)
+  @Query(() => UserResponse)
   @UseGuards(AuthGuard)
   async otherUserProfile(
     @Args('username') username: string,
     @CurrentUser() currentUser: Partial<User>,
-  ): Promise<OtherUserResponse> {
+  ): Promise<UserResponse> {
     const user: User = await this.userService.getOtherUserProfile(
       username,
       currentUser,
     );
-    return this.userService.generateOtherUserResponse(user);
+    return this.userService.generateUserResponse(user);
   }
 }

@@ -1,6 +1,7 @@
 @jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZ3VtODAwMDE1M3cwN3llaWJmamkiLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc2MDY5MDE3MCwiZXhwIjoxNzYxMjk0OTcwfQ.VwQ4DbOgCkiwN7Z4tp6Z5OZebDdMu_8l8iEgTPxD0P0
 @sodaToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZzk1ZTAwMDA1M3cwdTdqcjZ2d28iLCJ1c2VybmFtZSI6Il9zb2RhIiwiaWF0IjoxNzYwNjkwMTQzLCJleHAiOjE3NjEyOTQ5NDN9.NDdsWLt0-qMPE9M5cU1tAhXzMaQ5XY9YvBAE8b7U5ho
 @lemonToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsaDVuZzAwMDI1M3cweHRobHFtaGsiLCJ1c2VybmFtZSI6ImxlbW9uMjIiLCJpYXQiOjE3NjA2OTAxODUsImV4cCI6MTc2MTI5NDk4NX0.s8T-G4jAodri1JDzKNxEvdJYsOsGVsy03TTE7NZB1Ks
+@meopoToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3hnemx1ODAwMDA1M2tzZGw3M2dueGkiLCJ1c2VybmFtZSI6Im1lb3BvNjM2IiwiaWF0IjoxNzYwODY0MDQ2LCJleHAiOjE3NjE0Njg4NDZ9.EB1CLa6Zg93cMCsem0AOSQM-0IGEwygJ0F60xc7iCb4
 
 ### Create user jebesh
 POST http://localhost:5000/graphql
@@ -50,6 +51,22 @@ Content-Type: application/json
   }
 }
 
+### Create user meopo
+POST http://localhost:5000/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation($input: CreateUserInput!) { createUser(createUserInput: $input) { user { name, username, email, id }, token } }",
+  "variables": {
+    "input": {
+      "name": "Meopo Jr",
+      "username": "meopo636",
+      "email": "meopo67@gmail.com",
+      "password": "meopo123"
+    }
+  }
+}
+
 
 ### Create new user with invaild email and password
 POST http://localhost:5000/graphql
@@ -73,7 +90,7 @@ POST http://localhost:5000/graphql
 Content-Type: application/json
 
 {
-  "query": "query($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
+  "query": "mutation($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
   "variables": {
     "input": {
       "username": "jebesh",
@@ -88,7 +105,7 @@ POST http://localhost:5000/graphql
 Content-Type: application/json
 
 {
-  "query": "query($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
+  "query": "mutation($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
   "variables": {
     "input": {
       "username": "jebesh11",
@@ -103,7 +120,7 @@ POST http://localhost:5000/graphql
 Content-Type: application/json
 
 {
-  "query": "query($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
+  "query": "mutation($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
   "variables": {
     "input": {
       "username": "jebesh",
@@ -132,7 +149,7 @@ Content-Type: application/json
 Authorization: Bearer {{sodaToken}}
 
 {
-  "query": "query { currentUser { user { username, name, email, id, createdAt, updatedAt }, token } }"
+  "query": "query { currentUserProfile { user { username, name, email, id, createdAt, updatedAt } } }"
 }
 
 
@@ -156,7 +173,7 @@ Content-Type: application/json
 Authorization: Bearer sagsdagasg
 
 {
-  "query": "query { currentUser { user { username, id } } }"
+  "query": "query { currentUserProfile { user { username, id } } }"
 }
 
 

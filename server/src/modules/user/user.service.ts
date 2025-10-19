@@ -7,8 +7,8 @@ import { CacheService } from '@/common/cache/cache.service';
 import { SafeUserType, UserDataCount } from '@/modules/user/types/user.type';
 import { LoginUserInput } from '@/modules/user/types/inputs/loginUser.input';
 import { CreateUserInput } from '@/modules/user/types/inputs/createUser.input';
-import { OtherUserResponse } from '@/modules/user/types/response/otherUser.response';
 import { UserResponse } from '@/modules/user/types/response/user.response';
+import { AuthUserResponse } from '@/modules/user/types/response/authUser.response';
 import { BackendError } from '@/common/backend-error/util/backendError.util';
 import { ExistingUsernameResponse } from '@/modules/user/types/response/existingUsername.response';
 
@@ -171,7 +171,7 @@ export class UserService {
     };
   }
 
-  async generateUserResponse(user: User): Promise<UserResponse> {
+  async generateAuthUserResponse(user: User): Promise<AuthUserResponse> {
     const { password, ...safeUser } = user;
 
     const counts: UserDataCount = await this.getUserCounts(user);
@@ -187,7 +187,7 @@ export class UserService {
     };
   }
 
-  async generateOtherUserResponse(user: User): Promise<OtherUserResponse> {
+  async generateUserResponse(user: User): Promise<UserResponse> {
     const { password, ...safeUser } = user;
 
     const counts: UserDataCount = await this.getUserCounts(user);

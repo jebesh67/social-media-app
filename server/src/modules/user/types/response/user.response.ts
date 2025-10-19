@@ -5,6 +5,4 @@ import { SafeUserType } from '@/modules/user/types/objects/safeUser.object';
 export class UserResponse {
   @Field(() => SafeUserType)
   user: SafeUserType;
-
-  @Field() token: string;
 }
