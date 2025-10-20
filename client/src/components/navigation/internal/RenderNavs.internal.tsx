@@ -3,9 +3,10 @@ import Link from "next/link";
 import clsx from "clsx";
 import { useThemeStore } from "@/common/stores/theme/themeStore";
 import { navElement } from "@/components/navigation/data/navigation.data";
-import { ifTheme } from "@/common/utils/theme/helper/theme.helper";
+import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { usePathname } from "next/navigation";
 import { getNavButtonClass } from "@/components/navigation/services/navigation.helper";
+import Image from "next/image";
 
 export const RenderNavs = () => {
   const {theme, nextTheme} = useThemeStore();
@@ -14,7 +15,7 @@ export const RenderNavs = () => {
   return (
     <nav
       className={ clsx(
-        "w-full max-w-300 z-50 flex items-center justify-around m-2 rounded-full py-2 css-transition shadow-md",
+        "w-full md:w-fit md:h-screen max-w-300 z-50 flex md:flex-col items-center justify-around css-transition shadow-md",
         ifTheme(theme, "css-dark-nav-container", "css-light-nav-container"),
       ) }
     >
@@ -34,6 +35,26 @@ export const RenderNavs = () => {
           </Link>
         </div>
       )) }
+      
+      <Link href={ "/profile" }>
+        <button
+          className={
+            clsx(
+              "css-react-icon-size",
+              getNavButtonClass("/profile", pathname, theme),
+            )
+          }
+        >
+          <Image src="/assets/user-profile/defaultProfile.jpg"
+                 alt={ "Hiu" }
+                 width={ 50 }
+                 height={ 50 }
+                 className={ "w-6 aspect-square object-contain rounded-full" }
+          />
+        
+        </button>
+      </Link>
+      
       
       {/* Theme switch button */ }
       <button

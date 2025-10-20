@@ -1,12 +1,9 @@
 query CurrentUserQuery {
     currentUserProfile {
         user {
+            id
             username
             name
-            email
-            id
-            createdAt
-            updatedAt
             counts {
                 postsCount
                 followersCount

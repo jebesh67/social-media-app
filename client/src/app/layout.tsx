@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import ThemeProvider from "@/common/providers/theme/ThemeProvider";
 import clsx from "clsx";
-import { getTheme } from "@/common/utils/theme/helper/server-only/getTheme.helper";
+import { getTheme } from "@/common/utils/theme/util/server-only/getTheme.util";
 import { Navigation } from "@/components/navigation/Navigation";
 import { Theme } from "@/common/utils/theme/types/theme.types";
-import { ifTheme } from "@/common/utils/theme/helper/theme.helper";
+import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { ReactQueryProvider } from "@/common/providers/react-query/ReactQuery.provider";
 
 export const metadata: Metadata = {
@@ -27,7 +27,9 @@ export default async function RootLayout({
       ) }>
         <ReactQueryProvider>
           <ThemeProvider initialTheme={ initialTheme }>
-            { children }
+            <div className={ "md:ml-15 pt-18 md:pt-6" }>
+              { children }
+            </div>
             <Navigation />
           </ThemeProvider>
         </ReactQueryProvider>

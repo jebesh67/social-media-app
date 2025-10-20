@@ -10,6 +10,5 @@ export const useUser = (username?: string) => {
     queryFn: (): Promise<User | null> => (username ? fetchUserByUsername(username) : fetchCurrentUser()),
     staleTime: 1000 * 60 * 20,
     retry: false,
-    enabled: true,
   });
 };

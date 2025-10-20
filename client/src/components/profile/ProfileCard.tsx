@@ -6,7 +6,7 @@ import { ProfileAvatarInternal } from "@/components/profile/internal/profile-car
 import { ClientGridLoader } from "@/components/common/loader/ClientGridLoader.shared";
 import { useThemeStore } from "@/common/stores/theme/themeStore";
 import clsx from "clsx";
-import { ifTheme } from "@/common/utils/theme/helper/theme.helper";
+import { ifTheme } from "@/common/utils/theme/util/theme.util";
 
 
 export const ProfileCard = () => {

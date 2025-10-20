@@ -2,14 +2,15 @@ import { IOriginalError } from "@/types/error-response/graphql-error/originalErr
 
 export interface IBackendErrorResponse {
   response: {
-    data: any | null;
+    data: unknown | null;
     errors: Array<{
       message: string;
-      locations: any[];
-      path: any[];
+      locations: Array<{ line: number; column: number }>;
+      path: Array<string | number>;
       extensions: {
         code: string;
-        stacktrace?: string[];
+        stacktrace: string[];
+        status: number;
         originalError: IOriginalError;
       };
     }>;

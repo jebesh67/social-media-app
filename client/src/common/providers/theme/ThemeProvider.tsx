@@ -17,6 +17,8 @@ export default function ThemeProvider({
     if (initialTheme !== theme) {
       setTheme(initialTheme || "light");
     }
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialTheme]);
   
   useEffect((): void => {

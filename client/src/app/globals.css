@@ -17,50 +17,45 @@ body {
 }
 
 /* Header Text */
-.css-header-text {
-  @apply text-xl sm:text-2xl xl:text-2xl;
+.css-header-text- {
+  @apply text-base;
   @apply font-semibold;
 }
 
-/* semi-big text */
-.css-text-sub-head {
-  @apply text-lg sm:text-xl xl:text-xl;
-}
-
-/* Top Padding For Content */
-.css-body-top-padding {
-  @apply pt-20 sm:pt-22;
+/* profile card username */
+.css-profile-card-username {
+  @apply text-sm sm:text-2xl xl:text-xl;
 }
 
 /* Transitions */
 .css-transition {
-  @apply transition-all duration-150 ease-in-out;
+  @apply transition duration-150 ease-in-out;
 }
 
 /* Navigation Buttons */
 .css-react-icon-size {
-  @apply text-2xl sm:text-3xl xl:text-3xl;
+  @apply text-2xl;
 }
 
 /* Inactive Buttons*/
 .css-light-nav-button {
-  @apply px-4 py-2 rounded-md hover:cursor-pointer;
+  @apply px-2 py-2 rounded-md hover:cursor-pointer;
   @apply hover:bg-zinc-400/50 active:bg-zinc-400/70 hover:backdrop-blur-md;
 }
 
 .css-dark-nav-button {
-  @apply px-4 py-2 rounded-md hover:cursor-pointer;
+  @apply px-2 py-2 rounded-md hover:cursor-pointer;
   @apply hover:bg-zinc-700/50 active:bg-zinc-700/70 hover:backdrop-blur-md;
 }
 
 /* Active Buttons */
 .css-light-nav-button-active {
-  @apply px-4 py-2 rounded-md hover:cursor-pointer;
+  @apply px-2 py-2 rounded-md hover:cursor-pointer;
   @apply bg-zinc-400/50 backdrop-blur-md;
 }
 
 .css-dark-nav-button-active {
-  @apply px-4 py-2 rounded-md hover:cursor-pointer;
+  @apply px-2 py-2 rounded-md hover:cursor-pointer;
   @apply bg-zinc-700/50 backdrop-blur-md;
 }
 
@@ -127,4 +122,5 @@ body {
 .css-shiny-text-light.disabled {
   animation: none;
 }
+
 

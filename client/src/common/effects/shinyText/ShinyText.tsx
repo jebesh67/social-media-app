@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { Theme } from "@/common/utils/theme/types/theme.types";
-import { ifTheme } from "@/common/utils/theme/helper/theme.helper";
+import { ifTheme } from "@/common/utils/theme/util/theme.util";
+
 
 interface ShinyTextProps {
   text: string;
