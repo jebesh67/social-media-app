@@ -1,0 +1,20 @@
+import { IApiError } from "@/types/error-response/api-error/apiError.response";
+import { IUserApiResponse } from "@/types/user/response/userApi.response";
+import axios, { AxiosResponse } from "axios";
+
+export const loginUser = async (username: string, password: string): Promise<IUserApiResponse | IApiError> => {
+  try {
+    const response: AxiosResponse<IUserApiResponse | IApiError> = await axios.post("/api/user/login", {
+      username,
+      password,
+    });
+    
+    return response.data;
+  } catch {
+    return {
+      success: false,
+      message: "Oops something went wrong!",
+      statusCode: 500,
+    };
+  }
+};

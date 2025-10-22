@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { useThemeStore } from "@/common/stores/theme/themeStore";
-import ShinyText from "@/common/effects/shinyText/ShinyText";
+import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 import { useUser } from "@/common/hooks/user/useUser";
 
 export const ProfileHeaderInternal = () => {

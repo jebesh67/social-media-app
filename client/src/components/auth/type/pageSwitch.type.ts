@@ -1,0 +1,1 @@
+export type PageSwitchType = "login" | "sign-up";

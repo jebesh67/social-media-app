@@ -1,4 +1,4 @@
-import { NavElement } from "@/components/navigation/types/navigation.type";
+import { NavElement } from "@/components/navigation/type/navigation.type";
 import { IoAddCircleOutline, IoAddCircleSharp, IoHomeOutline, IoHomeSharp } from "react-icons/io5";
 import { IoIosSearch, IoMdSearch } from "react-icons/io";
 

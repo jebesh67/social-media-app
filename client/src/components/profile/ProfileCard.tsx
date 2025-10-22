@@ -3,7 +3,7 @@
 import { useUser } from "@/common/hooks/user/useUser";
 import { ProfileInfoInternal } from "@/components/profile/internal/profile-card/profileInfo.internal";
 import { ProfileAvatarInternal } from "@/components/profile/internal/profile-card/profileAvatar.internal";
-import { ClientGridLoader } from "@/components/common/loader/ClientGridLoader.shared";
+import { ClientGridLoader } from "@/components/shared/loader/ClientGridLoader.shared";
 import { useThemeStore } from "@/common/stores/theme/themeStore";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";

@@ -1,4 +1,4 @@
-import { NavElement } from "@/components/navigation/types/navigation.type";
+import { NavElement } from "@/components/navigation/type/navigation.type";
 import Link from "next/link";
 import clsx from "clsx";
 import { useThemeStore } from "@/common/stores/theme/themeStore";

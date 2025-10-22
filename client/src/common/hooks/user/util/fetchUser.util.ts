@@ -18,7 +18,7 @@ export const fetchUserByUsername = async (username: string): Promise<User | null
     
     return userData.user;
   } catch (err) {
-    console.warn("Error connecting to /api/user/current-user:", err);
+    console.warn("Error connecting to /api/user/other-user:", err);
     return null;
   }
 };

@@ -30,6 +30,7 @@ export default async function RootLayout({
             <div className={ "md:ml-15 pt-18 md:pt-6" }>
               { children }
             </div>
+            <Navigation />
           </ThemeProvider>
         </ReactQueryProvider>
       </body>
