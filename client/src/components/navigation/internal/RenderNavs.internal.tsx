@@ -15,7 +15,7 @@ export const RenderNavs = () => {
   return (
     <nav
       className={ clsx(
-        "w-full md:w-fit md:h-screen max-w-300 z-50 flex md:flex-col items-center justify-around css-transition shadow-md",
+        "w-full md:w-fit md:h-screen max-w-300 z-50 flex md:flex-col md:justify-center md:space-y-4 items-center justify-around css-transition shadow-md px-2",
         ifTheme(theme, "css-dark-nav-container", "css-light-nav-container"),
       ) }
     >
@@ -61,7 +61,7 @@ export const RenderNavs = () => {
         onClick={ (): void => nextTheme() }
         className={ clsx("hover:font-semibold hover:cursor-pointer") }
       >
-        THEME
+        TE
       </button>
     </nav>
   );

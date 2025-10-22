@@ -17,7 +17,7 @@ body {
 }
 
 /* Header Text */
-.css-header-text- {
+.css-header-text {
   @apply text-base;
   @apply font-semibold;
 }

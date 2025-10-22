@@ -7,6 +7,7 @@ import { ClientGridLoader } from "@/components/common/loader/ClientGridLoader.sh
 import { useThemeStore } from "@/common/stores/theme/themeStore";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
+import { ProfileBioInternal } from "@/components/profile/internal/profile-card/profileBio.internal";
 
 
 export const ProfileCard = () => {
@@ -33,6 +34,7 @@ export const ProfileCard = () => {
               <>
                 <ProfileAvatarInternal url={ currentUser.avatar } />
                 <ProfileInfoInternal currentUser={ currentUser } />
+                <ProfileBioInternal currentUser={ currentUser } />
               </>
             )
           )
