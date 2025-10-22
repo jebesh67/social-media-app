@@ -8,6 +8,7 @@ import { useThemeStore } from "@/common/stores/theme/themeStore";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { ProfileBioInternal } from "@/components/profile/internal/profile-card/profileBio.internal";
+import { ProfileCardButtonInternal } from "@/components/profile/internal/profile-card/profileCardButton.internal";
 
 
 export const ProfileCard = () => {
@@ -35,6 +36,7 @@ export const ProfileCard = () => {
                 <ProfileAvatarInternal url={ currentUser.avatar } />
                 <ProfileInfoInternal currentUser={ currentUser } />
                 <ProfileBioInternal currentUser={ currentUser } />
+                <ProfileCardButtonInternal />
               </>
             )
           )

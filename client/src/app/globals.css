@@ -51,7 +51,7 @@ body {
 /* Active Buttons */
 .css-light-nav-button-active {
   @apply px-2 py-2 rounded-md hover:cursor-pointer;
-  @apply bg-zinc-400/50 backdrop-blur-md;
+  @apply bg-zinc-400/40 backdrop-blur-md;
 }
 
 .css-dark-nav-button-active {

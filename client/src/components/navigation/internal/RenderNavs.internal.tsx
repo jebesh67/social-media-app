@@ -1,11 +1,11 @@
-import { NavElement } from "@/components/navigation/services/types/navigation.type";
+import { NavElement } from "@/components/navigation/types/navigation.type";
 import Link from "next/link";
 import clsx from "clsx";
 import { useThemeStore } from "@/common/stores/theme/themeStore";
 import { navElement } from "@/components/navigation/data/navigation.data";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { usePathname } from "next/navigation";
-import { getNavButtonClass } from "@/components/navigation/services/navigation.helper";
+import { getNavButton, getNavButtonClass } from "@/components/navigation/util/navigation.util";
 import Image from "next/image";
 
 export const RenderNavs = () => {
@@ -30,7 +30,7 @@ export const RenderNavs = () => {
                 )
               }
             >
-              { element.icon.inactive }
+              { getNavButton(element.icon, pathname, element.path) }
             </button>
           </Link>
         </div>
@@ -50,6 +50,7 @@ export const RenderNavs = () => {
                  width={ 50 }
                  height={ 50 }
                  className={ "w-6 aspect-square object-contain rounded-full" }
+                 priority
           />
         
         </button>
