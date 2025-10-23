@@ -2,7 +2,7 @@
 
 import { NextResponse } from "next/server";
 import { request, ClientError } from "graphql-request";
-import CurrentUserQuery from "@/graphql/user/query/currentUser.query.graphql";
+import LoginUserMutation from "@/graphql/user/mutation/loginUser.mutation.graphql";
 import {
   ICurrentUserBackendResponse,
   
@@ -13,19 +13,24 @@ import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { IBackendErrorResponse } from "@/types/error-response/graphql-error/backendError.response";
 import { IUserApiResponse } from "@/types/user/response/userApi.response";
 
-export async function GET(): Promise<NextResponse<IUserApiResponse | IApiError>> {
+export async function POST(): Promise<NextResponse<IUserApiResponse | IApiError>> {
   try {
     const token: string = await getAuthToken();
     const GRAPHQL_URL: string = process.env.NEST_GRAPHQL_URL!;
     
-    const response: ICurrentUserBackendResponse = await request(GRAPHQL_URL, CurrentUserQuery, {}, {
+    const response: ICurrentUserBackendResponse = await request(GRAPHQL_URL, LoginUserMutation, {
+      input: {
+        username: "jebesh",
+        password: "jebesh123",
+      },
+    }, {
       Authorization: `Bearer ${ token }`,
     });
     
     return NextResponse.json<IUserApiResponse>({
       success: true,
       message: "User fetched successfully",
-      user: response.currentUserProfile.user,
+      user: response.loginUser.user,
     });
   } catch (err: unknown) {
     if (err instanceof ClientError) {
@@ -44,7 +49,7 @@ export async function GET(): Promise<NextResponse<IUserApiResponse | IApiError>>
     if (err instanceof Error) {
       return NextResponse.json<IApiError>({
         success: false,
-        message: err.message || "Unable to connect to backend :(",
+        message: "Internal server error",
         statusCode: 500,
       }, {status: 500});
     }

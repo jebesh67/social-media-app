@@ -8,7 +8,7 @@ import { SignUp } from "@/components/auth/sign-up/SignUp";
 
 export const Auth = (
   {pagePath = "login"}:
-  { pagePath: PageSwitchType },
+  { pagePath?: PageSwitchType },
 ) => {
   const [page, setPage] = useState<PageSwitchType>(pagePath);
   
