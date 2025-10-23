@@ -3,35 +3,41 @@
 import { NextResponse } from "next/server";
 import { request, ClientError } from "graphql-request";
 import LoginUserMutation from "@/graphql/user/mutation/loginUser.mutation.graphql";
-import {
-  ICurrentUserBackendResponse,
-  
-} from "@/types/user/response/currentUserBackend.response";
-import { getAuthToken } from "@/common/utils/cookie/cookie.helper";
 import { IOriginalError } from "@/types/error-response/graphql-error/originalError.response";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { IBackendErrorResponse } from "@/types/error-response/graphql-error/backendError.response";
 import { IUserApiResponse } from "@/types/user/response/userApi.response";
+import { ILoginUserBackendResponse } from "@/types/user/response/loginUserBackend.response";
 
-export async function POST(): Promise<NextResponse<IUserApiResponse | IApiError>> {
+export async function POST(req: Request): Promise<NextResponse<IUserApiResponse | IApiError>> {
   try {
-    const token: string = await getAuthToken();
     const GRAPHQL_URL: string = process.env.NEST_GRAPHQL_URL!;
     
-    const response: ICurrentUserBackendResponse = await request(GRAPHQL_URL, LoginUserMutation, {
+    const {username, password} = await req.json();
+    
+    const response: ILoginUserBackendResponse = await request(GRAPHQL_URL, LoginUserMutation, {
       input: {
-        username: "jebesh",
-        password: "jebesh123",
+        username,
+        password,
       },
-    }, {
-      Authorization: `Bearer ${ token }`,
     });
     
-    return NextResponse.json<IUserApiResponse>({
+    const token: string = response.loginUser.token;
+    
+    const res: NextResponse<IUserApiResponse> = NextResponse.json<IUserApiResponse>({
       success: true,
-      message: "User fetched successfully",
+      message: "User logged in successfully",
       user: response.loginUser.user,
     });
+    
+    res.cookies.set("auth_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
+    
+    return res;
   } catch (err: unknown) {
     if (err instanceof ClientError) {
       const backendError: IBackendErrorResponse = err as unknown as IBackendErrorResponse;
@@ -49,14 +55,14 @@ export async function POST(): Promise<NextResponse<IUserApiResponse | IApiError>
     if (err instanceof Error) {
       return NextResponse.json<IApiError>({
         success: false,
-        message: "Internal server error",
+        message: "Internal server error, login failed",
         statusCode: 500,
       }, {status: 500});
     }
     
     return NextResponse.json<IApiError>({
       success: false,
-      message: "Internal server error",
+      message: "Internal server error, login failed",
       statusCode: 500,
     }, {status: 500});
   }
