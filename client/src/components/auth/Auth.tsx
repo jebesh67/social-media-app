@@ -13,12 +13,12 @@ export const Auth = (
   const [page, setPage] = useState<PageSwitchType>(pagePath);
   
   return (
-    <div>
+    <div className={ "fixed inset-0 flex flex-col justify-center items-center px-6" }>
       <AuthPageSwitchInternal page={ page }
                               setPageAction={ setPage } />
       
-      { page === "login" && (<Login />) }
-      { page === "sign-up" && (<SignUp />) }
+      { page === "login" && <Login /> }
+      { page === "sign-up" && <SignUp /> }
     </div>
   );
 };

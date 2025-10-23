@@ -1,22 +1,20 @@
-import { create, StoreApi, UseBoundStore } from "zustand";
+import { create } from "zustand";
 import { setCookie } from "cookies-next";
 import { ThemeState, Theme } from "@/common/utils/theme/types/theme.types";
 
-export const useThemeStore: UseBoundStore<StoreApi<ThemeState>> = create<ThemeState>((set, get) => ({
+export const useThemeStore = create<ThemeState>((set, get): ThemeState => ({
   theme: "light",
   
-  setTheme: (theme) => {
-    set({theme});
-    setCookie("theme", theme, {maxAge: 60 * 60 * 24 * 30}); // store for 30 days
+  setTheme: (newTheme: Theme) => {
+    set({theme: newTheme});
+    setCookie("theme", newTheme, {maxAge: 60 * 60 * 24 * 30});
   },
   
-  nextTheme: (): void => {
-    const themes: Theme[] = ["light", "dark"];
+  nextTheme: () => {
+    const current: Theme = get().theme;
+    const next: Theme = current === "dark" ? "light" : "dark";
     
-    const currentIndex: number = themes.indexOf(get().theme);
-    const nextIndex: number = (currentIndex + 1) % themes.length;
-    
-    set({theme: themes[nextIndex]});
-    setCookie("theme", themes[nextIndex], {maxAge: 60 * 60 * 24 * 30});
+    set({theme: next});
+    setCookie("theme", next, {maxAge: 60 * 60 * 24 * 30});
   },
 }));

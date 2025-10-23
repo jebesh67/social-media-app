@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import ThemeProvider from "@/common/providers/theme/ThemeProvider";
-import clsx from "clsx";
 import { getTheme } from "@/common/utils/theme/util/server-only/getTheme.util";
-import { Navigation } from "@/components/navigation/Navigation";
+import ClientAppShell from "@/common/providers/client-layout/ClientAppShell";
 import { Theme } from "@/common/utils/theme/types/theme.types";
-import { ifTheme } from "@/common/utils/theme/util/theme.util";
-import { ReactQueryProvider } from "@/common/providers/react-query/ReactQuery.provider";
 
 export const metadata: Metadata = {
   title: "SocialMedia",
@@ -15,24 +11,15 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  const initialTheme: Theme | undefined = await getTheme();
+}) {
+  const initialTheme: Theme = await getTheme();
   
   return (
     <html lang="en">
-      <body className={ clsx(
-        ifTheme(initialTheme, "css-theme-dark", "css-theme-light"),
-      ) }>
-        <ReactQueryProvider>
-          <ThemeProvider initialTheme={ initialTheme }>
-            <div className={ "md:ml-15 pt-18 md:pt-6" }>
-              { children }
-            </div>
-            <Navigation />
-          </ThemeProvider>
-        </ReactQueryProvider>
+      <body>
+        <ClientAppShell initialTheme={ initialTheme }>{ children }</ClientAppShell>
       </body>
     </html>
   );

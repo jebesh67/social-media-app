@@ -9,14 +9,12 @@ export default function ThemeProvider({
   initialTheme,
 }: {
   children: React.ReactNode;
-  initialTheme: Theme | undefined;
+  initialTheme: Theme;
 }) {
   const {theme, setTheme} = useThemeStore();
   
   useEffect((): void => {
-    if (initialTheme !== theme) {
-      setTheme(initialTheme || "light");
-    }
+    if (initialTheme !== theme) setTheme(initialTheme);
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialTheme]);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLogin } from "@/common/hooks/user/useLogin";
 import { UseMutationResult } from "@tanstack/react-query";
 import { ILoginVariables } from "@/common/hooks/user/type/loginVariables.interface";
@@ -9,13 +9,24 @@ import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 import { IUserApiResponse } from "@/types/user/response/userApi.response";
+import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   
   const {theme} = useThemeStore();
+  
+  const router: AppRouterInstance = useRouter();
+  
   const loginMutation: UseMutationResult<IUserApiResponse, Error, ILoginVariables> = useLogin();
+  
+  useEffect((): void => {
+    if (loginMutation.data?.success) {
+      router.push("/profile");
+    }
+  }, [loginMutation.data, router]);
   
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
@@ -23,7 +34,7 @@ export const Login = () => {
   };
   
   return (
-    <main className={ "fixed inset-0 flex justify-center items-center px-6" }>
+    <main className={ "w-full flex justify-center css-transition" }>
       <form className={ clsx(
         "flex flex-col space-y-4 justify-center items-center w-full max-w-120 pb-8 pt-12 rounded-xl shadow-md",
         ifTheme(theme, "bg-zinc-700", "bg-zinc-200"))
@@ -39,29 +50,36 @@ export const Login = () => {
         />
         
         <input
-          className={ clsx("py-3 px-5 rounded-xl w-65 text-xs",
-            ifTheme(theme, "bg-zinc-800/70 text-zinc-300", "bg-zinc-200"))
+          className={ clsx(
+            "py-3 px-5 rounded-xl w-65 text-xs",
+            ifTheme(theme, "bg-zinc-800/70 text-zinc-300", "bg-zinc-300 text-zinc-800"))
           }
           type="text"
           placeholder="Username"
           value={ username }
           onChange={ (e): void => setUsername(e.target.value) }
+          required
         />
         
         <input
-          className={ clsx("py-3 px-5 rounded-xl w-65 text-xs",
-            ifTheme(theme, "bg-zinc-800/70 text-zinc-300", "bg-zinc-200"))
+          className={ clsx(
+            "py-3 px-5 rounded-xl w-65 text-xs",
+            ifTheme(theme, "bg-zinc-800/70 text-zinc-300", "bg-zinc-300 text-zinc-800"))
           }
           type="password"
           placeholder="Password"
           value={ password }
           onChange={ (e): void => setPassword(e.target.value) }
+          required
         />
         
         <button
-          className={ clsx(
-            "py-2 mt-2 px-3 rounded-xl w-65",
-            ifTheme(theme, "bg-blue-900", "bg-blue-400"))
+          className={
+            clsx(
+              "py-2 mt-2 px-3 rounded-xl w-65 font-semibold hover:cursor-pointer",
+              ifTheme(theme, "bg-blue-900 hover:bg-blue-800", "bg-blue-500 hover:bg-blue-400"),
+              loginMutation.isPending && "opacity-60 hover:cursor-default",
+            )
           }
           type="submit"
           disabled={ loginMutation.isPending }>
