@@ -19,7 +19,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ClientAppShell initialTheme={ initialTheme }>{ children }</ClientAppShell>
+        <ClientAppShell initialTheme={ initialTheme }>
+          { children }
+        </ClientAppShell>
       </body>
     </html>
   );

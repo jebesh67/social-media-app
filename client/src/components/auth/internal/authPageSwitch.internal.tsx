@@ -2,6 +2,8 @@
 
 import { PageSwitchType } from "@/components/auth/type/pageSwitch.type";
 import clsx from "clsx";
+import { ifTheme } from "@/common/utils/theme/util/theme.util";
+import { useThemeStore } from "@/common/stores/theme/themeStore";
 
 type Props = {
   page: PageSwitchType;
@@ -9,16 +11,27 @@ type Props = {
 }
 
 export const AuthPageSwitchInternal = ({page, setPageAction}: Props) => {
+  const {theme} = useThemeStore();
+  
+  
   return (
-    <div className={ "absolute top-20 flex justify-center items-center space-x-4" }>
-      <button className={ clsx(
-        "py-2 px-5 bg-blue-500 rounded-xl")
+    <div className={ "flex justify-center items-center space-x-4 css-transition" }>
+      <button className={
+        clsx(
+          "py-2 px-5 rounded-xl hover:cursor-pointer hover:opacity-90 active:scale-102 font-semibold",
+          page === "login" && (ifTheme(theme, "bg-zinc-800 ring-2 ring-zinc-600/50 shadow-md", "")),
+          page === "sign-up" && (ifTheme(theme, "bg-zinc-500", "")),
+        )
       }
               onClick={ (): void => setPageAction("login") }>Login
       </button>
       
-      <button className={ clsx(
-        "py-2 px-5 bg-blue-500 rounded-xl")
+      <button className={
+        clsx(
+          "py-2 px-5 rounded-xl hover:cursor-pointer hover:opacity-90 active:scale-102 font-semibold",
+          page === "login" && (ifTheme(theme, "bg-zinc-500 ", "")),
+          page === "sign-up" && (ifTheme(theme, "bg-zinc-800 ring-2 ring-zinc-600/50 shadow-md", "")),
+        )
       }
               onClick={ (): void => setPageAction("sign-up") }>Sign up
       </button>

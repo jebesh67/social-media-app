@@ -11,6 +11,7 @@ import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 import { IUserApiResponse } from "@/types/user/response/userApi.response";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { CustomInput } from "@/components/shared/input/CustomInput";
 
 export const Login = () => {
   const [username, setUsername] = useState<string>("");
@@ -35,9 +36,9 @@ export const Login = () => {
   
   return (
     <main className={ "w-full flex justify-center css-transition" }>
-      <form className={ clsx(
-        "flex flex-col space-y-4 justify-center items-center w-full max-w-120 pb-8 pt-12 rounded-xl shadow-md",
-        ifTheme(theme, "bg-zinc-700", "bg-zinc-200"))
+      <form className={
+        clsx(
+          "flex flex-col space-y-4 justify-center items-center w-full pb-8 pt-12 rounded-xl shadow-md")
       }
             onSubmit={ handleSubmit }
       >
@@ -49,35 +50,30 @@ export const Login = () => {
           theme={ theme }
         />
         
-        <input
-          className={ clsx(
-            "py-3 px-5 rounded-xl w-65 text-xs",
-            ifTheme(theme, "bg-zinc-800/70 text-zinc-300", "bg-zinc-300 text-zinc-800"))
-          }
-          type="text"
-          placeholder="Username"
+        <h2>Enter your credentials to login</h2>
+        
+        <CustomInput
+          id="username"
           value={ username }
           onChange={ (e): void => setUsername(e.target.value) }
-          required
+          placeholder="Username"
         />
         
-        <input
-          className={ clsx(
-            "py-3 px-5 rounded-xl w-65 text-xs",
-            ifTheme(theme, "bg-zinc-800/70 text-zinc-300", "bg-zinc-300 text-zinc-800"))
-          }
+        <CustomInput
+          id="password"
           type="password"
-          placeholder="Password"
           value={ password }
           onChange={ (e): void => setPassword(e.target.value) }
-          required
+          placeholder="Password"
         />
         
         <button
           className={
             clsx(
-              "py-2 mt-2 px-3 rounded-xl w-65 font-semibold hover:cursor-pointer",
+              "py-2 mt-2 px-3 rounded-xl w-65 font-semibold hover:cursor-pointer active:opacity-80 css-transition",
+              
               ifTheme(theme, "bg-blue-900 hover:bg-blue-800", "bg-blue-500 hover:bg-blue-400"),
+              
               loginMutation.isPending && "opacity-60 hover:cursor-default",
             )
           }
