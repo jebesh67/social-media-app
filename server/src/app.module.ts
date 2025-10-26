@@ -4,7 +4,6 @@ import { UserModule } from '@/modules/user/user.module';
 import { CacheService } from '@/common/cache/cache.service';
 import { CacheModule } from '@/common/cache/cache.module';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { createGraphQLContext } from '@/common/context/createGraphQLContext';
 import { AuthRequest } from '@/common/types/expressRequest.interface';
 import { GraphQLConfig } from '@/common/graphql/graphql.config';
