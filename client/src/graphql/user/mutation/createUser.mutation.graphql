@@ -1,0 +1,15 @@
+mutation LoginUserMutation($input: CreateUserInput!) {
+    createUser(createUserInput: $input) {
+        user {
+            id
+            username
+            name
+            counts {
+                postsCount
+                followersCount
+                followingCount
+            }
+        }
+        token
+    }
+}

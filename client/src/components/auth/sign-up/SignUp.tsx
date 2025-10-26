@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLogin } from "@/common/hooks/user/useLogin";
 import { UseMutationResult } from "@tanstack/react-query";
-import { ILoginVariables } from "@/common/hooks/user/type/loginVariables.interface";
 import { useThemeStore } from "@/common/stores/theme/themeStore";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
@@ -12,6 +10,8 @@ import { IUserApiResponse } from "@/types/user/response/userApi.response";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { CustomInput } from "@/components/shared/input/CustomInput";
+import { ICreateUserVariables } from "@/common/hooks/user/type/createUserVariables.interface";
+import { useCreateUser } from "@/common/hooks/user/useCreateUser";
 
 export const SignUp = () => {
   const [name, setName] = useState<string>("");
@@ -23,17 +23,17 @@ export const SignUp = () => {
   
   const router: AppRouterInstance = useRouter();
   
-  const loginMutation: UseMutationResult<IUserApiResponse, Error, ILoginVariables> = useLogin();
+  const createUserMutation: UseMutationResult<IUserApiResponse, Error, ICreateUserVariables> = useCreateUser();
   
   useEffect((): void => {
-    if (loginMutation.data?.success) {
+    if (createUserMutation.data?.success) {
       router.push("/profile");
     }
-  }, [loginMutation.data, router]);
+  }, [createUserMutation.data, router]);
   
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    loginMutation.mutate({username, password});
+    createUserMutation.mutate({name, username, email, password});
   };
   
   return (
@@ -90,20 +90,20 @@ export const SignUp = () => {
               
               ifTheme(theme, "bg-blue-900 hover:bg-blue-800", "bg-blue-500 hover:bg-blue-400"),
               
-              loginMutation.isPending && "opacity-60 hover:cursor-default",
+              createUserMutation.isPending && "opacity-60 hover:cursor-default",
             )
           }
           type="submit"
-          disabled={ loginMutation.isPending }>
-          { loginMutation.isPending ? "Signing up..." : "Sign up" }
+          disabled={ createUserMutation.isPending }>
+          { createUserMutation.isPending ? "Signing up..." : "Sign up" }
         </button>
         
-        { loginMutation.isError && (
-          <div className="text-red-500">{ loginMutation.error.message }</div>
+        { createUserMutation.isError && (
+          <div className="text-red-500">{ createUserMutation.error.message }</div>
         ) }
         {
-          loginMutation.data?.success && (
-            <div className="text-green-500">Login successful!</div>
+          createUserMutation.data?.success && (
+            <div className="text-green-500">User successfully created!</div>
           )
         }
       
