@@ -4,6 +4,7 @@ mutation LoginUserMutation($input: CreateUserInput!) {
             id
             username
             name
+            bio
             counts {
                 postsCount
                 followersCount

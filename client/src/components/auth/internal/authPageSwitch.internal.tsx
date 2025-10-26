@@ -18,9 +18,13 @@ export const AuthPageSwitchInternal = ({page, setPageAction}: Props) => {
     <div className={ "flex justify-center items-center space-x-4 css-transition" }>
       <button className={
         clsx(
-          "py-2 px-5 rounded-xl hover:cursor-pointer hover:opacity-90 active:scale-102 font-semibold",
-          page === "login" && (ifTheme(theme, "bg-zinc-800 ring-2 ring-zinc-600/50 shadow-md", "")),
-          page === "sign-up" && (ifTheme(theme, "bg-zinc-500", "")),
+          "py-2 px-5 rounded-xl hover:cursor-pointer hover:opacity-90 active:scale-102 font-semibold shadow-md",
+          page === "login" && (ifTheme(theme,
+            "bg-zinc-800 ring-2 ring-zinc-600/50",
+            "bg-zinc-300 ring-2 ring-zinc-400/40")),
+          page === "sign-up" && (ifTheme(theme,
+            "bg-zinc-500",
+            "bg-zinc-300/40")),
         )
       }
               onClick={ (): void => setPageAction("login") }>Login
@@ -28,9 +32,13 @@ export const AuthPageSwitchInternal = ({page, setPageAction}: Props) => {
       
       <button className={
         clsx(
-          "py-2 px-5 rounded-xl hover:cursor-pointer hover:opacity-90 active:scale-102 font-semibold",
-          page === "login" && (ifTheme(theme, "bg-zinc-500 ", "")),
-          page === "sign-up" && (ifTheme(theme, "bg-zinc-800 ring-2 ring-zinc-600/50 shadow-md", "")),
+          "py-2 px-5 rounded-xl hover:cursor-pointer hover:opacity-90 active:scale-102 font-semibold shadow-md",
+          page === "login" && (ifTheme(theme,
+            "bg-zinc-500 ",
+            "bg-zinc-300/40")),
+          page === "sign-up" && (ifTheme(theme,
+            "bg-zinc-800 ring-2 ring-zinc-600/50",
+            "bg-zinc-300 ring-2 ring-zinc-400/40")),
         )
       }
               onClick={ (): void => setPageAction("sign-up") }>Sign up
