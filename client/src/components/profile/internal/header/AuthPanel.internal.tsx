@@ -9,24 +9,24 @@ import { RefObject, useEffect, useRef } from "react";
 
 type Props = {
   showAuthPanel: boolean,
-  setShowAuthPanel: React.Dispatch<React.SetStateAction<boolean>>
+  setShowAuthPanelAction: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const AuthPanelInternal = ({showAuthPanel, setShowAuthPanel}: Props) => {
+export const AuthPanelInternal = ({showAuthPanel, setShowAuthPanelAction}: Props) => {
   const {theme} = useThemeStore();
   const panelRef: RefObject<HTMLDivElement | null> = useRef<HTMLDivElement>(null);
   
   useEffect((): () => void => {
     const handleOutsideClick = (event: MouseEvent): void => {
       if (panelRef.current && !panelRef.current.contains(event.target as Node)) {
-        setShowAuthPanel(false);
+        setShowAuthPanelAction(false);
       }
     };
     
     document.addEventListener("mousedown", handleOutsideClick);
     
     return (): void => document.removeEventListener("mousedown", handleOutsideClick);
-  }, [setShowAuthPanel]);
+  }, [setShowAuthPanelAction]);
   
   
   return (
@@ -44,7 +44,7 @@ export const AuthPanelInternal = ({showAuthPanel, setShowAuthPanel}: Props) => {
           <button
             className={ clsx("active:opacity-80 text-xl px-3 py-2 rounded-lg hover:cursor-pointer",
               ifTheme(theme, "hover:bg-red-500", "hover:bg-red-500/90")) }
-            onClick={ (): void => setShowAuthPanel(!showAuthPanel) }
+            onClick={ (): void => setShowAuthPanelAction(!showAuthPanel) }
           >
             <MdClose />
           </button>

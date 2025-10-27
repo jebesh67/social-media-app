@@ -18,7 +18,7 @@ export const ProfileHeader = () => {
         showAuthPanel && (
           <AuthPanelInternal
             showAuthPanel={ showAuthPanel }
-            setShowAuthPanel={ setShowAuthPanel }
+            setShowAuthPanelAction={ setShowAuthPanel }
           />
         )
       }
