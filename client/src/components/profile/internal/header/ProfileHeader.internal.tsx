@@ -5,7 +5,6 @@ import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { useThemeStore } from "@/common/stores/theme/themeStore";
 import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 import { useUser } from "@/common/hooks/user/useUser";
-import { AuthPanelInternal } from "@/components/profile/internal/header/AuthPanel.internal";
 
 type Props = {
   showAuthPanel: boolean,
