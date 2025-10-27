@@ -5,8 +5,14 @@ import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { useThemeStore } from "@/common/stores/theme/themeStore";
 import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 import { useUser } from "@/common/hooks/user/useUser";
+import { AuthPanelInternal } from "@/components/profile/internal/header/AuthPanel.internal";
 
-export const ProfileHeaderInternal = () => {
+type Props = {
+  showAuthPanel: boolean,
+  setShowAuthPanel: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const ProfileHeaderInternal = ({showAuthPanel, setShowAuthPanel}: Props) => {
   const {theme} = useThemeStore();
   
   const {data: currentUser, isLoading, isFetched} = useUser();
@@ -20,24 +26,29 @@ export const ProfileHeaderInternal = () => {
         )
       }
     >
-      
-      { isLoading ?
-        <ShinyText
-          text="Loading..."
-          disabled={ false }
-          speed={ 3 }
-          className="css-header-text"
-          theme={ theme }
-        /> :
-        currentUser ?
+      <button
+        className={ "hover:cursor-pointer" }
+        onClick={ (): void => setShowAuthPanel(!showAuthPanel) }
+      >
+        { isLoading ?
           <ShinyText
-            text={ `${ currentUser.username }` }
+            text="Loading..."
             disabled={ false }
             speed={ 3 }
-            className="css-header-text hover:cursor-pointer"
+            className="css-header-text"
             theme={ theme }
           /> :
-          isFetched && <div>No User Found</div> }
+          currentUser ?
+            <ShinyText
+              text={ `${ currentUser.username }` }
+              disabled={ false }
+              speed={ 3 }
+              className="css-header-text"
+              theme={ theme }
+            /> :
+            isFetched && <div>No User Found</div>
+        }
+      </button>
     </div>
   );
 };

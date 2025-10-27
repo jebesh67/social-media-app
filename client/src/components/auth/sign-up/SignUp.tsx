@@ -88,7 +88,7 @@ export const SignUp = () => {
             clsx(
               "py-2 mt-2 px-3 rounded-xl w-65 font-semibold hover:cursor-pointer active:opacity-80 css-transition",
               
-              ifTheme(theme, "bg-blue-900 hover:bg-blue-800", "bg-blue-500 hover:bg-blue-400"),
+              ifTheme(theme, "bg-blue-900 hover:bg-blue-800", "bg-blue-500/90 hover:bg-blue-400"),
               
               createUserMutation.isPending && "opacity-60 hover:cursor-default",
             )
