@@ -1,9 +1,9 @@
-import { Auth } from "@/components/auth/Auth";
+import { AuthShared } from "@/components/auth/Auth.shared";
 
 const AuthPage = () => {
   return (
     <>
-      <Auth />
+      <AuthShared />
     </>
   );
 };

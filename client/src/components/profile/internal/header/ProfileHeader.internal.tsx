@@ -7,11 +7,11 @@ import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 import { useUser } from "@/common/hooks/user/useUser";
 
 type Props = {
-  showAuthPanel: boolean,
-  setShowAuthPanel: React.Dispatch<React.SetStateAction<boolean>>
+  showAuthOptions: boolean,
+  setShowAuthOptionsAction: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ProfileHeaderInternal = ({showAuthPanel, setShowAuthPanel}: Props) => {
+export const ProfileHeaderInternal = ({showAuthOptions, setShowAuthOptionsAction}: Props) => {
   const {theme} = useThemeStore();
   
   const {data: currentUser, isLoading, isFetched} = useUser();
@@ -27,7 +27,7 @@ export const ProfileHeaderInternal = ({showAuthPanel, setShowAuthPanel}: Props) 
     >
       <button
         className={ "hover:cursor-pointer" }
-        onClick={ (): void => setShowAuthPanel(!showAuthPanel) }
+        onClick={ (): void => setShowAuthOptionsAction(!showAuthOptions) }
       >
         { isLoading ?
           <ShinyText

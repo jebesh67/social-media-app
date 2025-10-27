@@ -13,7 +13,11 @@ import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { CustomInput } from "@/components/shared/input/CustomInput";
 
-export const Login = () => {
+type Props = {
+  setShowAuthPanelAction?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const Login = ({setShowAuthPanelAction}: Props) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   
@@ -25,6 +29,8 @@ export const Login = () => {
   
   useEffect((): void => {
     if (loginMutation.data?.success) {
+      setShowAuthPanelAction && setShowAuthPanelAction(false);
+      
       router.push("/profile");
     }
   }, [loginMutation.data, router]);
@@ -83,11 +89,15 @@ export const Login = () => {
         </button>
         
         { loginMutation.isError && (
-          <div className="text-red-500">{ loginMutation.error.message }</div>
+          <div className={ "flex justify-center items-center text-center" }>
+            <div className="text-red-500">{ loginMutation.error.message }</div>
+          </div>
         ) }
         {
           loginMutation.data?.success && (
-            <div className="text-green-500">Login successful!</div>
+            <div className={ "flex justify-center items-center text-center" }>
+              <div className="text-green-500">Login successful!</div>
+            </div>
           )
         }
       

@@ -13,7 +13,11 @@ import { CustomInput } from "@/components/shared/input/CustomInput";
 import { ICreateUserVariables } from "@/common/hooks/user/type/createUserVariables.interface";
 import { useCreateUser } from "@/common/hooks/user/useCreateUser";
 
-export const SignUp = () => {
+type Props = {
+  setShowAuthPanelAction?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const SignUp = ({setShowAuthPanelAction}: Props) => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -27,6 +31,8 @@ export const SignUp = () => {
   
   useEffect((): void => {
     if (createUserMutation.data?.success) {
+      setShowAuthPanelAction && setShowAuthPanelAction(false);
+      
       router.push("/profile");
     }
   }, [createUserMutation.data, router]);
@@ -98,12 +104,17 @@ export const SignUp = () => {
           { createUserMutation.isPending ? "Signing up..." : "Sign up" }
         </button>
         
+        
         { createUserMutation.isError && (
-          <div className="text-red-500">{ createUserMutation.error.message }</div>
+          <div className={ "flex justify-center items-center text-center" }>
+            <div className="text-red-500">{ createUserMutation.error.message }</div>
+          </div>
         ) }
         {
           createUserMutation.data?.success && (
-            <div className="text-green-500">User successfully created!</div>
+            <div className={ "flex justify-center items-center text-center" }>
+              <div className="text-green-500">User successfully created!</div>
+            </div>
           )
         }
       
