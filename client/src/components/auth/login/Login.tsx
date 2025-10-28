@@ -89,13 +89,13 @@ export const Login = ({setShowAuthPanelAction}: Props) => {
         </button>
         
         { loginMutation.isError && (
-          <div className={ "flex justify-center items-center text-center" }>
+          <div className={ "flex text-center px-6" }>
             <div className="text-red-500">{ loginMutation.error.message }</div>
           </div>
         ) }
         {
           loginMutation.data?.success && (
-            <div className={ "flex justify-center items-center text-center" }>
+            <div className={ "flex text-center px-6" }>
               <div className="text-green-500">Login successful!</div>
             </div>
           )

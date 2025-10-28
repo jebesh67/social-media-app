@@ -106,13 +106,13 @@ export const SignUp = ({setShowAuthPanelAction}: Props) => {
         
         
         { createUserMutation.isError && (
-          <div className={ "flex justify-center items-center text-center" }>
+          <div className={ "flex text-center px-6" }>
             <div className="text-red-500">{ createUserMutation.error.message }</div>
           </div>
         ) }
         {
           createUserMutation.data?.success && (
-            <div className={ "flex justify-center items-center text-center" }>
+            <div className={ "flex text-center px-6" }>
               <div className="text-green-500">User successfully created!</div>
             </div>
           )

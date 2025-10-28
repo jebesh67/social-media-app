@@ -44,10 +44,10 @@ export const AuthOptionsInternal = ({
       <div
         ref={ optionsRef }
         className={ clsx(
-          "flex flex-col space-y-2 shadow-xl mt-2 px-6 pb-6 pt-2 rounded-xl text-sm font-semibold w-fit h-fit",
+          "flex flex-col space-y-2 shadow-xl mt-2 px-6 pb-6 pt-2 rounded-xl text-sm w-fit h-fit",
           ifTheme(theme,
-            "bg-zinc-700",
-            "bg-zinc-200",
+            "bg-zinc-800",
+            "bg-zinc-300",
           ),
         ) }>
         <div className={ "flex justify-end" }>
@@ -62,10 +62,10 @@ export const AuthOptionsInternal = ({
         
         <button
           className={ clsx(
-            " w-40 py-2 rounded-xl hover:cursor-pointer hover:opacity-90 active:opacity-80 hover:scale-102 css-transition",
+            "flex w-50 pl-4 py-2 rounded-xl hover:cursor-pointer active:opacity-80 hover:scale-102 css-transition",
             ifTheme(theme,
-              "bg-zinc-800",
-              "bg-zinc-400/50",
+              "hover:bg-zinc-700",
+              "hover:bg-zinc-400/50",
             ),
           ) }
           onClick={ handleShowPanel }
@@ -73,10 +73,10 @@ export const AuthOptionsInternal = ({
         </button>
         
         <button className={ clsx(
-          " w-40 py-2 rounded-xl hover:cursor-pointer hover:opacity-90 active:opacity-80 hover:scale-102 css-transition",
+          "flex w-50 pl-4 py-2 rounded-xl hover:cursor-pointer active:opacity-80 hover:scale-102 css-transition",
           ifTheme(theme,
-            "bg-zinc-800",
-            "bg-zinc-400/50",
+            "hover:bg-zinc-700",
+            "hover:bg-zinc-400/50",
           ),
         ) }>logout
         </button>
