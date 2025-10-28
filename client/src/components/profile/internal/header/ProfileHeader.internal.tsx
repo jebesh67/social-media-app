@@ -27,7 +27,7 @@ export const ProfileHeaderInternal = ({showAuthOptions, setShowAuthOptionsAction
     >
       <button
         className={ "hover:cursor-pointer" }
-        onClick={ (): void => setShowAuthOptionsAction(!showAuthOptions) }
+        onMouseDown={ (): void => setShowAuthOptionsAction(!showAuthOptions) }
       >
         { isLoading ?
           <ShinyText
