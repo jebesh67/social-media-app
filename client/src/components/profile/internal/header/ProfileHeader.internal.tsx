@@ -29,23 +29,24 @@ export const ProfileHeaderInternal = ({showAuthOptions, setShowAuthOptionsAction
         className={ "hover:cursor-pointer" }
         onMouseDown={ (): void => setShowAuthOptionsAction(!showAuthOptions) }
       >
-        { isLoading ?
-          <ShinyText
-            text="Loading..."
-            disabled={ false }
-            speed={ 3 }
-            className="css-header-text"
-            theme={ theme }
-          /> :
-          currentUser ?
+        {
+          isLoading ?
             <ShinyText
-              text={ `${ currentUser.username }` }
+              text="Loading..."
               disabled={ false }
               speed={ 3 }
               className="css-header-text"
               theme={ theme }
             /> :
-            isFetched && <div>No User Found</div>
+            currentUser ?
+              <ShinyText
+                text={ `${ currentUser.username }` }
+                disabled={ false }
+                speed={ 3 }
+                className="css-header-text"
+                theme={ theme }
+              /> :
+              isFetched && <div>No User Found</div>
         }
       </button>
     </div>
