@@ -31,10 +31,12 @@ export const SignUp = ({setShowAuthPanelAction}: Props) => {
   
   useEffect((): void => {
     if (createUserMutation.data?.success) {
-      setShowAuthPanelAction && setShowAuthPanelAction(false);
+      if (setShowAuthPanelAction) setShowAuthPanelAction(false);
       
       router.push("/profile");
     }
+    
+    // eslint-disable-next-line
   }, [createUserMutation.data, router]);
   
   const handleSubmit = (e: React.FormEvent): void => {

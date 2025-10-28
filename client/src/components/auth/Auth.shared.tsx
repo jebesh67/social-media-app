@@ -26,7 +26,7 @@ export const AuthShared = (
   
   return (
     <div className={ clsx(
-      "fixed inset-0 flex flex-col justify-center items-center px-6",
+      "fixed inset-0 flex flex-col justify-center items-center px-6 z-50",
       isFloating && "bg-black/30 backdrop-blur-xs",
     ) }>
       <main

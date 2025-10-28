@@ -5,42 +5,40 @@ import { useThemeStore } from "@/common/stores/theme/themeStore";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { MdClose } from "react-icons/md";
 import { RefObject, useEffect, useRef } from "react";
+import { useShowAuthOptions } from "@/common/stores/AuthNavigationControl/showAuthOptionsStore";
 
 type Props = {
-  showAuthOptions: boolean,
-  setShowAuthOptionsAction: React.Dispatch<React.SetStateAction<boolean>>
-  
   setShowAuthPanelAction: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const AuthOptionsInternal = ({
-  showAuthOptions,
-  setShowAuthOptionsAction,
   setShowAuthPanelAction,
 }: Props) => {
   const {theme} = useThemeStore();
+  const {showAuthOptions, setShowAuthOptions} = useShowAuthOptions();
+  
   const optionsRef: RefObject<HTMLDivElement | null> = useRef<HTMLDivElement>(null);
   
   useEffect((): () => void => {
     const handleOutsideClick = (event: MouseEvent): void => {
       if (optionsRef.current && !optionsRef.current.contains(event.target as Node)) {
-        setShowAuthOptionsAction(false);
+        setShowAuthOptions(false);
       }
     };
     
     document.addEventListener("mousedown", handleOutsideClick);
     
     return (): void => document.removeEventListener("mousedown", handleOutsideClick);
-  }, [setShowAuthOptionsAction]);
+  }, [setShowAuthOptions]);
   
   const handleShowPanel = () => {
-    setShowAuthOptionsAction(false);
+    setShowAuthOptions(false);
     setShowAuthPanelAction(true);
   };
   
   
   return (
-    <div className={ "md:hidden bg-black/30 backdrop-blur-xs w-full h-screen flex justify-center" }>
+    <div className={ "bg-black/30 backdrop-blur-xs w-full h-screen flex justify-center md:items-end md:justify-start md:pb-8 md:pl-2" }>
       <div
         ref={ optionsRef }
         className={ clsx(
@@ -54,7 +52,7 @@ export const AuthOptionsInternal = ({
           <button
             className={ clsx("active:opacity-80 text-xl px-3 py-2 rounded-lg hover:cursor-pointer",
               ifTheme(theme, "hover:bg-red-500", "hover:bg-red-500/90")) }
-            onClick={ (): void => setShowAuthOptionsAction(!showAuthOptions) }
+            onClick={ (): void => setShowAuthOptions(!showAuthOptions) }
           >
             <MdClose />
           </button>
@@ -69,7 +67,8 @@ export const AuthOptionsInternal = ({
             ),
           ) }
           onClick={ handleShowPanel }
-        >Switch user
+        >
+          Switch user
         </button>
         
         <button className={ clsx(
@@ -78,7 +77,8 @@ export const AuthOptionsInternal = ({
             "hover:bg-zinc-700",
             "hover:bg-zinc-400/50",
           ),
-        ) }>logout
+        ) }>
+          logout
         </button>
       </div>
     </div>
