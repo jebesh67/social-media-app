@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLogin } from "@/common/hooks/user/useLogin";
+import { useLogin } from "@/common/hooks/react-query/user/mutation/useLogin";
 import { UseMutationResult } from "@tanstack/react-query";
-import { ILoginVariables } from "@/common/hooks/user/type/loginVariables.interface";
-import { useThemeStore } from "@/common/stores/theme/themeStore";
+import { ILoginVariables } from "@/common/hooks/react-query/user/type/loginVariables.interface";
+import { useThemeStore } from "@/common/stores/theme/theme.store";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
@@ -12,12 +12,11 @@ import { IUserApiResponse } from "@/types/user/response/userApi.response";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { CustomInput } from "@/components/shared/input/CustomInput";
+import { useShowAuthPanelStore } from "@/common/stores/AuthControl/showAuthPanel.store";
 
-type Props = {
-  setShowAuthPanelAction?: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export const Login = ({setShowAuthPanelAction}: Props) => {
+export const Login = () => {
+  const {setShowAuthPanel} = useShowAuthPanelStore();
+  
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   
@@ -29,7 +28,7 @@ export const Login = ({setShowAuthPanelAction}: Props) => {
   
   useEffect((): void => {
     if (loginMutation.data?.success) {
-      if (setShowAuthPanelAction) setShowAuthPanelAction(false);
+      setShowAuthPanel(false);
       
       router.push("/profile");
     }

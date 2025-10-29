@@ -2,15 +2,15 @@
 
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
-import { useThemeStore } from "@/common/stores/theme/themeStore";
+import { useThemeStore } from "@/common/stores/theme/theme.store";
 import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
-import { useUser } from "@/common/hooks/user/useUser";
-import { useShowAuthOptions } from "@/common/stores/AuthNavigationControl/showAuthOptionsStore";
+import { useUser } from "@/common/hooks/react-query/user/query/useUser";
+import { useShowAuthOptionsStore } from "@/common/stores/AuthControl/showAuthOptions.store";
 
 
 export const ProfileHeaderInternal = () => {
   const {theme} = useThemeStore();
-  const {showAuthOptions, setShowAuthOptions} = useShowAuthOptions();
+  const {showAuthOptions, setShowAuthOptions} = useShowAuthOptionsStore();
   
   const {data: currentUser, isLoading, isFetched} = useUser();
   

@@ -1,4 +1,4 @@
-import { useThemeStore } from "@/common/stores/theme/themeStore";
+import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { clsx } from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 

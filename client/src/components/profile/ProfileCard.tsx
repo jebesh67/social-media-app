@@ -1,10 +1,10 @@
 "use client";
 
-import { useUser } from "@/common/hooks/user/useUser";
+import { useUser } from "@/common/hooks/react-query/user/query/useUser";
 import { ProfileInfoInternal } from "@/components/profile/internal/profile-card/profileInfo.internal";
 import { ProfileAvatarInternal } from "@/components/profile/internal/profile-card/profileAvatar.internal";
 import { ClientGridLoader } from "@/components/shared/loader/ClientGridLoader.shared";
-import { useThemeStore } from "@/common/stores/theme/themeStore";
+import { useThemeStore } from "@/common/stores/theme/theme.store";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { ProfileBioInternal } from "@/components/profile/internal/profile-card/profileBio.internal";

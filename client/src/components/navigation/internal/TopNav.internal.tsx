@@ -5,7 +5,7 @@ import { FaInstagram } from "react-icons/fa";
 import { navElement } from "@/components/navigation/data/navigation.data";
 import { NavElement } from "@/components/navigation/type/navigation.type";
 import Image from "next/image";
-import { useThemeStore } from "@/common/stores/theme/themeStore";
+import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { usePathname } from "next/navigation";
 
 export const TopNavInternal = () => {

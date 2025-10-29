@@ -1,21 +1,18 @@
 "use client";
 
 import { clsx } from "clsx";
-import { useThemeStore } from "@/common/stores/theme/themeStore";
+import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { MdClose } from "react-icons/md";
 import { RefObject, useEffect, useRef } from "react";
-import { useShowAuthOptions } from "@/common/stores/AuthNavigationControl/showAuthOptionsStore";
+import { useShowAuthOptionsStore } from "@/common/stores/AuthControl/showAuthOptions.store";
+import { useShowAuthPanelStore } from "@/common/stores/AuthControl/showAuthPanel.store";
 
-type Props = {
-  setShowAuthPanelAction: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export const AuthOptionsInternal = ({
-  setShowAuthPanelAction,
-}: Props) => {
+export const AuthOptionsInternal = () => {
   const {theme} = useThemeStore();
-  const {showAuthOptions, setShowAuthOptions} = useShowAuthOptions();
+  
+  const {setShowAuthPanel} = useShowAuthPanelStore();
+  const {showAuthOptions, setShowAuthOptions} = useShowAuthOptionsStore();
   
   const optionsRef: RefObject<HTMLDivElement | null> = useRef<HTMLDivElement>(null);
   
@@ -33,12 +30,12 @@ export const AuthOptionsInternal = ({
   
   const handleShowPanel = () => {
     setShowAuthOptions(false);
-    setShowAuthPanelAction(true);
+    setShowAuthPanel(true);
   };
   
   
   return (
-    <div className={ "bg-black/30 backdrop-blur-xs w-full h-screen flex justify-center md:items-end md:justify-start md:pb-8 md:pl-2" }>
+    <div className={ "fixed inset-0 z-30 pt-12 bg-black/30 backdrop-blur-xs w-full h-screen flex justify-center md:items-end md:justify-start md:pb-8 md:pl-18" }>
       <div
         ref={ optionsRef }
         className={ clsx(

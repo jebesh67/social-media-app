@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useThemeStore } from "@/common/stores/theme/themeStore";
+import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { TopNavInternal } from "@/components/navigation/internal/TopNav.internal";
 import { BottomNavInternal } from "@/components/navigation/internal/BottomNav.internal";

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { UseMutationResult } from "@tanstack/react-query";
-import { useThemeStore } from "@/common/stores/theme/themeStore";
+import { useThemeStore } from "@/common/stores/theme/theme.store";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
@@ -10,14 +10,13 @@ import { IUserApiResponse } from "@/types/user/response/userApi.response";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { CustomInput } from "@/components/shared/input/CustomInput";
-import { ICreateUserVariables } from "@/common/hooks/user/type/createUserVariables.interface";
-import { useCreateUser } from "@/common/hooks/user/useCreateUser";
+import { ICreateUserVariables } from "@/common/hooks/react-query/user/type/createUserVariables.interface";
+import { useCreateUser } from "@/common/hooks/react-query/user/mutation/useCreateUser";
+import { useShowAuthPanelStore } from "@/common/stores/AuthControl/showAuthPanel.store";
 
-type Props = {
-  setShowAuthPanelAction?: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export const SignUp = ({setShowAuthPanelAction}: Props) => {
+export const SignUp = () => {
+  const {setShowAuthPanel} = useShowAuthPanelStore();
+  
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -31,7 +30,7 @@ export const SignUp = ({setShowAuthPanelAction}: Props) => {
   
   useEffect((): void => {
     if (createUserMutation.data?.success) {
-      if (setShowAuthPanelAction) setShowAuthPanelAction(false);
+      setShowAuthPanel(false);
       
       router.push("/profile");
     }

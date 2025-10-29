@@ -1,13 +1,13 @@
 import clsx from "clsx";
 import { getNavButtonClass } from "@/components/navigation/util/navigation.util";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { useThemeStore } from "@/common/stores/theme/themeStore";
+import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { usePathname } from "next/navigation";
-import { useShowAuthOptions } from "@/common/stores/AuthNavigationControl/showAuthOptionsStore";
+import { useShowAuthOptionsStore } from "@/common/stores/AuthControl/showAuthOptions.store";
 
 export const BottomNavInternal = () => {
   const {theme} = useThemeStore();
-  const {showAuthOptions, setShowAuthOptions} = useShowAuthOptions();
+  const {showAuthOptions, setShowAuthOptions} = useShowAuthOptionsStore();
   
   const pathname: string = usePathname();
   
