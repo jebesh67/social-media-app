@@ -1,7 +1,7 @@
 "use client";
 
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
-import { IUserApiResponse } from "@/types/user/response/userApi.response";
+import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import axios, { AxiosResponse } from "axios";
 
 export const loginUser = async (username: string, password: string): Promise<IUserApiResponse | IApiError> => {

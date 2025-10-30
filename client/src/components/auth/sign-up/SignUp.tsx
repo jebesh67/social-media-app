@@ -6,7 +6,7 @@ import { useThemeStore } from "@/common/stores/theme/theme.store";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
-import { IUserApiResponse } from "@/types/user/response/userApi.response";
+import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { CustomInput } from "@/components/shared/input/CustomInput";

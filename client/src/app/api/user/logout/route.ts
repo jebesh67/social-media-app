@@ -2,35 +2,30 @@
 
 import { NextResponse } from "next/server";
 import { request, ClientError } from "graphql-request";
-import LoginUserMutation from "@/graphql/user/mutation/loginUser.mutation.graphql";
+import LogoutUserQuery from "@/graphql/user/query/logoutUser.query.graphql";
 import { IOriginalError } from "@/types/error-response/graphql-error/originalError.response";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { IBackendErrorResponse } from "@/types/error-response/graphql-error/backendError.response";
-import { IUserApiResponse } from "@/types/user/response/userApi.response";
-import { ILoginUserBackendResponse } from "@/types/user/response/loginUserBackend.response";
 import { GRAPHQL_URL } from "@/common/env/url";
-import { setAuthToken } from "@/common/utils/cookie/cookie.helper";
+import { clearAuthToken, getAuthToken, setAuthToken } from "@/common/utils/cookie/cookie.helper";
+import { ILogoutUserBackendResponse } from "@/types/user/response/backend/logoutUserBackend.response";
+import { ILogoutApiResponse } from "@/types/user/response/api/logoutApi.response";
 
-export async function POST(req: Request): Promise<NextResponse<IUserApiResponse | IApiError>> {
+export async function POST(): Promise<NextResponse<ILogoutApiResponse | IApiError>> {
   try {
-    const {username, password} = await req.json();
+    const token: string = await getAuthToken();
     
-    const response: ILoginUserBackendResponse = await request(GRAPHQL_URL, LoginUserMutation, {
-      input: {
-        username,
-        password,
-      },
+    const response: ILogoutUserBackendResponse = await request(GRAPHQL_URL, LogoutUserQuery, {}, {
+      Authorization: `Bearer ${ token }`,
     });
     
-    const token: string = response.loginUser.token;
-    
-    const res: NextResponse<IUserApiResponse> = NextResponse.json<IUserApiResponse>({
+    const res: NextResponse<ILogoutApiResponse> = NextResponse.json<ILogoutApiResponse>({
       success: true,
-      message: "User logged in successfully",
-      user: response.loginUser.user,
+      message: "logout successful",
+      isCacheCleared: response.logoutUser,
     });
     
-    await setAuthToken(token);
+    await clearAuthToken();
     
     return res;
   } catch (err: unknown) {
@@ -50,14 +45,14 @@ export async function POST(req: Request): Promise<NextResponse<IUserApiResponse 
     if (err instanceof Error) {
       return NextResponse.json<IApiError>({
         success: false,
-        message: "Internal server error, login failed",
+        message: "Internal server error, failed to clear cache",
         statusCode: 500,
       }, {status: 500});
     }
     
     return NextResponse.json<IApiError>({
       success: false,
-      message: "Internal server error, login failed",
+      message: "Internal server error, failed to clear cache",
       statusCode: 500,
     }, {status: 500});
   }

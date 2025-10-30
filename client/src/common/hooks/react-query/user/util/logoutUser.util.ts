@@ -1,17 +1,10 @@
-"use client";
-
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
-import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import axios, { AxiosResponse } from "axios";
+import { ILogoutApiResponse } from "@/types/user/response/api/logoutApi.response";
 
-export const createUser = async (name: string, username: string, email: string, password: string): Promise<IUserApiResponse | IApiError> => {
+export const logoutUser = async (): Promise<ILogoutApiResponse | IApiError> => {
   try {
-    const response: AxiosResponse<IUserApiResponse | IApiError> = await axios.post("/api/user/create-user", {
-      name,
-      username,
-      email,
-      password,
-    });
+    const response: AxiosResponse<ILogoutApiResponse | IApiError> = await axios.post("/api/user/logout");
     
     return response.data;
   } catch (err: unknown) {

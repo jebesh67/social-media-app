@@ -6,8 +6,8 @@ import CreateUserMutation from "@/graphql/user/mutation/createUser.mutation.grap
 import { IOriginalError } from "@/types/error-response/graphql-error/originalError.response";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { IBackendErrorResponse } from "@/types/error-response/graphql-error/backendError.response";
-import { IUserApiResponse } from "@/types/user/response/userApi.response";
-import { ICreateUserBackendResponse } from "@/types/user/response/createUserBackend.response";
+import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
+import { ICreateUserBackendResponse } from "@/types/user/response/backend/createUserBackend.response";
 import { GRAPHQL_URL } from "@/common/env/url";
 import { setAuthToken } from "@/common/utils/cookie/cookie.helper";
 

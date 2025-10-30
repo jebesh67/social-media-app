@@ -7,9 +7,16 @@ import { MdClose } from "react-icons/md";
 import { RefObject, useEffect, useRef } from "react";
 import { useShowAuthOptionsStore } from "@/common/stores/AuthControl/showAuthOptions.store";
 import { useShowAuthPanelStore } from "@/common/stores/AuthControl/showAuthPanel.store";
+import { useLogout } from "@/common/hooks/react-query/user/mutation/useLogout";
+import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-export const AuthOptionsInternal = () => {
+export const AuthOptionsShared = () => {
   const {theme} = useThemeStore();
+  
+  const router: AppRouterInstance = useRouter();
+  
+  const logoutMutation = useLogout();
   
   const {setShowAuthPanel} = useShowAuthPanelStore();
   const {showAuthOptions, setShowAuthOptions} = useShowAuthOptionsStore();
@@ -31,6 +38,11 @@ export const AuthOptionsInternal = () => {
   const handleShowPanel = () => {
     setShowAuthOptions(false);
     setShowAuthPanel(true);
+  };
+  
+  const handleLogout = (): void => {
+    logoutMutation.mutate();
+    router.refresh();
   };
   
   
@@ -68,13 +80,17 @@ export const AuthOptionsInternal = () => {
           Switch user
         </button>
         
-        <button className={ clsx(
-          "flex w-50 pl-4 py-2 rounded-xl hover:cursor-pointer active:opacity-80 hover:scale-102 css-transition",
-          ifTheme(theme,
-            "hover:bg-zinc-700",
-            "hover:bg-zinc-400/50",
-          ),
-        ) }>
+        <button
+          className={ clsx(
+            "flex w-50 pl-4 py-2 rounded-xl hover:cursor-pointer active:opacity-80 hover:scale-102 css-transition",
+            ifTheme(theme,
+              "hover:bg-zinc-700",
+              "hover:bg-zinc-400/50",
+            ),
+          ) }
+          
+          onClick={ handleLogout }
+        >
           logout
         </button>
       </div>

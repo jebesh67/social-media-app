@@ -1,6 +1,6 @@
 "use client";
 
-import { ProfileCard } from "@/components/profile/ProfileCard";
+import { ProfileCard } from "@/components/profile/card/ProfileCard";
 
 export const Profile = () => {
   

@@ -2,7 +2,7 @@
 
 import { RenderNavs } from "@/components/navigation/internal/RenderNavs.internal";
 import { usePathname } from "next/navigation";
-import { AuthOptionsInternal } from "@/components/profile/internal/header/AuthOptions.internal";
+import { AuthOptionsShared } from "@/components/shared/auth-options/AuthOptions.shared";
 import { useShowAuthOptionsStore } from "@/common/stores/AuthControl/showAuthOptions.store";
 import { AuthShared } from "@/components/auth/Auth.shared";
 import { useShowAuthPanelStore } from "@/common/stores/AuthControl/showAuthPanel.store";
@@ -27,7 +27,7 @@ export const Navigation = () => {
       
       {
         showAuthOptions && (
-          <AuthOptionsInternal />
+          <AuthOptionsShared />
         )
       }
       

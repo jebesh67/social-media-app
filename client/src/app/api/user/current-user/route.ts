@@ -6,12 +6,12 @@ import CurrentUserQuery from "@/graphql/user/query/currentUser.query.graphql";
 import {
   ICurrentUserBackendResponse,
   
-} from "@/types/user/response/currentUserBackend.response";
+} from "@/types/user/response/backend/currentUserBackend.response";
 import { getAuthToken } from "@/common/utils/cookie/cookie.helper";
 import { IOriginalError } from "@/types/error-response/graphql-error/originalError.response";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { IBackendErrorResponse } from "@/types/error-response/graphql-error/backendError.response";
-import { IUserApiResponse } from "@/types/user/response/userApi.response";
+import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { GRAPHQL_URL } from "@/common/env/url";
 
 export async function GET(): Promise<NextResponse<IUserApiResponse | IApiError>> {

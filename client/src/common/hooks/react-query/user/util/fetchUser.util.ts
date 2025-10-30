@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { User } from "@/types/user/user.type";
-import { IUserApiResponse } from "@/types/user/response/userApi.response";
+import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 
 export const fetchUserByUsername = async (username: string): Promise<User | null> => {

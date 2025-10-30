@@ -1,5 +1,5 @@
 import { QueryClient, useMutation, UseMutationResult, useQueryClient } from "@tanstack/react-query";
-import { IUserApiResponse } from "@/types/user/response/userApi.response";
+import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { ICreateUserVariables } from "@/common/hooks/react-query/user/type/createUserVariables.interface";
 import { createUser } from "@/common/hooks/react-query/user/util/createUser.util";
