@@ -8,11 +8,10 @@ import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { IBackendErrorResponse } from "@/types/error-response/graphql-error/backendError.response";
 import { IUserApiResponse } from "@/types/user/response/userApi.response";
 import { ICreateUserBackendResponse } from "@/types/user/response/createUserBackend.response";
+import { GRAPHQL_URL } from "@/common/env/url";
 
 export async function POST(req: Request): Promise<NextResponse<IUserApiResponse | IApiError>> {
   try {
-    const GRAPHQL_URL: string = process.env.NEST_GRAPHQL_URL!;
-    
     const {name, username, email, password} = await req.json();
     
     const response: ICreateUserBackendResponse = await request(GRAPHQL_URL, CreateUserMutation, {

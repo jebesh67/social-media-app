@@ -1,0 +1,1 @@
+export const GRAPHQL_URL: string = process.env.NEST_GRAPHQL_URL!;
