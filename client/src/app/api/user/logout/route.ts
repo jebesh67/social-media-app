@@ -9,6 +9,7 @@ import { IBackendErrorResponse } from "@/types/error-response/graphql-error/back
 import { IUserApiResponse } from "@/types/user/response/userApi.response";
 import { ILoginUserBackendResponse } from "@/types/user/response/loginUserBackend.response";
 import { GRAPHQL_URL } from "@/common/env/url";
+import { setAuthToken } from "@/common/utils/cookie/cookie.helper";
 
 export async function POST(req: Request): Promise<NextResponse<IUserApiResponse | IApiError>> {
   try {
@@ -29,12 +30,7 @@ export async function POST(req: Request): Promise<NextResponse<IUserApiResponse 
       user: response.loginUser.user,
     });
     
-    res.cookies.set("auth_token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    });
+    await setAuthToken(token);
     
     return res;
   } catch (err: unknown) {
