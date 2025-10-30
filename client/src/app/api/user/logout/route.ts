@@ -7,7 +7,7 @@ import { IOriginalError } from "@/types/error-response/graphql-error/originalErr
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { IBackendErrorResponse } from "@/types/error-response/graphql-error/backendError.response";
 import { GRAPHQL_URL } from "@/common/env/url";
-import { clearAuthToken, getAuthToken, setAuthToken } from "@/common/utils/cookie/cookie.helper";
+import { clearAuthToken, getAuthToken } from "@/common/utils/cookie/cookie.helper";
 import { ILogoutUserBackendResponse } from "@/types/user/response/backend/logoutUserBackend.response";
 import { ILogoutApiResponse } from "@/types/user/response/api/logoutApi.response";
 
