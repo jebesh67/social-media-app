@@ -62,28 +62,28 @@ export const SignUp = () => {
         <h2>Create account</h2>
         
         <CustomInput
-          id="name"
+          id="newName"
           value={ name }
           onChange={ (e): void => setName(e.target.value) }
           placeholder="Your Name"
         />
         
         <CustomInput
-          id="username"
+          id="newUsername"
           value={ username }
           onChange={ (e): void => setUsername(e.target.value) }
           placeholder="Username"
         />
         
         <CustomInput
-          id="email"
+          id="newEmail"
           value={ email }
           onChange={ (e): void => setEmail(e.target.value) }
           placeholder="Email"
         />
         
         <CustomInput
-          id="password"
+          id="newPassword"
           type="password"
           value={ password }
           onChange={ (e): void => setPassword(e.target.value) }
