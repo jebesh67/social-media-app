@@ -1,4 +1,4 @@
-@jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZ3VtODAwMDE1M3cwN3llaWJmamkiLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc2MDY5MDE3MCwiZXhwIjoxNzYxMjk0OTcwfQ.VwQ4DbOgCkiwN7Z4tp6Z5OZebDdMu_8l8iEgTPxD0P0
+@jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZ3VtODAwMDE1M3cwN3llaWJmamkiLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc2MTcxNTA5MSwiZXhwIjoxNzYyMzE5ODkxfQ.Q0IqpQm4GacYPzPKxoyrL2yL5HpcBoXSF8-TsON0-s0
 @sodaToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZzk1ZTAwMDA1M3cwdTdqcjZ2d28iLCJ1c2VybmFtZSI6Il9zb2RhIiwiaWF0IjoxNzYwNjkwMTQzLCJleHAiOjE3NjEyOTQ5NDN9.NDdsWLt0-qMPE9M5cU1tAhXzMaQ5XY9YvBAE8b7U5ho
 @lemonToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsaDVuZzAwMDI1M3cweHRobHFtaGsiLCJ1c2VybmFtZSI6ImxlbW9uMjIiLCJpYXQiOjE3NjA2OTAxODUsImV4cCI6MTc2MTI5NDk4NX0.s8T-G4jAodri1JDzKNxEvdJYsOsGVsy03TTE7NZB1Ks
 @meopoToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3hnemx1ODAwMDA1M2tzZGw3M2dueGkiLCJ1c2VybmFtZSI6Im1lb3BvNjM2IiwiaWF0IjoxNzYwODY0MDQ2LCJleHAiOjE3NjE0Njg4NDZ9.EB1CLa6Zg93cMCsem0AOSQM-0IGEwygJ0F60xc7iCb4
@@ -146,10 +146,10 @@ Authorization: Bearer {{jebeshToken}}
 ### Get current user
 POST http://localhost:5000/graphql
 Content-Type: application/json
-Authorization: Bearer {{sodaToken}}
+Authorization: Bearer {{jebeshToken}}
 
 {
-  "query": "query { currentUserProfile { user { username, name, email, id, createdAt, updatedAt } } }"
+  "query": "query { currentUserProfile { user { username name email id createdAt updatedAt bio } } }"
 }
 
 
