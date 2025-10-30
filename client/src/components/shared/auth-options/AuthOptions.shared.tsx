@@ -42,7 +42,10 @@ export const AuthOptionsShared = () => {
   
   const handleLogout = (): void => {
     logoutMutation.mutate();
-    router.refresh();
+    
+    setShowAuthOptions(false);
+    
+    router.push("/auth");
   };
   
   
