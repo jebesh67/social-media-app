@@ -14,14 +14,15 @@ export const EditProfile = () => {
         text={ "Edit profile" }
       />
       
-      {
-        (!isPending && user) && <EditProfileCardInternal user={ user } />
-      }
-      
-      {
-        !user && (<div>user not found!</div>)
-      }
-    
+      <main className={ "flex justify-center" }>
+        {
+          (!isPending && user) && <EditProfileCardInternal user={ user } />
+        }
+        
+        {
+          !user && (<div>user not found!</div>)
+        }
+      </main>
     </>
   );
 };
