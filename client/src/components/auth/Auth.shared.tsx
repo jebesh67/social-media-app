@@ -51,8 +51,10 @@ export const AuthShared = (
           )
         }
         
-        <AuthPageSwitchInternal page={ page }
-                                setPageAction={ setPage } />
+        <AuthPageSwitchInternal
+          page={ page }
+          setPageAction={ setPage }
+        />
         
         { page === "login" && <Login /> }
         { page === "sign-up" && <SignUp /> }
