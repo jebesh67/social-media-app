@@ -5,7 +5,7 @@ import { EditProfileCardInternal } from "@/components/edit-profile/internal/Edit
 import { useUser } from "@/common/hooks/react-query/user/query/useUser";
 
 export const EditProfile = () => {
-  const {data: user, isPending} = useUser();
+  const {data: user, isPending, isFetched} = useUser();
   
   return (
     <>
@@ -15,13 +15,19 @@ export const EditProfile = () => {
       />
       
       <main className={ "flex justify-center" }>
+        
         {
-          (!isPending && user) && <EditProfileCardInternal user={ user } />
+          (isPending && !isFetched) && (<div>Loading...</div>)
         }
         
         {
-          !user && (<div>user not found!</div>)
+          (isFetched && user) && <EditProfileCardInternal user={ user } />
         }
+        
+        {
+          (isFetched && !user) && (<div>user not found!</div>)
+        }
+      
       </main>
     </>
   );
