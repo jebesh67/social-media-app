@@ -12,7 +12,7 @@ import { IOriginalError } from "@/types/error-response/graphql-error/originalErr
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { IBackendErrorResponse } from "@/types/error-response/graphql-error/backendError.response";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
-import { GRAPHQL_URL } from "@/common/env/url";
+import { GRAPHQL_URL } from "@/lib/env/url.variable";
 
 export async function GET(): Promise<NextResponse<IUserApiResponse | IApiError>> {
   try {

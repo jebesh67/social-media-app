@@ -16,6 +16,7 @@ export const EditProfileCardInternal = ({user}: Props) => {
   
   const [name, setName] = useState<string>(user.name);
   const [bio, setBio] = useState<string>(user.bio);
+  const [avatar, setAvatar] = useState<string>(user.avatar);
   
   const {theme} = useThemeStore();
   
@@ -33,7 +34,9 @@ export const EditProfileCardInternal = ({user}: Props) => {
         
         <h2>Edit profile</h2>
         
-        <EditProfileAvatarInternal user={ user } />
+        <EditProfileAvatarInternal user={ user }
+                                   onAvatarChangeAction={ (url: string): void => setAvatar(url) }
+        />
         
         <CustomInput
           id="updateName"
