@@ -4,7 +4,7 @@ type Count = {
   postsCount: number;
 }
 
-export type User = {
+export type ClientUser = {
   id: string;
   name: string;
   username: string;

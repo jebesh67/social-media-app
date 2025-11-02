@@ -1,7 +1,7 @@
-import { User } from "@/types/user/user.type";
+import { ClientUser } from "@/types/user/user.type";
 
 type Props = {
-  currentUser: User,
+  currentUser: ClientUser,
 }
 
 export const ProfileBioInternal = ({currentUser}: Props) => {

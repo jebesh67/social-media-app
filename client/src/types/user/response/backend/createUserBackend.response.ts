@@ -1,8 +1,8 @@
-import { User } from "@/types/user/user.type";
+import { ClientUser } from "@/types/user/user.type";
 
 export interface ICreateUserBackendResponse {
   createUser: {
-    user: User;
+    user: ClientUser;
     token: string
   };
 }

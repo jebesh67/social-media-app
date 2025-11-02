@@ -13,6 +13,7 @@ interface CustomInputProps {
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   placeholder: string;
   rows?: number;
+  width?: "full" | "large" | "medium" | "small";
 }
 
 export const CustomInput = ({
@@ -23,6 +24,7 @@ export const CustomInput = ({
   onChange,
   placeholder,
   rows = 4,
+  width = "small",
 }: CustomInputProps) => {
   const {theme} = useThemeStore();
   
@@ -33,7 +35,14 @@ export const CustomInput = ({
   );
   
   return (
-    <div className="relative w-full max-w-65">
+    <div className={ clsx(
+      "relative w-full",
+      
+      width === "small" && "max-w-65",
+      width === "medium" && "max-w-80",
+      width === "large" && "max-w-100",
+      width === "full" && "max-w-full",
+    ) }>
       {
         isMultiLine ? (
           <textarea
@@ -61,10 +70,15 @@ export const CustomInput = ({
       <label
         htmlFor={ id }
         className={ clsx(
-          "absolute left-5 top-4 text-xs transition-all duration-200 ease-in-out w-55 py-1",
+          "absolute left-5 top-4 text-xs transition-all duration-200 ease-in-out py-1",
+          
+          width === "small" && "w-55",
+          width === "medium" && "w-70",
+          width === "large" && "w-90",
+          width === "full" && "w-[calc(100%-40px)]",
           
           ifTheme(theme,
-            "text-zinc-400 ", "text-zinc-600 ",
+            "text-zinc-500 ", "text-zinc-600 ",
           ),
           
           isMultiLine && (ifTheme(theme, "bg-zinc-800", "bg-zinc-300")),

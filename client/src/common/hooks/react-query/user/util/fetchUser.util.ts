@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from "axios";
-import { User } from "@/types/user/user.type";
+import { ClientUser } from "@/types/user/user.type";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 
-export const fetchUserByUsername = async (username: string): Promise<User | null> => {
+export const fetchUserByUsername = async (username: string): Promise<ClientUser | null> => {
   try {
     const response: AxiosResponse<IUserApiResponse | IApiError> = await axios.get(`${ process.env.NEXT_PUBLIC_API_URL }/user/get/${ username }`);
     
@@ -23,7 +23,7 @@ export const fetchUserByUsername = async (username: string): Promise<User | null
   }
 };
 
-export const fetchCurrentUser = async (): Promise<User | null> => {
+export const fetchCurrentUser = async (): Promise<ClientUser | null> => {
   try {
     const response: AxiosResponse<IUserApiResponse | IApiError> = await axios.get(
       `/api/user/current-user`,
