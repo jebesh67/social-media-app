@@ -19,7 +19,7 @@ model User {
   username String @unique
   email    String
   password String
-  avatar   String @default("")
+  avatar   String @default("/assets/user-profile/defaultProfile.jpg")
   bio      String @default("")
 
   posts    Post[]
