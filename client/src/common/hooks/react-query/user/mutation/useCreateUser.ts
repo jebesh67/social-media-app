@@ -7,7 +7,7 @@ import { createUser } from "@/common/hooks/react-query/user/util/createUser.util
 export const useCreateUser = (): UseMutationResult<IUserApiResponse, Error, ICreateUserVariables> => {
   const queryClient: QueryClient = useQueryClient();
   
-  return useMutation<IUserApiResponse, Error, ICreateUserVariables, unknown>({
+  return useMutation<IUserApiResponse, Error, ICreateUserVariables>({
     mutationFn: async ({name, username, email, password}: ICreateUserVariables): Promise<IUserApiResponse> => {
       const response: IUserApiResponse | IApiError = await createUser(name, username, email, password);
       

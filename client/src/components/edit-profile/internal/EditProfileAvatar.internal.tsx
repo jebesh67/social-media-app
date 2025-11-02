@@ -14,7 +14,7 @@ export const EditProfileAvatarInternal = ({user}: Props) => {
   
   return (
     <section className={ clsx(
-      "grid grid-cols-10 w-65 py-2 rounded-xl",
+      "grid grid-cols-10 w-full py-2 rounded-xl",
       ifTheme(theme,
         "bg-zinc-800",
         "bg-zinc-300",
