@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthGuard } from '@/common/guard/auth.guard';
@@ -10,6 +10,7 @@ import { UserResponse } from '@/modules/user/types/response/user.response';
 import { AuthUserResponse } from '@/modules/user/types/response/authUser.response';
 import { ExistingUsernameResponse } from '@/modules/user/types/response/existingUsername.response';
 import { UsernameInput } from '@/modules/user/types/inputs/username.input';
+import { VerifyAccessResponse } from '@/modules/user/types/response/verifyAccess.response';
 
 @Resolver()
 export class UserResolver {
@@ -68,5 +69,13 @@ export class UserResolver {
       currentUser,
     );
     return this.userService.generateUserResponse(user);
+  }
+
+  @Query(() => VerifyAccessResponse)
+  @UseGuards(AuthGuard)
+  async verifyAccess(
+    @CurrentUser() currentUser: Partial<User>,
+  ): Promise<VerifyAccessResponse> {
+    return this.userService.verifyAccess(currentUser);
   }
 }

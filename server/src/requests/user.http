@@ -200,3 +200,12 @@ Content-Type: application/json
     }
   }
 }
+
+### Check access
+POST http://localhost:5000/graphql
+Content-Type: application/json
+Authorization: Bearer {{jebeshToken}}
+
+{
+  "query": "query VerifyAccess { verifyAccess { data { accessGranted username message } } } "
+}

@@ -11,6 +11,8 @@ import { UserResponse } from '@/modules/user/types/response/user.response';
 import { AuthUserResponse } from '@/modules/user/types/response/authUser.response';
 import { BackendError } from '@/common/backend-error/util/backendError.util';
 import { ExistingUsernameResponse } from '@/modules/user/types/response/existingUsername.response';
+import { VerifyAccessType } from '@/modules/user/types/objects/verifyAccess.object';
+import { VerifyAccessResponse } from '@/modules/user/types/response/verifyAccess.response';
 
 @Injectable()
 export class UserService {
@@ -18,6 +20,26 @@ export class UserService {
     private readonly prisma: PrismaService,
     private readonly cache: CacheService,
   ) {}
+
+  async verifyAccess(
+    currentUser: Partial<User>,
+  ): Promise<VerifyAccessResponse> {
+    if (!currentUser.id) {
+      throw BackendError.Unauthorized('Access denied');
+    }
+
+    const verifiedUser: User = currentUser as User;
+
+    const response: VerifyAccessType = {
+      accessGranted: true,
+      username: verifiedUser.username,
+      message: 'Access granted',
+    };
+
+    return {
+      data: response,
+    };
+  }
 
   async verifyUsername(username: string): Promise<ExistingUsernameResponse> {
     const isTaken: boolean = await this.checkExistingUser(username);
