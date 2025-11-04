@@ -4,40 +4,41 @@ import { ISignCloudinaryResponse } from "@/types/cloudinary/response/api/ISIgnCl
 
 export const signCloudinaryHelper = async (): Promise<ISignCloudinaryResponse | IApiError> => {
   try {
-    const signatureResponse: AxiosResponse<ISignCloudinaryResponse | IApiError> = await axios.get(
+    const signatureResponse: AxiosResponse<ISignCloudinaryResponse> = await axios.get(
       "/api/cloudinary/sign-upload");
     
     if (!signatureResponse.data.success) {
-      const errorResponse = signatureResponse.data as IApiError;
-      
       return {
-        success: errorResponse.success,
-        message: errorResponse.message,
-        statusCode: errorResponse.statusCode,
+        success: false,
+        message: signatureResponse.data.message,
+        statusCode: 500,
       };
     }
     
-    const goodResponse = signatureResponse.data as ISignCloudinaryResponse;
-    
     return {
-      success: goodResponse.success,
-      message: goodResponse.message,
-      data: goodResponse.data,
+      success: signatureResponse.data.success,
+      message: signatureResponse.data.message,
+      username: signatureResponse.data.username,
+      data: signatureResponse.data.data,
     };
+    
   } catch (err: unknown) {
     if (axios.isAxiosError(err)) {
+      const apiError = err.response?.data as IApiError | undefined;
+      
       return {
         success: false,
-        message:
-          err.response?.data?.message ??
-          "Unable to reach Cloudinary sign endpoint",
-        statusCode: err.response?.status ?? 500,
+        message: apiError?.message ?? "Unable to reach Cloudinary sign endpoint",
+        statusCode: apiError?.statusCode ?? err.response?.status ?? 500,
       };
     }
     
     return {
       success: false,
-      message: err instanceof Error ? err.message : "Unexpected error occurred",
+      message:
+        err instanceof Error
+          ? err.message
+          : "Unexpected error occurred",
       statusCode: 500,
     };
   }

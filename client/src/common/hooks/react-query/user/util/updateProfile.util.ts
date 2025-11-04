@@ -7,6 +7,16 @@ export const updateProfile = async (data: IUpdateProfileVariables): Promise<IUse
   try {
     const response: AxiosResponse<IUserApiResponse | IApiError> = await axios.post("/api/user/update-profile", data);
     
+    if (!response.data.success) {
+      const errorResponse = response.data as IApiError;
+      
+      return {
+        success: errorResponse.success ?? false,
+        message: errorResponse.message ?? "Something went wrong",
+        statusCode: errorResponse.statusCode ?? 500,
+      };
+    }
+    
     return response.data;
     
   } catch (err: unknown) {

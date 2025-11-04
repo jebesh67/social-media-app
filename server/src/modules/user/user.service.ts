@@ -25,7 +25,13 @@ export class UserService {
     currentUser: Partial<User>,
   ): Promise<VerifyAccessResponse> {
     if (!currentUser.id) {
-      throw BackendError.Unauthorized('Access denied');
+      return {
+        data: {
+          accessGranted: false,
+          username: '',
+          message: 'Access not granted',
+        },
+      };
     }
 
     const verifiedUser: User = currentUser as User;

@@ -164,10 +164,10 @@ export const EditProfileAvatarInternal = ({user, onAvatarChangeAction}: Props) =
       >
         
         <div className={ clsx(
-          "relative w-full rounded-xl overflow-hidden shadow-md",
+          "relative w-full max-w-120 lg:max-w-140 rounded-xl overflow-hidden shadow-md p-4",
           ifTheme(theme, "bg-zinc-800", "bg-zinc-300"),
         ) }>
-          <div className="relative w-full h-96">
+          <div className="relative w-full aspect-square">
             { selectedFile && (
               <Cropper
                 image={ URL.createObjectURL(selectedFile) }

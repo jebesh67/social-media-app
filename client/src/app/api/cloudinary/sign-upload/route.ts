@@ -8,19 +8,38 @@ import {
 } from "@/lib/env/cloudinary.variable";
 import { ISignCloudinaryResponse } from "@/types/cloudinary/response/api/ISIgnCloudinary.response";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
+import { ClientError, request } from "graphql-request";
+import { GRAPHQL_URL } from "@/lib/env/url.variable";
+import { getAuthToken } from "@/common/utils/cookie/cookie.helper";
+import VerifyAccessQuery from "@/graphql/user/query/verifyAccess.query.graphql";
+import { IVerifyAccessBackendResponse } from "@/types/user/response/backend/verifyAccessBackend.response";
+import { IBackendErrorResponse } from "@/types/error-response/graphql-error/backendError.response";
+import { IOriginalError } from "@/types/error-response/graphql-error/originalError.response";
 
 export const GET = async (): Promise<
   NextResponse<ISignCloudinaryResponse | IApiError>
 > => {
   try {
-    
-    
     if (!CLOUDINARY_API_KEY || !CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET || !CLOUDINARY_API_SECRET) {
       return NextResponse.json<IApiError>({
         success: false,
         message: "Missing required Cloudinary environment variables.",
         statusCode: 500,
       });
+    }
+    
+    const token: string = await getAuthToken();
+    
+    const response: IVerifyAccessBackendResponse = await request(GRAPHQL_URL, VerifyAccessQuery, {}, {
+      Authorization: `Bearer ${ token }`,
+    });
+    
+    if (!response.data.accessGranted) {
+      return NextResponse.json<IApiError>({
+        success: false,
+        message: response.data.message,
+        statusCode: 403,
+      }, {status: 403});
     }
     
     const timestamp: number = Math.round(Date.now() / 1000);
@@ -36,6 +55,7 @@ export const GET = async (): Promise<
     return NextResponse.json<ISignCloudinaryResponse>({
       success: true,
       message: "Cloudinary upload signed successfully.",
+      username: response.data.username,
       data: {
         timestamp,
         signature,
@@ -44,13 +64,30 @@ export const GET = async (): Promise<
         uploadPreset: CLOUDINARY_UPLOAD_PRESET,
       },
     });
-  } catch (err) {
-    console.error("Cloudinary sign error:", err);
+    
+  } catch (err: unknown) {
+    if (err instanceof ClientError) {
+      const errorResponse = err as unknown as IBackendErrorResponse;
+      const originalError: IOriginalError = errorResponse.response.errors[0].extensions.originalError;
+      
+      return NextResponse.json<IApiError>({
+        success: false,
+        message: originalError.message,
+        statusCode: originalError.statusCode,
+      });
+    }
+    
+    if (err instanceof Error) {
+      return NextResponse.json<IApiError>({
+        success: false,
+        message: err.message || "Internal server error!",
+        statusCode: 500,
+      });
+    }
     
     return NextResponse.json<IApiError>({
       success: false,
-      message:
-        err instanceof Error ? err.message : "Failed to sign Cloudinary upload.",
+      message: "Oops! Something went wrong",
       statusCode: 500,
     });
   }

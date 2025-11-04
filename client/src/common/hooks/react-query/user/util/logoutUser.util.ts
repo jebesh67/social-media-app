@@ -6,6 +6,16 @@ export const logoutUser = async (): Promise<ILogoutApiResponse | IApiError> => {
   try {
     const response: AxiosResponse<ILogoutApiResponse | IApiError> = await axios.post("/api/user/logout");
     
+    if (!response.data.success) {
+      const errorResponse = response.data as IApiError;
+      
+      return {
+        success: errorResponse.success ?? false,
+        message: errorResponse.message ?? "Something went wrong",
+        statusCode: errorResponse.statusCode ?? 500,
+      };
+    }
+    
     return response.data;
   } catch (err: unknown) {
     if (axios.isAxiosError(err) && err.response?.data) {

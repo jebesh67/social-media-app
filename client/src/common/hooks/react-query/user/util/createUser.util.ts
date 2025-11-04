@@ -13,7 +13,18 @@ export const createUser = async (name: string, username: string, email: string, 
       password,
     });
     
+    if (!response.data.success) {
+      const errorResponse = response.data as IApiError;
+      
+      return {
+        success: errorResponse.success ?? false,
+        message: errorResponse.message ?? "Something went wrong",
+        statusCode: errorResponse.statusCode ?? 500,
+      };
+    }
+    
     return response.data;
+    
   } catch (err: unknown) {
     if (axios.isAxiosError(err) && err.response?.data) {
       const backendData = err.response.data as IApiError;
