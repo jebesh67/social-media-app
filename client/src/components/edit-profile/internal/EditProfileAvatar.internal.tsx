@@ -80,8 +80,6 @@ export const EditProfileAvatarInternal = ({user, onAvatarChangeAction}: Props) =
       formData.append("signature", signature);
       formData.append("upload_preset", uploadPreset);
       
-      console.log(goodResponse.data);
-      
       const cloudRes: AxiosResponse<CloudinaryUploadResponse> = await axios.post(
         `https://api.cloudinary.com/v1_1/${ cloudName }/image/upload`,
         formData,

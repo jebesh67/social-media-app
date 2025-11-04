@@ -34,10 +34,11 @@ export const GET = async (): Promise<
       Authorization: `Bearer ${ token }`,
     });
     
-    if (!response.data.accessGranted) {
+    
+    if (!response.verifyAccess.data.accessGranted) {
       return NextResponse.json<IApiError>({
         success: false,
-        message: response.data.message,
+        message: response.verifyAccess.data.message,
         statusCode: 403,
       }, {status: 403});
     }
@@ -55,7 +56,7 @@ export const GET = async (): Promise<
     return NextResponse.json<ISignCloudinaryResponse>({
       success: true,
       message: "Cloudinary upload signed successfully.",
-      username: response.data.username,
+      username: response.verifyAccess.data.username,
       data: {
         timestamp,
         signature,
