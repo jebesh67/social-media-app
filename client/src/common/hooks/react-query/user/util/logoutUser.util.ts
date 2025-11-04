@@ -16,7 +16,8 @@ export const logoutUser = async (): Promise<ILogoutApiResponse | IApiError> => {
       };
     }
     
-    return response.data;
+    return response.data as ILogoutApiResponse;
+    
   } catch (err: unknown) {
     if (axios.isAxiosError(err) && err.response?.data) {
       const backendData = err.response.data as IApiError;

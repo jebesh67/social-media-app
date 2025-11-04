@@ -9,7 +9,8 @@ export type ClientUser = {
   name: string;
   username: string;
   email: string;
-  avatar: string;
+  avatarUrl: string
+  avatarPublicId: string;
   bio: string;
   counts: Count;
   createdAt: Date,

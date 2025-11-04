@@ -13,7 +13,8 @@ type SafeUserType {
   name: String!
   username: String!
   email: String!
-  avatar: String!
+  avatarUrl: String!
+  avatarPublicId: String!
   bio: String!
   counts: UserCountType!
   createdAt: DateTime!

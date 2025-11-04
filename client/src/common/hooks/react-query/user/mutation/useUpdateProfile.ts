@@ -1,11 +1,11 @@
-import { useMutation, UseMutationResult, useQueryClient } from "@tanstack/react-query";
+import { QueryClient, useMutation, UseMutationResult, useQueryClient } from "@tanstack/react-query";
 import { updateProfile } from "@/common/hooks/react-query/user/util/updateProfile.util";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/updateProfileVariables.interface";
 
 export const useUpdateProfile = (): UseMutationResult<IUserApiResponse, Error, IUpdateProfileVariables> => {
-  const queryClient = useQueryClient();
+  const queryClient: QueryClient = useQueryClient();
   
   return useMutation<IUserApiResponse, Error, IUpdateProfileVariables>({
     mutationFn: async ({name, bio, avatarUrl}: IUpdateProfileVariables) => {

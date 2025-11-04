@@ -4,7 +4,6 @@ import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { CacheService } from '@/common/cache/cache.service';
-import { SafeUserType, UserDataCount } from '@/modules/user/types/user.type';
 import { LoginUserInput } from '@/modules/user/types/inputs/loginUser.input';
 import { CreateUserInput } from '@/modules/user/types/inputs/createUser.input';
 import { UserResponse } from '@/modules/user/types/response/user.response';
@@ -13,6 +12,8 @@ import { BackendError } from '@/common/backend-error/util/backendError.util';
 import { ExistingUsernameResponse } from '@/modules/user/types/response/existingUsername.response';
 import { VerifyAccessType } from '@/modules/user/types/objects/verifyAccess.object';
 import { VerifyAccessResponse } from '@/modules/user/types/response/verifyAccess.response';
+import { SafeUserType } from '@/modules/user/types/objects/safeUser.object';
+import { UserDataCount } from '@/modules/user/types/user.type';
 
 @Injectable()
 export class UserService {

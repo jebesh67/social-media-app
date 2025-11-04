@@ -7,10 +7,13 @@ import { NavElement } from "@/components/navigation/type/navigation.type";
 import Image from "next/image";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { usePathname } from "next/navigation";
+import { useUser } from "@/common/hooks/react-query/user/query/useUser";
 
 export const TopNavInternal = () => {
   const {theme, nextTheme} = useThemeStore();
   const pathname: string = usePathname();
+  
+  const {data: user, isFetched} = useUser();
   
   return (
     <div className={ "w-full md:w-fit md:h-screen max-w-300 z-50 flex md:flex-col md:justify-start md:space-y-6 items-center justify-around" }>
@@ -57,13 +60,16 @@ export const TopNavInternal = () => {
             )
           }
         >
-          <Image src="/assets/user-profile/defaultProfile.jpg"
-                 alt={ "Hiu" }
-                 width={ 50 }
-                 height={ 50 }
-                 className={ "w-6 aspect-square object-contain rounded-full" }
-                 priority
-          />
+          { (isFetched && user) &&
+            <Image src={ user.avatarUrl }
+                   alt={ user.username }
+                   width={ 50 }
+                   height={ 50 }
+                   className={ "w-6 aspect-square object-contain rounded-full" }
+                   priority
+            />
+          }
+        
         
         </button>
       </Link>

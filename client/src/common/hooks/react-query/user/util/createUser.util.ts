@@ -23,7 +23,7 @@ export const createUser = async (name: string, username: string, email: string, 
       };
     }
     
-    return response.data;
+    return response.data as IUserApiResponse;
     
   } catch (err: unknown) {
     if (axios.isAxiosError(err) && err.response?.data) {

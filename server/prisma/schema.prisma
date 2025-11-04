@@ -14,13 +14,14 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(cuid())
-  name     String @default("")
-  username String @unique
-  email    String
-  password String
-  avatar   String @default("/assets/user-profile/defaultProfile.jpg")
-  bio      String @default("")
+  id             String @id @default(cuid())
+  name           String @default("")
+  username       String @unique
+  email          String
+  password       String
+  avatarUrl      String @default("/assets/user-profile/defaultProfile.jpg")
+  avatarPublicId String @default("")
+  bio            String @default("")
 
   posts    Post[]
   comments Comment[]

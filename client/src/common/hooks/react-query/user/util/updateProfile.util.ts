@@ -12,12 +12,12 @@ export const updateProfile = async (data: IUpdateProfileVariables): Promise<IUse
       
       return {
         success: errorResponse.success ?? false,
-        message: errorResponse.message ?? "Something went wrong",
+        message: errorResponse.message ?? "Unable to update profile",
         statusCode: errorResponse.statusCode ?? 500,
       };
     }
     
-    return response.data;
+    return response.data as IUserApiResponse;
     
   } catch (err: unknown) {
     if (axios.isAxiosError(err) && err.response?.data) {
@@ -25,7 +25,7 @@ export const updateProfile = async (data: IUpdateProfileVariables): Promise<IUse
       
       return {
         success: backendData.success ?? false,
-        message: backendData.message ?? "Something went wrong",
+        message: backendData.message ?? "Unable to update profile",
         statusCode: backendData.statusCode ?? 500,
       };
     }

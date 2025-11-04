@@ -16,16 +16,19 @@ import { getCroppedImg } from "@/components/edit-profile/helper/getCroppedImg.he
 import { signCloudinaryHelper } from "@/components/edit-profile/helper/signCloudinary.helper";
 import { ISignCloudinaryResponse } from "@/types/cloudinary/response/api/ISIgnCloudinary.response";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
+import { deleteProfileAvatar } from "@/lib/cloudinary/util/deleteProfileAvatar.util";
 
 type Props = {
   user: ClientUser;
   onAvatarChangeAction?: (url: string) => void;
+  oldAvatarUrl: string;
+  oldAvatarPublicId: string;
 };
 
-export const EditProfileAvatarInternal = ({user, onAvatarChangeAction}: Props) => {
+export const EditProfileAvatarInternal = ({user, onAvatarChangeAction, oldAvatarUrl, oldAvatarPublicId}: Props) => {
   const {theme} = useThemeStore();
   
-  const [avatarPreview, setAvatarPreview] = useState<string>(user.avatar);
+  const [avatarPreview, setAvatarPreview] = useState<string>(user.avatarUrl);
   const [uploading, setUploading] = useState(false);
   const fileInputRef: RefObject<HTMLInputElement | null> = useRef(null);
   
@@ -86,8 +89,12 @@ export const EditProfileAvatarInternal = ({user, onAvatarChangeAction}: Props) =
       );
       
       const data: CloudinaryUploadResponse = cloudRes.data;
+      console.log(data.public_id);
       
       if (data.secure_url) {
+        const deleteAvatarResponse: string = await deleteProfileAvatar((oldAvatarPublicId));
+        console.log(deleteAvatarResponse);
+        
         setAvatarPreview(data.secure_url);
         onAvatarChangeAction?.(data.secure_url);
       }

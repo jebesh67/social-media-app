@@ -7,7 +7,8 @@ export class SafeUserType {
   @Field() name: string;
   @Field() username: string;
   @Field() email: string;
-  @Field() avatar: string;
+  @Field() avatarUrl: string;
+  @Field() avatarPublicId: string;
   @Field() bio: string;
 
   @Field(() => UserCountType)

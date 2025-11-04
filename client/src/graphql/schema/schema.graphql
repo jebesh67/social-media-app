@@ -43,7 +43,8 @@ type Query {
 }
 
 type SafeUserType {
-  avatar: String!
+  avatarPublicId: String!
+  avatarUrl: String!
   bio: String!
   counts: UserCountType!
   createdAt: DateTime!

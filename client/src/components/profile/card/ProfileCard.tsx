@@ -33,7 +33,7 @@ export const ProfileCard = () => {
           ) : (
             (!isLoading && currentUser) && (
               <>
-                <ProfileAvatarInternal url={ currentUser.avatar } />
+                <ProfileAvatarInternal url={ currentUser.avatarUrl } />
                 <ProfileInfoInternal currentUser={ currentUser } />
                 <ProfileBioInternal currentUser={ currentUser } />
                 <ProfileCardButtonInternal />

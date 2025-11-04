@@ -6,7 +6,7 @@ export const ProfileAvatarInternal = ({url}: { url: string }) => {
   return (
     <Image
       className={ "col-span-2 rounded-full w-full aspect-square object-contain" }
-      src={ url || "/assets/user-profile/defaultProfile.jpg" }
+      src={ url }
       alt="Default Profile"
       width={ 500 }
       height={ 500 }

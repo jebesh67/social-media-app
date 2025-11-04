@@ -16,7 +16,7 @@ export const EditProfileCardInternal = ({user}: Props) => {
   
   const [name, setName] = useState<string>(user.name);
   const [bio, setBio] = useState<string>(user.bio);
-  const [avatar, setAvatar] = useState<string>(user.avatar);
+  const [avatar, setAvatar] = useState<string>(user.avatarUrl);
   
   const {theme} = useThemeStore();
   
@@ -28,7 +28,7 @@ export const EditProfileCardInternal = ({user}: Props) => {
           ifTheme(theme, "bg-zinc-700/40", "bg-zinc-400/40"),
         )
       }
-            onSubmit={ () => {
+            onSubmit={ (): void => {
             } }
       >
         
@@ -36,6 +36,8 @@ export const EditProfileCardInternal = ({user}: Props) => {
         
         <EditProfileAvatarInternal user={ user }
                                    onAvatarChangeAction={ (url: string): void => setAvatar(url) }
+                                   oldAvatarUrl={ user.avatarUrl }
+                                   oldAvatarPublicId={ user.avatarPublicId }
         />
         
         <CustomInput
