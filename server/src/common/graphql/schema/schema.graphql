@@ -1,0 +1,83 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type UserCountType {
+  followersCount: Int!
+  followingCount: Int!
+  postsCount: Int!
+}
+
+type SafeUserType {
+  id: String!
+  name: String!
+  username: String!
+  email: String!
+  avatar: String!
+  bio: String!
+  counts: UserCountType!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type UserResponse {
+  user: SafeUserType!
+}
+
+type AuthUserResponse {
+  user: SafeUserType!
+  token: String!
+}
+
+type UsernameStatusType {
+  isAvailable: Boolean!
+  message: String!
+}
+
+type ExistingUsernameResponse {
+  username: UsernameStatusType!
+}
+
+type VerifyAccessType {
+  accessGranted: Boolean!
+  username: String!
+  message: String!
+}
+
+type VerifyAccessResponse {
+  data: VerifyAccessType!
+}
+
+type Query {
+  verifyUsername(input: UsernameInput!): ExistingUsernameResponse!
+  logoutUser: Boolean!
+  currentUserProfile: UserResponse!
+  otherUserProfile(username: String!): UserResponse!
+  verifyAccess: VerifyAccessResponse!
+}
+
+input UsernameInput {
+  username: String!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): AuthUserResponse!
+  loginUser(loginUserInput: LoginUserInput!): AuthUserResponse!
+}
+
+input CreateUserInput {
+  name: String!
+  username: String!
+  email: String!
+  password: String!
+}
+
+input LoginUserInput {
+  username: String!
+  password: String!
+}

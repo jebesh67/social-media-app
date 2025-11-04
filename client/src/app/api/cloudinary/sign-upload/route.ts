@@ -9,10 +9,12 @@ import {
 import { ISignCloudinaryResponse } from "@/types/cloudinary/response/api/ISIgnCloudinary.response";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 
-export async function GET(): Promise<
+export const GET = async (): Promise<
   NextResponse<ISignCloudinaryResponse | IApiError>
-> {
+> => {
   try {
+    
+    
     if (!CLOUDINARY_API_KEY || !CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET || !CLOUDINARY_API_SECRET) {
       return NextResponse.json<IApiError>({
         success: false,
@@ -44,6 +46,7 @@ export async function GET(): Promise<
     });
   } catch (err) {
     console.error("Cloudinary sign error:", err);
+    
     return NextResponse.json<IApiError>({
       success: false,
       message:
@@ -51,4 +54,4 @@ export async function GET(): Promise<
       statusCode: 500,
     });
   }
-}
+};

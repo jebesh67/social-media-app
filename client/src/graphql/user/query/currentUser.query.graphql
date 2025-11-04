@@ -5,6 +5,7 @@ query CurrentUserQuery {
             username
             name
             bio
+            avatar
             counts {
                 postsCount
                 followersCount

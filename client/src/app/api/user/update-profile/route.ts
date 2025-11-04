@@ -1,3 +1,3 @@
-async function POST(): Promise<void> {
+export const POST = async (): Promise<void> => {
 
-}
+};

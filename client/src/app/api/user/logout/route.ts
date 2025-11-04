@@ -11,7 +11,7 @@ import { clearAuthToken, getAuthToken } from "@/common/utils/cookie/cookie.helpe
 import { ILogoutUserBackendResponse } from "@/types/user/response/backend/logoutUserBackend.response";
 import { ILogoutApiResponse } from "@/types/user/response/api/logoutApi.response";
 
-export async function POST(): Promise<NextResponse<ILogoutApiResponse | IApiError>> {
+export const POST = async (): Promise<NextResponse<ILogoutApiResponse | IApiError>> => {
   try {
     const token: string = await getAuthToken();
     
@@ -56,7 +56,7 @@ export async function POST(): Promise<NextResponse<ILogoutApiResponse | IApiErro
       statusCode: 500,
     }, {status: 500});
   }
-}
+};
 
 
 

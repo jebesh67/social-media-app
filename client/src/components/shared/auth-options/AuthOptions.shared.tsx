@@ -72,7 +72,7 @@ export const AuthOptionsShared = () => {
         
         <button
           className={ clsx(
-            "flex w-50 pl-4 py-2 rounded-xl hover:cursor-pointer active:opacity-80 hover:scale-102 css-transition",
+            "flex w-50 pl-4 py-2 rounded-xl hover:cursor-pointer active:opacity-80 hover:scale-105 css-transition",
             ifTheme(theme,
               "hover:bg-zinc-700",
               "hover:bg-zinc-400/50",
@@ -85,7 +85,7 @@ export const AuthOptionsShared = () => {
         
         <button
           className={ clsx(
-            "flex w-50 pl-4 py-2 rounded-xl hover:cursor-pointer active:opacity-80 hover:scale-102 css-transition",
+            "flex w-50 pl-4 py-2 rounded-xl hover:cursor-pointer active:opacity-80 hover:scale-105 css-transition",
             ifTheme(theme,
               "hover:bg-zinc-700",
               "hover:bg-zinc-400/50",

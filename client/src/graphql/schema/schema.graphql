@@ -1,3 +1,8 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
 type AuthUserResponse {
   token: String!
   user: SafeUserType!
@@ -33,6 +38,7 @@ type Query {
   currentUserProfile: UserResponse!
   logoutUser: Boolean!
   otherUserProfile(username: String!): UserResponse!
+  verifyAccess: VerifyAccessResponse!
   verifyUsername(input: UsernameInput!): ExistingUsernameResponse!
 }
 
@@ -65,4 +71,14 @@ input UsernameInput {
 type UsernameStatusType {
   isAvailable: Boolean!
   message: String!
+}
+
+type VerifyAccessResponse {
+  data: VerifyAccessType!
+}
+
+type VerifyAccessType {
+  accessGranted: Boolean!
+  message: String!
+  username: String!
 }

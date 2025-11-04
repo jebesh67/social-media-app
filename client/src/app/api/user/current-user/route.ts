@@ -14,7 +14,7 @@ import { IBackendErrorResponse } from "@/types/error-response/graphql-error/back
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
 
-export async function GET(): Promise<NextResponse<IUserApiResponse | IApiError>> {
+export const GET = async (): Promise<NextResponse<IUserApiResponse | IApiError>> => {
   try {
     const token: string = await getAuthToken();
     
@@ -55,7 +55,7 @@ export async function GET(): Promise<NextResponse<IUserApiResponse | IApiError>>
       statusCode: 500,
     }, {status: 500});
   }
-}
+};
 
 
 

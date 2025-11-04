@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "copy-schema": "cp ../server/src/common/graphql/schema/schema.graphql ./src/graphql/schema/schema.graphql",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -33,6 +34,8 @@
     "@graphql-codegen/cli": "^6.0.0",
     "@graphql-codegen/introspection": "^5.0.0",
     "@graphql-codegen/schema-ast": "^5.0.0",
+    "@graphql-codegen/typescript": "^5.0.2",
+    "@graphql-codegen/typescript-resolvers": "^5.1.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -1,0 +1,9 @@
+query VerifyAccessQuery {
+    verifyAccess {
+        data {
+            accessGranted
+            message
+            username
+        }
+    }
+}

@@ -11,7 +11,7 @@ import { ILoginUserBackendResponse } from "@/types/user/response/backend/loginUs
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
 import { setAuthToken } from "@/common/utils/cookie/cookie.helper";
 
-export async function POST(req: Request): Promise<NextResponse<IUserApiResponse | IApiError>> {
+export const POST = async (req: Request): Promise<NextResponse<IUserApiResponse | IApiError>> => {
   try {
     const {username, password} = await req.json();
     
@@ -61,7 +61,7 @@ export async function POST(req: Request): Promise<NextResponse<IUserApiResponse 
       statusCode: 500,
     }, {status: 500});
   }
-}
+};
 
 
 
