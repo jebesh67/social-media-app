@@ -191,8 +191,10 @@ export const EditProfileAvatarInternal = ({user, onAvatarChangeAction, oldAvatar
               className={ clsx(
                 "px-4 py-2 rounded-md font-semibold text-sm hover:cursor-pointer",
                 ifTheme(theme, "bg-red-800 hover:bg-red-700", "bg-red-500 hover:bg-red-600"),
+                uploading && "opacity-60",
               ) }
-              onClick={ () => setCropModal(false) }
+              onClick={ (): void => setCropModal(false) }
+              disabled={ uploading }
             >
               Cancel
             </button>
@@ -200,11 +202,13 @@ export const EditProfileAvatarInternal = ({user, onAvatarChangeAction, oldAvatar
               className={ clsx(
                 "px-4 py-2 rounded-md font-semibold text-sm hover:cursor-pointer",
                 ifTheme(theme, "bg-blue-800 hover:bg-blue-700", "bg-blue-500 hover:bg-blue-600"),
+                uploading && "opacity-60",
               ) }
               onClick={ handleCropConfirm }
+              disabled={ uploading }
             >
               {
-                uploading ? "Uploading..." : "Upload"
+                uploading ? "Uploading" : "Upload"
               }
             </button>
           </div>

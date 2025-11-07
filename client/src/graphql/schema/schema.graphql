@@ -32,6 +32,7 @@ input LoginUserInput {
 type Mutation {
   createUser(createUserInput: CreateUserInput!): AuthUserResponse!
   loginUser(loginUserInput: LoginUserInput!): AuthUserResponse!
+  updateUserProfile(updateUserProfileInput: UpdateUserProfileInput!): UpdateUserProfileResponse!
 }
 
 type Query {
@@ -53,6 +54,19 @@ type SafeUserType {
   name: String!
   updatedAt: DateTime!
   username: String!
+}
+
+input UpdateUserProfileInput {
+  avatarPublicId: String
+  avatarUrl: String
+  bio: String
+  name: String
+}
+
+type UpdateUserProfileResponse {
+  message: String!
+  success: Boolean!
+  user: SafeUserType
 }
 
 type UserCountType {
