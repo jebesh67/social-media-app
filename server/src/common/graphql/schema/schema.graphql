@@ -54,6 +54,12 @@ type VerifyAccessResponse {
   data: VerifyAccessType!
 }
 
+type UpdateUserProfileResponse {
+  user: SafeUserType
+  message: String!
+  success: Boolean!
+}
+
 type Query {
   verifyUsername(input: UsernameInput!): ExistingUsernameResponse!
   logoutUser: Boolean!
@@ -69,6 +75,7 @@ input UsernameInput {
 type Mutation {
   createUser(createUserInput: CreateUserInput!): AuthUserResponse!
   loginUser(loginUserInput: LoginUserInput!): AuthUserResponse!
+  updateUserProfile(updateUserProfileInput: UpdateUserProfileInput!): UpdateUserProfileResponse!
 }
 
 input CreateUserInput {
@@ -81,4 +88,11 @@ input CreateUserInput {
 input LoginUserInput {
   username: String!
   password: String!
+}
+
+input UpdateUserProfileInput {
+  name: String
+  bio: String
+  avatarUrl: String
+  avatarPublicId: String
 }

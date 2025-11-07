@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
+import { UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthGuard } from '@/common/guard/auth.guard';
 import { User } from '@prisma/client';
@@ -11,6 +11,8 @@ import { AuthUserResponse } from '@/modules/user/types/response/authUser.respons
 import { ExistingUsernameResponse } from '@/modules/user/types/response/existingUsername.response';
 import { UsernameInput } from '@/modules/user/types/inputs/username.input';
 import { VerifyAccessResponse } from '@/modules/user/types/response/verifyAccess.response';
+import { UpdateUserProfileInput } from '@/modules/user/types/inputs/updateUserProfile.input';
+import { UpdateUserProfileResponse } from '@/modules/user/types/response/updateUserProfile.response';
 
 @Resolver()
 export class UserResolver {
@@ -69,6 +71,21 @@ export class UserResolver {
       currentUser,
     );
     return this.userService.generateUserResponse(user);
+  }
+
+  @Mutation(() => UpdateUserProfileResponse)
+  @UseGuards(AuthGuard)
+  @UsePipes(new ValidationPipe({ whitelist: true }))
+  async updateUserProfile(
+    @Args('updateUserProfileInput')
+    updateUserProfileInput: UpdateUserProfileInput,
+
+    @CurrentUser() currentUser: Partial<User>,
+  ): Promise<UpdateUserProfileResponse> {
+    return this.userService.updateUserProfile(
+      currentUser as User,
+      updateUserProfileInput,
+    );
   }
 
   @Query(() => VerifyAccessResponse)
