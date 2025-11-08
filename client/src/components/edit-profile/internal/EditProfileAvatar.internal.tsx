@@ -20,12 +20,11 @@ import { deleteProfileAvatar } from "@/lib/cloudinary/util/deleteProfileAvatar.u
 
 type Props = {
   user: ClientUser;
-  onAvatarChangeAction?: (url: string) => void;
-  oldAvatarUrl: string;
-  oldAvatarPublicId: string;
+  onAvatarUrlChangeAction: (url: string) => void;
+  onAvatarPublicIdChangeAction: (id: string) => void;
 };
 
-export const EditProfileAvatarInternal = ({user, onAvatarChangeAction, oldAvatarUrl, oldAvatarPublicId}: Props) => {
+export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvatarPublicIdChangeAction}: Props) => {
   const {theme} = useThemeStore();
   
   const [avatarPreview, setAvatarPreview] = useState<string>(user.avatarUrl);
@@ -89,14 +88,14 @@ export const EditProfileAvatarInternal = ({user, onAvatarChangeAction, oldAvatar
       );
       
       const data: CloudinaryUploadResponse = cloudRes.data;
-      console.log(data.public_id);
       
       if (data.secure_url) {
-        const deleteAvatarResponse: string = await deleteProfileAvatar((oldAvatarPublicId));
+        const deleteAvatarResponse: string = await deleteProfileAvatar((user.avatarPublicId));
         console.log(deleteAvatarResponse);
         
         setAvatarPreview(data.secure_url);
-        onAvatarChangeAction?.(data.secure_url);
+        onAvatarUrlChangeAction(data.secure_url);
+        onAvatarPublicIdChangeAction(data.public_id);
       }
     } catch (err) {
       console.error("Cloudinary upload failed:", err);
@@ -164,7 +163,7 @@ export const EditProfileAvatarInternal = ({user, onAvatarChangeAction, oldAvatar
       
       <Dialog
         open={ cropModal }
-        onClose={ () => setCropModal(false) }
+        onClose={ (): void => setCropModal(false) }
         className="fixed inset-0 flex justify-center items-center z-50 px-4 bg-black/20 backdrop-blur-xs"
       >
         

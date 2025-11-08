@@ -5,6 +5,7 @@ import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 
 export const updateProfile = async (data: IUpdateProfileVariables): Promise<IUserApiResponse | IApiError> => {
   try {
+    console.log(data);
     const response: AxiosResponse<IUserApiResponse | IApiError> = await axios.post("/api/user/update-profile", data);
     
     if (!response.data.success) {

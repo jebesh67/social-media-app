@@ -37,6 +37,7 @@ export const POST = async (req: NextRequest) => {
     }
     
     const result: DeleteAvatarType = await cloudinary.uploader.destroy(publicId);
+    console.log("delete status", result);
     
     return NextResponse.json<IDeleteAvatarResponse>({success: true, result});
   } catch (err: any) {

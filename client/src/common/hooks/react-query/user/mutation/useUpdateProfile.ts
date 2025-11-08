@@ -8,8 +8,8 @@ export const useUpdateProfile = (): UseMutationResult<IUserApiResponse, Error, I
   const queryClient: QueryClient = useQueryClient();
   
   return useMutation<IUserApiResponse, Error, IUpdateProfileVariables>({
-    mutationFn: async ({name, bio, avatarUrl}: IUpdateProfileVariables) => {
-      const response: IUserApiResponse | IApiError = await updateProfile({name, bio, avatarUrl});
+    mutationFn: async ({name, bio, avatarUrl, avatarPublicId}: IUpdateProfileVariables) => {
+      const response: IUserApiResponse | IApiError = await updateProfile({name, bio, avatarUrl, avatarPublicId});
       
       if (!response.success) {
         throw new Error(response.message);

@@ -7,6 +7,10 @@ import { CustomInput } from "@/components/shared/input/CustomInput";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { ClientUser } from "@/types/user/user.type";
 import { EditProfileAvatarInternal } from "@/components/edit-profile/internal/EditProfileAvatar.internal";
+import { useUpdateProfile } from "@/common/hooks/react-query/user/mutation/useUpdateProfile";
+import { UseMutationResult } from "@tanstack/react-query";
+import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
+import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/updateProfileVariables.interface";
 
 type Props = {
   user: ClientUser;
@@ -16,9 +20,17 @@ export const EditProfileCardInternal = ({user}: Props) => {
   
   const [name, setName] = useState<string>(user.name);
   const [bio, setBio] = useState<string>(user.bio);
-  const [avatar, setAvatar] = useState<string>(user.avatarUrl);
+  const [avatarUrl, setAvatarUrl] = useState<string>(user.avatarUrl);
+  const [avatarPublicId, setAvatarPublicId] = useState<string>(user.avatarPublicId);
   
   const {theme} = useThemeStore();
+  
+  const updateUserProfile: UseMutationResult<IUserApiResponse, Error, IUpdateProfileVariables> = useUpdateProfile();
+  
+  const handleEditProfile = (e: React.FormEvent): void => {
+    e.preventDefault();
+    updateUserProfile.mutate({name, bio, avatarUrl, avatarPublicId});
+  };
   
   return (
     <main className={ "w-full max-w-200 lg:max-w-160 flex justify-center css-transition px-4" }>
@@ -28,16 +40,15 @@ export const EditProfileCardInternal = ({user}: Props) => {
           ifTheme(theme, "bg-zinc-700/40", "bg-zinc-400/40"),
         )
       }
-            onSubmit={ (): void => {
-            } }
+            onSubmit={ handleEditProfile }
       >
         
         <h2>Edit profile</h2>
         
-        <EditProfileAvatarInternal user={ user }
-                                   onAvatarChangeAction={ (url: string): void => setAvatar(url) }
-                                   oldAvatarUrl={ user.avatarUrl }
-                                   oldAvatarPublicId={ user.avatarPublicId }
+        <EditProfileAvatarInternal
+          user={ user }
+          onAvatarUrlChangeAction={ (url: string): void => setAvatarUrl(url) }
+          onAvatarPublicIdChangeAction={ (id: string): void => setAvatarPublicId(id) }
         />
         
         <CustomInput
