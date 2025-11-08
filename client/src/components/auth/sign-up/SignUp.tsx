@@ -21,6 +21,7 @@ export const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [reEnterPassword, setReEnterPassword] = useState<string>("");
   
   const {theme} = useThemeStore();
   
@@ -72,14 +73,14 @@ export const SignUp = () => {
           id="newUsername"
           value={ username }
           onChange={ (e): void => setUsername(e.target.value) }
-          placeholder="Username"
+          placeholder="New Username"
         />
         
         <CustomInput
           id="newEmail"
           value={ email }
           onChange={ (e): void => setEmail(e.target.value) }
-          placeholder="Email"
+          placeholder="Your Email"
         />
         
         <CustomInput
@@ -87,7 +88,16 @@ export const SignUp = () => {
           type="password"
           value={ password }
           onChange={ (e): void => setPassword(e.target.value) }
-          placeholder="Password"
+          placeholder="New Password"
+        />
+        
+        <CustomInput
+          id="reEnterPassword"
+          type="password"
+          value={ reEnterPassword }
+          onChange={ (e): void => setReEnterPassword(e.target.value) }
+          placeholder="Re-Enter Password"
+          isRequired={ false }
         />
         
         <button
