@@ -1,9 +1,10 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
+import { Eye, EyeOff } from "lucide-react";
 
 interface CustomInputProps {
   id: string;
@@ -30,6 +31,8 @@ export const CustomInput = ({
 }: CustomInputProps) => {
   const {theme} = useThemeStore();
   
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  
   const baseStyles = clsx(
     "peer w-full rounded-xl px-5 pt-5 pb-3 text-xs bg-transparent outline-none resize-none transition-all duration-200",
     ifTheme(theme, "bg-zinc-800 text-zinc-400", "bg-zinc-300 text-zinc-800"),
@@ -37,6 +40,9 @@ export const CustomInput = ({
     
     "placeholder-transparent focus:ring-1 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-600",
   );
+  
+  const isPassword: boolean = type === "password";
+  const inputType: string = isPassword && showPassword ? "text" : type;
   
   return (
     <div className={ clsx(
@@ -59,15 +65,28 @@ export const CustomInput = ({
             className={ baseStyles }
           />
         ) : (
-          <input
-            id={ id }
-            type={ type }
-            value={ value }
-            onChange={ onChange }
-            placeholder={ placeholder }
-            required={ isRequired }
-            className={ baseStyles }
-          />
+          <>
+            <input
+              id={ id }
+              type={ inputType }
+              value={ value }
+              onChange={ onChange }
+              placeholder={ placeholder }
+              required={ isRequired }
+              className={ baseStyles }
+            />
+            
+            { isPassword && (
+              <button
+                type="button"
+                onClick={ () => setShowPassword(!showPassword) }
+                className="absolute right-3 top-4 text-zinc-500 hover:text-blue-500 hover:cursor-pointer transition-colors"
+                tabIndex={ -1 }
+              >
+                { showPassword ? <EyeOff size={ 16 } /> : <Eye size={ 16 } /> }
+              </button>
+            ) }
+          </>
         )
       }
       
