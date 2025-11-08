@@ -61,7 +61,7 @@ export const TopNavInternal = () => {
           }
         >
           { (isFetched && user) &&
-            <Image src={ user.avatarUrl }
+            <Image src={ user.avatarUrl || "/assets/user-profile/defaultProfile.jpg" }
                    alt={ user.username }
                    width={ 50 }
                    height={ 50 }

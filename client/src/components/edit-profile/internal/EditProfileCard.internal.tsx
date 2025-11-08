@@ -46,6 +46,7 @@ export const EditProfileCardInternal = ({user}: Props) => {
           onChange={ (e): void => setName(e.target.value) }
           placeholder="Your Name"
           width={ "full" }
+          isRequired={ false }
         />
         
         <CustomInput
@@ -55,6 +56,7 @@ export const EditProfileCardInternal = ({user}: Props) => {
           onChange={ (e): void => setBio(e.target.value) }
           placeholder="Bio"
           width={ "full" }
+          isRequired={ false }
         />
         
         <button

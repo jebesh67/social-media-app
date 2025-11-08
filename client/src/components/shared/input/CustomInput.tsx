@@ -14,6 +14,7 @@ interface CustomInputProps {
   placeholder: string;
   rows?: number;
   width?: "full" | "large" | "medium" | "small";
+  isRequired?: boolean;
 }
 
 export const CustomInput = ({
@@ -25,13 +26,16 @@ export const CustomInput = ({
   placeholder,
   rows = 4,
   width = "small",
+  isRequired = true,
 }: CustomInputProps) => {
   const {theme} = useThemeStore();
   
   const baseStyles = clsx(
-    "peer w-full rounded-xl px-5 pt-5 pb-3 text-xs bg-transparent outline-none resize-none",
+    "peer w-full rounded-xl px-5 pt-5 pb-3 text-xs bg-transparent outline-none resize-none transition-all duration-200",
     ifTheme(theme, "bg-zinc-800 text-zinc-400", "bg-zinc-300 text-zinc-800"),
     "placeholder-transparent focus:ring-0",
+    
+    "placeholder-transparent focus:ring-1 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-600",
   );
   
   return (
@@ -50,7 +54,7 @@ export const CustomInput = ({
             value={ value }
             onChange={ onChange }
             placeholder={ placeholder }
-            required
+            required={ isRequired }
             rows={ rows }
             className={ baseStyles }
           />
@@ -61,7 +65,7 @@ export const CustomInput = ({
             value={ value }
             onChange={ onChange }
             placeholder={ placeholder }
-            required
+            required={ isRequired }
             className={ baseStyles }
           />
         )
