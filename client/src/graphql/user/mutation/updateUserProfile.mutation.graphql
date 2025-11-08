@@ -1,5 +1,7 @@
-mutation LoginUserMutation($input: LoginUserInput!) {
-    loginUser(loginUserInput: $input) {
+mutation UpdateUserProfile($input: UpdateUserProfileInput!) {
+    updateUserProfile(updateUserProfileInput: $input) {
+        success
+        message
         user {
             id
             username
@@ -13,6 +15,5 @@ mutation LoginUserMutation($input: LoginUserInput!) {
                 postsCount
             }
         }
-        token
     }
 }
