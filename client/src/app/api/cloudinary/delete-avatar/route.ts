@@ -9,7 +9,7 @@ import { GRAPHQL_URL } from "@/lib/env/url.variable";
 import VerifyAccessQuery from "@/graphql/user/query/verifyAccess.query.graphql";
 import { getAuthToken } from "@/common/utils/cookie/cookie.helper";
 
-export const POST = async (req: NextRequest) => {
+export const POST = async (req: NextRequest): Promise<NextResponse<IApiError | IDeleteAvatarResponse>> => {
   try {
     const token: string = await getAuthToken();
     
