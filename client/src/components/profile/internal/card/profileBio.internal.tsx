@@ -11,7 +11,7 @@ export const ProfileBioInternal = ({currentUser}: Props) => {
       
       {
         currentUser.bio && (
-          <p className={ "font-light text-sm sm:mt-2" }>{ currentUser.bio }
+          <p className={ "font-light text-sm sm:mt-2 whitespace-pre-wrap" }>{ currentUser.bio }
           </p>
         )
       }
