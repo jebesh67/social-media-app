@@ -37,11 +37,10 @@ export const POST = async (req: NextRequest): Promise<NextResponse<IApiError | I
     }
     
     const result: DeleteAvatarType = await cloudinary.uploader.destroy(publicId);
-    console.log("delete status", result);
     
     return NextResponse.json<IDeleteAvatarResponse>({success: true, result});
-  } catch (err: any) {
-    console.error("Cloudinary delete failed:", err);
+  } catch {
+    
     return NextResponse.json<IApiError>({
       success: false,
       message: "Failed to delete image",

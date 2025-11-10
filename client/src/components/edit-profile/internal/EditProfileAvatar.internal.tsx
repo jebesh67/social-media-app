@@ -12,7 +12,7 @@ import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { ClientUser } from "@/types/user/user.type";
 import { CloudinaryUploadResponse } from "@/types/cloudinary/response/api/cloudinaryUpload.response";
 import { getCroppedImg } from "@/components/edit-profile/helper/getCroppedImg.helper";
-import { deleteProfileAvatar } from "@/lib/cloudinary/util/deleteProfileAvatar.util";
+import { deleteProfileAvatar } from "@/lib/cloudinary/action/deleteProfileAvatar.action";
 import { useUpdateProfile } from "@/common/hooks/react-query/user/mutation/useUpdateProfile";
 import { UseMutationResult } from "@tanstack/react-query";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";

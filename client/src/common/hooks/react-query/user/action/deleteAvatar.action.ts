@@ -7,9 +7,8 @@ export const deleteAvatar = async (publicId: string): Promise<boolean> => {
       publicId,
     });
     
-    console.log("delete status", response);
     return response.data.success;
-  } catch (err) {
+  } catch {
     return false;
   }
 };
