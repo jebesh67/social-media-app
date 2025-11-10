@@ -166,8 +166,6 @@ export class UserService {
     currentUser: User,
     updateUserProfileInput: UpdateUserProfileInput,
   ): Promise<UpdateUserProfileResponse> {
-    console.log(updateUserProfileInput);
-
     const data: Partial<UpdateUserProfileInput> = Object.fromEntries(
       Object.entries(updateUserProfileInput).filter(
         ([, value]: [string, any]): boolean =>
