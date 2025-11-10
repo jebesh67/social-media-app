@@ -11,6 +11,9 @@ import { useUpdateProfile } from "@/common/hooks/react-query/user/mutation/useUp
 import { UseMutationResult } from "@tanstack/react-query";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/updateProfileVariables.interface";
+import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useUser } from "@/common/hooks/react-query/user/query/useUser";
 
 type Props = {
   user: ClientUser;
@@ -25,11 +28,19 @@ export const EditProfileCardInternal = ({user}: Props) => {
   
   const {theme} = useThemeStore();
   
+  const {refetch} = useUser();
+  
+  const router: AppRouterInstance = useRouter();
+  
   const updateUserProfile: UseMutationResult<IUserApiResponse, Error, IUpdateProfileVariables> = useUpdateProfile();
   
-  const handleEditProfile = (e: React.FormEvent): void => {
+  const handleEditProfile = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     updateUserProfile.mutate({name, bio, avatarUrl, avatarPublicId});
+    
+    await refetch();
+    
+    router.push("/profile");
   };
   
   return (

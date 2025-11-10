@@ -1,5 +1,5 @@
 import { QueryClient, useMutation, UseMutationResult, useQueryClient } from "@tanstack/react-query";
-import { updateProfile } from "@/common/hooks/react-query/user/util/updateProfile.util";
+import { updateProfile } from "@/common/hooks/react-query/user/action/updateProfile.action";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/updateProfileVariables.interface";
 

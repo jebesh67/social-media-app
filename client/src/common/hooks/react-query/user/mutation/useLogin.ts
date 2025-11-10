@@ -1,5 +1,5 @@
 import { QueryClient, useMutation, UseMutationResult, useQueryClient } from "@tanstack/react-query";
-import { loginUser } from "@/common/hooks/react-query/user/util/loginUser.util";
+import { loginUser } from "@/common/hooks/react-query/user/action/loginUser.action";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { ILoginVariables } from "@/common/hooks/react-query/user/type/loginVariables.interface";
 

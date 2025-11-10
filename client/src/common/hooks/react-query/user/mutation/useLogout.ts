@@ -1,6 +1,6 @@
 import { QueryClient, useMutation, UseMutationResult, useQueryClient } from "@tanstack/react-query";
 import { ILogoutApiResponse } from "@/types/user/response/api/logoutApi.response";
-import { logoutUser } from "@/common/hooks/react-query/user/util/logoutUser.util";
+import { logoutUser } from "@/common/hooks/react-query/user/action/logoutUser.action";
 
 export const useLogout = (): UseMutationResult<ILogoutApiResponse, Error, void, unknown> => {
   const queryClient: QueryClient = useQueryClient();

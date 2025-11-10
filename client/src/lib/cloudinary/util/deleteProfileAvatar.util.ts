@@ -4,7 +4,7 @@ import { IApiError } from "@/types/error-response/api-error/apiError.response";
 
 export const deleteProfileAvatar = async (avatarPublicId: string): Promise<string> => {
   try {
-    const response: AxiosResponse<IDeleteAvatarResponse | IApiError> = await axios.post("/api/cloudinary/delete-avatar", {
+    const response: AxiosResponse<IDeleteAvatarResponse> = await axios.post("/api/cloudinary/delete-avatar", {
       publicId: avatarPublicId,
     });
     

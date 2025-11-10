@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { ISignCloudinaryResponse } from "@/types/cloudinary/response/api/ISIgnCloudinary.response";
 
-export const signCloudinaryHelper = async (): Promise<ISignCloudinaryResponse | IApiError> => {
+export const signCloudinaryAction = async (): Promise<ISignCloudinaryResponse | IApiError> => {
   try {
     const signatureResponse: AxiosResponse<ISignCloudinaryResponse> = await axios.get(
       "/api/cloudinary/sign-upload");

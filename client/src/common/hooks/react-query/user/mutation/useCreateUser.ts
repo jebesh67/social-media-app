@@ -1,7 +1,7 @@
 import { QueryClient, useMutation, UseMutationResult, useQueryClient } from "@tanstack/react-query";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { ICreateUserVariables } from "@/common/hooks/react-query/user/type/createUserVariables.interface";
-import { createUser } from "@/common/hooks/react-query/user/util/createUser.util";
+import { createUser } from "@/common/hooks/react-query/user/action/createUser.action";
 
 export const useCreateUser = (): UseMutationResult<IUserApiResponse, Error, ICreateUserVariables> => {
   const queryClient: QueryClient = useQueryClient();

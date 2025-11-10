@@ -13,10 +13,17 @@ import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { ClientUser } from "@/types/user/user.type";
 import { CloudinaryUploadResponse } from "@/types/cloudinary/response/api/cloudinaryUpload.response";
 import { getCroppedImg } from "@/components/edit-profile/helper/getCroppedImg.helper";
-import { signCloudinaryHelper } from "@/components/edit-profile/helper/signCloudinary.helper";
+import { signCloudinaryAction } from "@/components/edit-profile/action/signCloudinary.action";
 import { ISignCloudinaryResponse } from "@/types/cloudinary/response/api/ISIgnCloudinary.response";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { deleteProfileAvatar } from "@/lib/cloudinary/util/deleteProfileAvatar.util";
+import { useUpdateProfile } from "@/common/hooks/react-query/user/mutation/useUpdateProfile";
+import { UseMutationResult } from "@tanstack/react-query";
+import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
+import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/updateProfileVariables.interface";
+import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useUser } from "@/common/hooks/react-query/user/query/useUser";
 
 type Props = {
   user: ClientUser;
@@ -26,6 +33,12 @@ type Props = {
 
 export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvatarPublicIdChangeAction}: Props) => {
   const {theme} = useThemeStore();
+  
+  const {refetch} = useUser();
+  
+  const router: AppRouterInstance = useRouter();
+  
+  const updateProfileMutation: UseMutationResult<IUserApiResponse, Error, IUpdateProfileVariables> = useUpdateProfile();
   
   const [avatarPreview, setAvatarPreview] = useState<string>(user.avatarUrl);
   const [uploading, setUploading] = useState(false);
@@ -67,7 +80,7 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
     try {
       setUploading(true);
       
-      const signatureResponse: ISignCloudinaryResponse | IApiError = await signCloudinaryHelper();
+      const signatureResponse: ISignCloudinaryResponse | IApiError = await signCloudinaryAction();
       
       if (!signatureResponse.success) throw new Error(signatureResponse.message);
       
@@ -93,9 +106,15 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
         const deleteAvatarResponse: string = await deleteProfileAvatar((user.avatarPublicId));
         console.log(deleteAvatarResponse);
         
+        updateProfileMutation.mutate({avatarPublicId: data.public_id});
+        
         setAvatarPreview(data.secure_url);
         onAvatarUrlChangeAction(data.secure_url);
         onAvatarPublicIdChangeAction(data.public_id);
+        
+        await refetch();
+        
+        router.refresh();
       }
     } catch (err) {
       console.error("Cloudinary upload failed:", err);
