@@ -28,7 +28,7 @@ export const POST = async (req: Request): Promise<NextResponse<IUserApiResponse 
     
     const res: NextResponse<IUserApiResponse> = NextResponse.json<IUserApiResponse>({
       success: true,
-      message: "User logged in successfully",
+      message: "User created successfully",
       user,
     });
     
@@ -46,22 +46,22 @@ export const POST = async (req: Request): Promise<NextResponse<IUserApiResponse 
         success: false,
         message: originalError.message,
         statusCode: originalError.statusCode,
-      });
+      }, {status: originalError.statusCode});
     }
     
     if (err instanceof Error) {
       return NextResponse.json<IApiError>({
         success: false,
-        message: "Internal server error, login failed",
+        message: err.message || "Internal server error, create user failed",
         statusCode: 500,
-      });
+      }, {status: 500});
     }
     
     return NextResponse.json<IApiError>({
       success: false,
-      message: "Internal server error, login failed",
+      message: "Internal server error, create user failed",
       statusCode: 500,
-    });
+    }, {status: 500});
   }
 };
 

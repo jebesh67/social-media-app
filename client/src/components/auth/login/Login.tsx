@@ -97,7 +97,7 @@ export const Login = () => {
         {
           loginMutation.data?.success && (
             <div className={ "flex text-center px-6" }>
-              <div className="text-green-500">Login successful!</div>
+              <div className="text-green-500">{ loginMutation.data.message }</div>
             </div>
           )
         }

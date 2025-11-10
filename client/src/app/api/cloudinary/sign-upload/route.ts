@@ -25,7 +25,7 @@ export const GET = async (): Promise<
         success: false,
         message: "Missing required Cloudinary environment variables.",
         statusCode: 500,
-      });
+      }, {status: 500});
     }
     
     const token: string = await getAuthToken();
@@ -75,7 +75,7 @@ export const GET = async (): Promise<
         success: false,
         message: originalError.message,
         statusCode: originalError.statusCode,
-      });
+      }, {status: originalError.statusCode});
     }
     
     if (err instanceof Error) {
@@ -83,13 +83,13 @@ export const GET = async (): Promise<
         success: false,
         message: err.message || "Internal server error!",
         statusCode: 500,
-      });
+      }, {status: 500});
     }
     
     return NextResponse.json<IApiError>({
       success: false,
       message: "Oops! Something went wrong",
       statusCode: 500,
-    });
+    }, {status: 500});
   }
 };

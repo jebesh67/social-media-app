@@ -1,6 +1,5 @@
 import { QueryClient, useMutation, UseMutationResult, useQueryClient } from "@tanstack/react-query";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
-import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { ICreateUserVariables } from "@/common/hooks/react-query/user/type/createUserVariables.interface";
 import { createUser } from "@/common/hooks/react-query/user/util/createUser.util";
 
@@ -9,7 +8,7 @@ export const useCreateUser = (): UseMutationResult<IUserApiResponse, Error, ICre
   
   return useMutation<IUserApiResponse, Error, ICreateUserVariables>({
     mutationFn: async ({name, username, email, password}: ICreateUserVariables): Promise<IUserApiResponse> => {
-      const response: IUserApiResponse | IApiError = await createUser(name, username, email, password);
+      const response: IUserApiResponse = await createUser(name, username, email, password);
       
       if (!response.success) {
         throw new Error(response.message);

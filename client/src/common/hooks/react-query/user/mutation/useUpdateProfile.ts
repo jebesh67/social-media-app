@@ -1,7 +1,6 @@
 import { QueryClient, useMutation, UseMutationResult, useQueryClient } from "@tanstack/react-query";
 import { updateProfile } from "@/common/hooks/react-query/user/util/updateProfile.util";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
-import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/updateProfileVariables.interface";
 
 export const useUpdateProfile = (): UseMutationResult<IUserApiResponse, Error, IUpdateProfileVariables> => {
@@ -9,7 +8,7 @@ export const useUpdateProfile = (): UseMutationResult<IUserApiResponse, Error, I
   
   return useMutation<IUserApiResponse, Error, IUpdateProfileVariables>({
     mutationFn: async ({name, bio, avatarUrl, avatarPublicId}: IUpdateProfileVariables) => {
-      const response: IUserApiResponse | IApiError = await updateProfile({name, bio, avatarUrl, avatarPublicId});
+      const response: IUserApiResponse = await updateProfile({name, bio, avatarUrl, avatarPublicId});
       
       if (!response.success) {
         throw new Error(response.message);

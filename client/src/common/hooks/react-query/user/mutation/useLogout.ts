@@ -1,6 +1,5 @@
 import { QueryClient, useMutation, UseMutationResult, useQueryClient } from "@tanstack/react-query";
 import { ILogoutApiResponse } from "@/types/user/response/api/logoutApi.response";
-import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { logoutUser } from "@/common/hooks/react-query/user/util/logoutUser.util";
 
 export const useLogout = (): UseMutationResult<ILogoutApiResponse, Error, void, unknown> => {
@@ -10,7 +9,7 @@ export const useLogout = (): UseMutationResult<ILogoutApiResponse, Error, void, 
     
     mutationFn: async (): Promise<ILogoutApiResponse> => {
       
-      const response: ILogoutApiResponse | IApiError = await logoutUser();
+      const response: ILogoutApiResponse = await logoutUser();
       
       queryClient.clear();
       

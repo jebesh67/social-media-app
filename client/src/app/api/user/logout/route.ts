@@ -39,22 +39,22 @@ export const POST = async (): Promise<NextResponse<ILogoutApiResponse | IApiErro
         success: false,
         message: originalError.message,
         statusCode: originalError.statusCode,
-      });
+      }, {status: originalError.statusCode});
     }
     
     if (err instanceof Error) {
       return NextResponse.json<IApiError>({
         success: false,
-        message: "Internal server error, failed to clear cache",
+        message: err.message || "Internal server error, failed to clear cache",
         statusCode: 500,
-      });
+      }, {status: 500});
     }
     
     return NextResponse.json<IApiError>({
       success: false,
       message: "Internal server error, failed to clear cache",
       statusCode: 500,
-    });
+    }, {status: 500});
   }
 };
 

@@ -124,7 +124,7 @@ export const SignUp = () => {
         {
           createUserMutation.data?.success && (
             <div className={ "flex text-center px-6" }>
-              <div className="text-green-500">User successfully created!</div>
+              <div className="text-green-500">{ createUserMutation.data.message }</div>
             </div>
           )
         }

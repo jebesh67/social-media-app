@@ -33,7 +33,7 @@ export const POST = async (req: NextRequest): Promise<NextResponse<IApiError | I
         success: false,
         message: "Missing publicId",
         statusCode: 400,
-      });
+      }, {status: 400});
     }
     
     const result: DeleteAvatarType = await cloudinary.uploader.destroy(publicId);
@@ -46,6 +46,6 @@ export const POST = async (req: NextRequest): Promise<NextResponse<IApiError | I
       success: false,
       message: "Failed to delete image",
       statusCode: 500,
-    });
+    }, {status: 500});
   }
 };

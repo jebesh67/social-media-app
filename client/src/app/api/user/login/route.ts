@@ -44,22 +44,22 @@ export const POST = async (req: Request): Promise<NextResponse<IUserApiResponse 
         success: false,
         message: originalError.message,
         statusCode: originalError.statusCode,
-      });
+      }, {status: originalError.statusCode});
     }
     
     if (err instanceof Error) {
       return NextResponse.json<IApiError>({
         success: false,
-        message: err.message,
+        message: err.message || "Internal server error, login failed",
         statusCode: 500,
-      });
+      }, {status: 500});
     }
     
     return NextResponse.json<IApiError>({
       success: false,
       message: "Internal server error, login failed",
       statusCode: 500,
-    });
+    }, {status: 500});
   }
 };
 

@@ -40,6 +40,7 @@ export const fetchCurrentUser = async (): Promise<ClientUser | null> => {
     
     return userData.user;
   } catch (err) {
+    
     console.warn("Error connecting to /api/user/current-user:", err);
     return null;
   }
