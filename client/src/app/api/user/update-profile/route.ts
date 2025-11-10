@@ -9,6 +9,7 @@ import { IOriginalError } from "@/types/error-response/graphql-error/originalErr
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { IUpdateUserProfileBackendResponse } from "@/types/user/response/backend/updateProfileBackend.response";
+import { UpdateProfileType } from "@/types/user/updateProfile.type";
 
 export const POST = async (req: NextRequest): Promise<NextResponse<IUserApiResponse | IApiError>> => {
   try {
@@ -24,12 +25,12 @@ export const POST = async (req: NextRequest): Promise<NextResponse<IUserApiRespo
       Authorization: `Bearer ${ token }`,
     });
     
-    console.log(response);
+    const extractedResponse: UpdateProfileType = response.updateUserProfile;
     
     return NextResponse.json<IUserApiResponse>({
-      success: response.success,
-      message: response.message,
-      user: response.user,
+      success: extractedResponse.success,
+      message: extractedResponse.message,
+      user: extractedResponse.user,
     });
     
   } catch (err: unknown) {

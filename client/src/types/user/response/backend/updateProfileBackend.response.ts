@@ -1,7 +1,5 @@
-import { ClientUser } from "@/types/user/user.type";
+import { UpdateProfileType } from "@/types/user/updateProfile.type";
 
 export interface IUpdateUserProfileBackendResponse {
-  success: boolean;
-  message: string;
-  user: ClientUser;
+  updateUserProfile: UpdateProfileType;
 }

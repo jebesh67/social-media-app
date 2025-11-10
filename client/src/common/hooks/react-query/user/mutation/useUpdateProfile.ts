@@ -7,17 +7,18 @@ export const useUpdateProfile = (): UseMutationResult<IUserApiResponse, Error, I
   const queryClient: QueryClient = useQueryClient();
   
   return useMutation<IUserApiResponse, Error, IUpdateProfileVariables>({
-    mutationFn: async ({name, bio, avatarUrl, avatarPublicId}: IUpdateProfileVariables) => {
+    mutationFn: async ({name, bio, avatarUrl, avatarPublicId}: IUpdateProfileVariables): Promise<IUserApiResponse> => {
       const response: IUserApiResponse = await updateProfile({name, bio, avatarUrl, avatarPublicId});
       
       if (!response.success) {
         throw new Error(response.message);
       }
       
-      const goodResponse = response as IUserApiResponse;
-      
-      queryClient.setQueryData(["user", "CURRENT_USER"], goodResponse.user);
-      return goodResponse;
+      return response as IUserApiResponse;
+    },
+    
+    onSuccess: (res: IUserApiResponse): void => {
+      queryClient.setQueryData(["user", "CURRENT_USER"], res.user);
     },
   });
 };

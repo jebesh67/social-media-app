@@ -6,24 +6,18 @@ import { FaImage } from "react-icons/fa";
 import { useRef, useState, RefObject } from "react";
 import Cropper, { Area } from "react-easy-crop";
 import { Dialog } from "@headlessui/react";
-import axios, { AxiosResponse } from "axios";
 import { BarLoader } from "react-spinners";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { ClientUser } from "@/types/user/user.type";
 import { CloudinaryUploadResponse } from "@/types/cloudinary/response/api/cloudinaryUpload.response";
 import { getCroppedImg } from "@/components/edit-profile/helper/getCroppedImg.helper";
-import { signCloudinaryAction } from "@/components/edit-profile/action/signCloudinary.action";
-import { ISignCloudinaryResponse } from "@/types/cloudinary/response/api/ISIgnCloudinary.response";
-import { IApiError } from "@/types/error-response/api-error/apiError.response";
 import { deleteProfileAvatar } from "@/lib/cloudinary/util/deleteProfileAvatar.util";
 import { useUpdateProfile } from "@/common/hooks/react-query/user/mutation/useUpdateProfile";
 import { UseMutationResult } from "@tanstack/react-query";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/updateProfileVariables.interface";
-import { useRouter } from "next/navigation";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { useUser } from "@/common/hooks/react-query/user/query/useUser";
+import { uploadAvatarAction } from "@/components/edit-profile/action/uploadAvatar.action";
 
 type Props = {
   user: ClientUser;
@@ -33,10 +27,6 @@ type Props = {
 
 export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvatarPublicIdChangeAction}: Props) => {
   const {theme} = useThemeStore();
-  
-  const {refetch} = useUser();
-  
-  const router: AppRouterInstance = useRouter();
   
   const updateProfileMutation: UseMutationResult<IUserApiResponse, Error, IUpdateProfileVariables> = useUpdateProfile();
   
@@ -69,9 +59,11 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
       URL.createObjectURL(selectedFile),
       croppedAreaPixels,
     );
+    
     const croppedFile = new File([croppedBlob], selectedFile.name, {
       type: selectedFile.type,
     });
+    
     await uploadToCloudinary(croppedFile);
     setCropModal(false);
   };
@@ -80,41 +72,16 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
     try {
       setUploading(true);
       
-      const signatureResponse: ISignCloudinaryResponse | IApiError = await signCloudinaryAction();
-      
-      if (!signatureResponse.success) throw new Error(signatureResponse.message);
-      
-      const goodResponse = signatureResponse as ISignCloudinaryResponse;
-      
-      const {timestamp, signature, cloudName, apiKey, uploadPreset} = goodResponse.data;
-      
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("api_key", apiKey);
-      formData.append("timestamp", String(timestamp));
-      formData.append("signature", signature);
-      formData.append("upload_preset", uploadPreset);
-      
-      const cloudRes: AxiosResponse<CloudinaryUploadResponse> = await axios.post(
-        `https://api.cloudinary.com/v1_1/${ cloudName }/image/upload`,
-        formData,
-      );
-      
-      const data: CloudinaryUploadResponse = cloudRes.data;
+      const data: CloudinaryUploadResponse = await uploadAvatarAction(file);
       
       if (data.secure_url) {
-        const deleteAvatarResponse: string = await deleteProfileAvatar((user.avatarPublicId));
-        console.log(deleteAvatarResponse);
+        await deleteProfileAvatar((user.avatarPublicId));
         
-        updateProfileMutation.mutate({avatarPublicId: data.public_id});
+        updateProfileMutation.mutate({avatarPublicId: data.public_id, avatarUrl: data.secure_url});
         
         setAvatarPreview(data.secure_url);
         onAvatarUrlChangeAction(data.secure_url);
         onAvatarPublicIdChangeAction(data.public_id);
-        
-        await refetch();
-        
-        router.refresh();
       }
     } catch (err) {
       console.error("Cloudinary upload failed:", err);
@@ -190,7 +157,11 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
           "relative w-full max-w-120 lg:max-w-140 rounded-xl overflow-hidden shadow-md p-4",
           ifTheme(theme, "bg-zinc-800", "bg-zinc-300"),
         ) }>
-          <div className="relative w-full aspect-square">
+          <div
+            className={ clsx(
+              "relative w-full aspect-square",
+              ifTheme(theme, "bg-zinc-700", "bg-zinc-100"),
+            ) }>
             { selectedFile && (
               <Cropper
                 image={ URL.createObjectURL(selectedFile) }
@@ -204,7 +175,7 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
             ) }
           </div>
           
-          <div className="flex justify-end p-4 space-x-3">
+          <div className="flex justify-center pt-4 space-x-3">
             <button
               className={ clsx(
                 "px-4 py-2 rounded-md font-semibold text-sm hover:cursor-pointer",
@@ -226,7 +197,7 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
               disabled={ uploading }
             >
               {
-                uploading ? "Uploading" : "Upload"
+                uploading ? "Updating" : "Update"
               }
             </button>
           </div>
