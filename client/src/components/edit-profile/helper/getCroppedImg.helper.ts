@@ -1,6 +1,7 @@
 import { createImage } from "@/components/edit-profile/helper/createImage.helper";
+import { PixelCropType } from "@/types/react-easy-crop/pixelCrop.type";
 
-export const getCroppedImg = async (imageSrc: string, pixelCrop: any): Promise<Blob> => {
+export const getCroppedImg = async (imageSrc: string, pixelCrop: PixelCropType): Promise<Blob> => {
   const image: HTMLImageElement = await createImage(imageSrc);
   const canvas: HTMLCanvasElement = document.createElement("canvas");
   const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");

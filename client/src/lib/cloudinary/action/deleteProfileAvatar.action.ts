@@ -13,7 +13,7 @@ export const deleteProfileAvatar = async (avatarPublicId: string): Promise<strin
     
     return "Old avatar successfully removed";
     
-  } catch (deleteErr) {
+  } catch {
     return "Old avatar could not be deleted";
   }
 };
