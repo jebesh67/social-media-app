@@ -8,4 +8,3 @@ export const getTheme = async (): Promise<Theme> => {
   
   return cookieTheme === "dark" ? "dark" : "light";
 };
-

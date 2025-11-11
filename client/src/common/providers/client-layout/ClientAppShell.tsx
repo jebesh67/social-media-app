@@ -16,7 +16,7 @@ export default function ClientAppShell({
   children,
   initialTheme,
 }: Props) {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   
   useEffect(() => {
     const timer = setTimeout((): void => setLoading(false), 700);
@@ -24,13 +24,11 @@ export default function ClientAppShell({
     return (): void => clearTimeout(timer);
   }, []);
   
-  if (loading) {
-    return <PageLoader />;
-  }
-  
   return (
     <ReactQueryProvider>
       <ThemeProvider initialTheme={ initialTheme }>
+        { loading && <PageLoader /> }
+        
         <div className="md:ml-15 pt-18 md:pt-6">{ children }</div>
         <Navigation />
       </ThemeProvider>
