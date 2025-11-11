@@ -15,7 +15,7 @@ export const ProfileInfoInternal = ({currentUser}: Props) => {
         
         <h3 className={ "hidden sm:block font-light text-sm" }>{ currentUser.name }</h3>
         
-        <div className={ "flex justify-between w-full pr-50 gap-4 sm:gap-8 t-1" }>
+        <div className={ "flex justify-between w-full pr-8 gap-4 sm:gap-8 t-1" }>
           <div className={ " flex flex-col sm:flex-row sm:items-center space-x-1" }>
             <h2 className={ "font-semibold text-sm" }>{ currentUser.counts.postsCount }</h2>
             <p className={ "leading-3 text-xs font-light" }>posts</p>
