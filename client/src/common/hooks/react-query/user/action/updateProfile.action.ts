@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/updateProfileVariables.interface";
-import { IApiError } from "@/types/error-response/api-error/apiError.response";
+import { IApiError } from "@/types/error/api-error/response/apiError.response";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 
 export const updateProfile = async (data: IUpdateProfileVariables): Promise<IUserApiResponse> => {

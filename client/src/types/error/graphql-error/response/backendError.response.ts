@@ -1,4 +1,4 @@
-import { IOriginalError } from "@/types/error-response/graphql-error/originalError.response";
+import { IOriginalError } from "@/types/error/graphql-error/response/originalError.response";
 
 export interface IBackendErrorResponse {
   response: {

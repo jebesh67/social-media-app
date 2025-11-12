@@ -3,9 +3,9 @@
 import { NextResponse } from "next/server";
 import { request, ClientError } from "graphql-request";
 import LoginUserMutation from "@/graphql/user/mutation/loginUser.mutation.graphql";
-import { IOriginalError } from "@/types/error-response/graphql-error/originalError.response";
-import { IApiError } from "@/types/error-response/api-error/apiError.response";
-import { IBackendErrorResponse } from "@/types/error-response/graphql-error/backendError.response";
+import { IOriginalError } from "@/types/error/graphql-error/response/originalError.response";
+import { IApiError } from "@/types/error/api-error/response/apiError.response";
+import { IBackendErrorResponse } from "@/types/error/graphql-error/response/backendError.response";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { ILoginUserBackendResponse } from "@/types/user/response/backend/loginUserBackend.response";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";

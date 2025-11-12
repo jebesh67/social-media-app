@@ -1,6 +1,6 @@
 "use client";
 
-import { IApiError } from "@/types/error-response/api-error/apiError.response";
+import { IApiError } from "@/types/error/api-error/response/apiError.response";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import axios, { AxiosResponse } from "axios";
 

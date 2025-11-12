@@ -77,9 +77,9 @@ Content-Type: application/json
   "variables": {
     "input": {
       "name": "lalala",
-      "username": "jebesh",
+      "username": "je3b@e sh",
       "email": "jebesh67mail.com",
-      "password": "jebes"
+      "password": "je es"
     }
   }
 }

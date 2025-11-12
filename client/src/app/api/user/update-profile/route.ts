@@ -4,10 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
 import UpdateUserProfile from "@/graphql/user/mutation/updateUserProfile.mutation.graphql";
 import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/updateProfileVariables.interface";
-import { IBackendErrorResponse } from "@/types/error-response/graphql-error/backendError.response";
-import { IOriginalError } from "@/types/error-response/graphql-error/originalError.response";
+import { IBackendErrorResponse } from "@/types/error/graphql-error/response/backendError.response";
+import { IOriginalError } from "@/types/error/graphql-error/response/originalError.response";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
-import { IApiError } from "@/types/error-response/api-error/apiError.response";
+import { IApiError } from "@/types/error/api-error/response/apiError.response";
 import { IUpdateUserProfileBackendResponse } from "@/types/user/response/backend/updateProfileBackend.response";
 import { UpdateProfileType } from "@/types/user/updateProfile.type";
 

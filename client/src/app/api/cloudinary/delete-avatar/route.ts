@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary/cloudinary.config";
-import { IApiError } from "@/types/error-response/api-error/apiError.response";
+import { IApiError } from "@/types/error/api-error/response/apiError.response";
 import { IDeleteAvatarResponse } from "@/types/cloudinary/response/api/deleteAvatar.response";
 import { DeleteAvatarType } from "@/types/cloudinary/deleteAvatar.type";
 import { IVerifyAccessBackendResponse } from "@/types/user/response/backend/verifyAccessBackend.response";

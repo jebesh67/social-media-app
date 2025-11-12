@@ -3,6 +3,8 @@ import { AppModule } from '@/app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { BackendError } from '@/common/backend-error/util/backendError.util';
 import { ValidationError } from 'class-validator';
+import { HandleValidationError } from '@/common/backend-error/util/validationError.util';
+import { ValidationObjectType } from '@/common/types/validation/validationObject.type';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,14 +16,18 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      exceptionFactory: (errors: ValidationError[]): BackendError => {
-        const message: string = errors
-          .map((err: ValidationError): string =>
-            Object.values(err.constraints || {}).join(', '),
-          )
-          .join('; ');
+      stopAtFirstError: false,
 
-        return BackendError.BadRequest(message);
+      exceptionFactory: (errors: ValidationError[]): BackendError => {
+        const formattedErrors: ValidationObjectType = {};
+
+        for (const err of errors) {
+          if (err.constraints) {
+            formattedErrors[err.property] = Object.values(err.constraints);
+          }
+        }
+
+        return HandleValidationError.BadInput(formattedErrors);
       },
     }),
   );

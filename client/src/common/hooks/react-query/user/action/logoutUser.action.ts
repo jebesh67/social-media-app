@@ -1,4 +1,4 @@
-import { IApiError } from "@/types/error-response/api-error/apiError.response";
+import { IApiError } from "@/types/error/api-error/response/apiError.response";
 import axios, { AxiosResponse } from "axios";
 import { ILogoutApiResponse } from "@/types/user/response/api/logoutApi.response";
 

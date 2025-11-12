@@ -3,9 +3,9 @@
 import { NextResponse } from "next/server";
 import { request, ClientError } from "graphql-request";
 import CreateUserMutation from "@/graphql/user/mutation/createUser.mutation.graphql";
-import { IOriginalError } from "@/types/error-response/graphql-error/originalError.response";
-import { IApiError } from "@/types/error-response/api-error/apiError.response";
-import { IBackendErrorResponse } from "@/types/error-response/graphql-error/backendError.response";
+import { IOriginalError } from "@/types/error/graphql-error/response/originalError.response";
+import { IApiError } from "@/types/error/api-error/response/apiError.response";
+import { IBackendErrorResponse } from "@/types/error/graphql-error/response/backendError.response";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { ICreateUserBackendResponse } from "@/types/user/response/backend/createUserBackend.response";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
@@ -42,6 +42,16 @@ export const POST = async (req: Request): Promise<NextResponse<IUserApiResponse 
       const originalError: IOriginalError =
         backendError.response.errors[0].extensions.originalError;
       
+      if (originalError.isValidationError) {
+        return NextResponse.json<IApiError>({
+          success: false,
+          message: originalError.message,
+          statusCode: originalError.statusCode,
+          isValidationError: originalError.isValidationError,
+          validation: originalError.validation,
+        }, {status: originalError.statusCode});
+      }
+      
       return NextResponse.json<IApiError>({
         success: false,
         message: originalError.message,
@@ -64,10 +74,3 @@ export const POST = async (req: Request): Promise<NextResponse<IUserApiResponse 
     }, {status: 500});
   }
 };
-
-
-
-
-
-
-

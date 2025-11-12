@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { IBackendError } from '@/common/backend-error/type/backendError.interface';
+import { ValidationObjectType } from '@/common/types/validation/validationObject.type';
 
 export class BackendError extends HttpException {
   constructor(message: string, error: string, statusCode: number) {

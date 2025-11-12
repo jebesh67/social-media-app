@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { IApiError } from "@/types/error-response/api-error/apiError.response";
+import { IApiError } from "@/types/error/api-error/response/apiError.response";
 import { ISignCloudinaryResponse } from "@/types/cloudinary/response/api/ISIgnCloudinary.response";
 
 export const signCloudinaryAction = async (): Promise<ISignCloudinaryResponse | IApiError> => {

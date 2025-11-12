@@ -1,5 +1,5 @@
 import { ISignCloudinaryResponse } from "@/types/cloudinary/response/api/ISIgnCloudinary.response";
-import { IApiError } from "@/types/error-response/api-error/apiError.response";
+import { IApiError } from "@/types/error/api-error/response/apiError.response";
 import { signCloudinaryAction } from "@/components/edit-profile/action/signCloudinary.action";
 import axios, { AxiosResponse } from "axios";
 import { CloudinaryUploadResponse } from "@/types/cloudinary/response/api/cloudinaryUpload.response";
