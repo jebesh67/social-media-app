@@ -52,8 +52,7 @@ export const SignUp = () => {
   
   return (
     <main className={ clsx(
-      "w-full flex justify-center css-transition sm:rounded-b-xl",
-      ifTheme(theme, "bg-zinc-700", "bg-zinc-200"),
+      "w-full flex justify-center css-transition sm:rounded-b-xl bg-inherit/70",
     ) }>
       <form className={
         clsx(
