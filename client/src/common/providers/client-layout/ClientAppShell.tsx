@@ -1,10 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ThemeProvider from "@/common/providers/theme/ThemeProvider";
 import { ReactQueryProvider } from "@/common/providers/react-query/ReactQuery.provider";
 import { Navigation } from "@/components/navigation/Navigation";
-import { Theme } from "@/common/utils/theme/types/theme.types";
 import { PageLoader } from "@/components/shared/loader/PageLoader";
 
 type Props = {

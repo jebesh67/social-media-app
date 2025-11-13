@@ -3,8 +3,6 @@ import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { ICreateUserVariables } from "@/common/hooks/react-query/user/type/createUserVariables.interface";
 import { createUser } from "@/common/hooks/react-query/user/action/createUser.action";
 import { IApiError } from "@/types/error/api-error/response/apiError.response";
-import { error } from "next/dist/build/output/log";
-import { ApiError } from "next/dist/server/api-utils";
 
 export const useCreateUser = (): UseMutationResult<IUserApiResponse, Error, ICreateUserVariables> => {
   const queryClient: QueryClient = useQueryClient();
