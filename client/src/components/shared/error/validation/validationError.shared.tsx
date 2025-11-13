@@ -17,7 +17,7 @@ export const ValidationErrorShared = ({value, setShowValidationAction}: Props) =
   
   return (
     <div className={ clsx(
-      "sm:fixed sm:top-2 sm:left-2 w-full sm:w-fit px-4 py-2 flex flex-col sm:rounded-xl text-xs shadow-md backdrop-blur-md",
+      "sm:fixed sm:top-2 sm:right-2 w-full sm:w-fit px-4 py-2 flex flex-col sm:rounded-xl text-xs shadow-md backdrop-blur-md",
       ifTheme(theme, "bg-zinc-600/70", "bg-zinc-300/90"),
     ) }>
       <div className={ "flex justify-end" }>
