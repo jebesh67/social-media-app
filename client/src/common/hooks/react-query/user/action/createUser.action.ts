@@ -3,6 +3,7 @@
 import { IApiError } from "@/types/error/api-error/response/apiError.response";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import axios, { AxiosResponse } from "axios";
+import { CustomError } from "@/common/helper/error/customError.helper";
 
 export const createUser = async (name: string, username: string, email: string, password: string): Promise<IUserApiResponse> => {
   try {
@@ -18,14 +19,13 @@ export const createUser = async (name: string, username: string, email: string, 
   } catch (err: unknown) {
     if (axios.isAxiosError(err) && err.response?.data) {
       const errorResponse = err.response.data as IApiError;
-      
-      if (errorResponse.isValidationError) {
-        throw errorResponse as IApiError;
-      }
-      
-      throw new Error(errorResponse.message ?? "Something went wrong");
+      throw new CustomError(errorResponse);
     }
     
-    throw new Error("Internal server error");
+    throw new CustomError({
+      message:
+        err instanceof Error ?
+          err.message : "Error creating user!",
+    });
   }
 };

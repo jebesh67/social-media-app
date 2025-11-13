@@ -13,6 +13,8 @@ import { CustomInput } from "@/components/shared/input/CustomInput";
 import { ICreateUserVariables } from "@/common/hooks/react-query/user/type/createUserVariables.interface";
 import { useCreateUser } from "@/common/hooks/react-query/user/mutation/useCreateUser";
 import { useShowAuthPanelStore } from "@/common/stores/AuthControl/showAuthPanel.store";
+import { CustomError } from "@/common/helper/error/customError.helper";
+import { ValidationErrorShared } from "@/components/shared/error/validation/validationError.shared";
 
 export const SignUp = () => {
   const {setShowAuthPanel} = useShowAuthPanelStore();
@@ -27,17 +29,16 @@ export const SignUp = () => {
   
   const router: AppRouterInstance = useRouter();
   
-  const createUserMutation: UseMutationResult<IUserApiResponse, Error, ICreateUserVariables> = useCreateUser();
+  const createUserMutation: UseMutationResult<IUserApiResponse, CustomError, ICreateUserVariables> = useCreateUser();
+  const {data, error, isError, isPending} = createUserMutation;
   
   useEffect((): void => {
     if (createUserMutation.data?.success) {
       setShowAuthPanel(false);
-      
       router.push("/profile");
     }
-    
     // eslint-disable-next-line
-  }, [createUserMutation.data, router]);
+  }, [createUserMutation.data]);
   
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
@@ -45,10 +46,13 @@ export const SignUp = () => {
   };
   
   return (
-    <main className={ "w-full flex justify-center css-transition" }>
+    <main className={ clsx(
+      "w-full flex justify-center css-transition",
+      ifTheme(theme, "bg-zinc-700", "bg-zinc-200"),
+    ) }>
       <form className={
         clsx(
-          "flex flex-col space-y-4 justify-center items-center w-full pb-8 pt-12 rounded-xl shadow-md")
+          "flex flex-col space-y-4 justify-center items-center w-full pb-8 pt-12 rounded-xl sm:shadow-md")
       }
             onSubmit={ handleSubmit }
       >
@@ -107,24 +111,27 @@ export const SignUp = () => {
               
               ifTheme(theme, "bg-blue-900 hover:bg-blue-800", "bg-blue-500/90 hover:bg-blue-400"),
               
-              createUserMutation.isPending && "opacity-60 hover:cursor-default",
+              isPending && "opacity-60 hover:cursor-default",
             )
           }
           type="submit"
-          disabled={ createUserMutation.isPending }>
-          { createUserMutation.isPending ? "Signing up..." : "Sign up" }
+          disabled={ isPending }>
+          { isPending ? "Signing up..." : "Sign up" }
         </button>
         
         
-        { createUserMutation.isError && (
+        { isError && (
           <div className={ "flex text-center px-6" }>
-            <div className="text-red-500">{ createUserMutation.error.message }</div>
+            <div className="text-red-500">{ error.message }</div>
           </div>
         ) }
         {
-          createUserMutation.data?.success && (
+          (isError && error.isValidationError) && <ValidationErrorShared value={ error } />
+        }
+        {
+          data?.success && (
             <div className={ "flex text-center px-6" }>
-              <div className="text-green-500">{ createUserMutation.data.message }</div>
+              <div className="text-green-500">{ data.message }</div>
             </div>
           )
         }

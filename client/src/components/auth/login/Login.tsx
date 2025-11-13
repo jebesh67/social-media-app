@@ -45,7 +45,7 @@ export const Login = () => {
     <main className={ "w-full flex justify-center css-transition" }>
       <form className={
         clsx(
-          "flex flex-col space-y-4 justify-center items-center w-full pb-8 pt-12 rounded-xl shadow-md")
+          "flex flex-col space-y-4 justify-center items-center w-full pb-8 pt-12 rounded-xl sm:shadow-md")
       }
             onSubmit={ handleSubmit }
       >

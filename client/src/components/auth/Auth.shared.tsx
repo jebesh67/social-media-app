@@ -27,12 +27,12 @@ export const AuthShared = (
   
   return (
     <div className={ clsx(
-      "fixed inset-0 flex flex-col justify-center items-center px-6 z-50",
-      isFloating && "bg-black/30 backdrop-blur-xs",
+      "fixed inset-0 flex flex-col justify-start sm:justify-center items-center sm:px-6 z-50",
+      isFloating && "bg-black/30 backdrop-blur-xs overflow-y-auto",
     ) }>
       <main
         className={
-          clsx("max-w-120 w-full pt-8 rounded-xl shadow-md",
+          clsx("max-w-160 sm:max-w-120 w-full h-full sm:h-fit pt-8 sm:rounded-xl shadow-md",
             ifTheme(theme, "bg-zinc-700", "bg-zinc-200"),
           )
         }

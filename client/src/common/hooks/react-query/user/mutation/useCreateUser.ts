@@ -2,27 +2,23 @@ import { QueryClient, useMutation, UseMutationResult, useQueryClient } from "@ta
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { ICreateUserVariables } from "@/common/hooks/react-query/user/type/createUserVariables.interface";
 import { createUser } from "@/common/hooks/react-query/user/action/createUser.action";
-import { IApiError } from "@/types/error/api-error/response/apiError.response";
+import { CustomError } from "@/common/helper/error/customError.helper";
 
-export const useCreateUser = (): UseMutationResult<IUserApiResponse, Error, ICreateUserVariables> => {
+export const useCreateUser = (): UseMutationResult<IUserApiResponse, CustomError, ICreateUserVariables> => {
   const queryClient: QueryClient = useQueryClient();
   
-  return useMutation<IUserApiResponse, Error, ICreateUserVariables>({
+  return useMutation<IUserApiResponse, CustomError, ICreateUserVariables>({
     mutationFn: async ({name, username, email, password}: ICreateUserVariables): Promise<IUserApiResponse> => {
       const response: IUserApiResponse = await createUser(name, username, email, password);
       
       if (!response.success) {
-        throw new Error(response.message);
+        throw new CustomError({message: response.message});
       }
       
       const goodResponse = response as IUserApiResponse;
       
       queryClient.setQueryData(["user", "CURRENT_USER"], goodResponse.user);
       return goodResponse;
-    },
-    
-    onError: (error: IApiError | Error) => {
-      console.log(error);
     },
   });
 };
