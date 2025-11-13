@@ -38,7 +38,7 @@ export const CustomInput = ({
     ifTheme(theme, "bg-zinc-800 text-zinc-400", "bg-zinc-300 text-zinc-800"),
     "placeholder-transparent focus:ring-0",
     
-    "placeholder-transparent focus:ring-1 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-600",
+    "placeholder-transparent focus:ring-1 focus:ring-blue-600 focus:shadow-[0px_0px_2px_2px] focus:shadow-blue-600",
   );
   
   const isPassword: boolean = type === "password";
