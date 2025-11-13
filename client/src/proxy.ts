@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getAuthToken } from "@/common/utils/cookie/cookie.helper";
-import { PUBLIC_PATHS } from "@/middleware/data/publicPaths.data";
+import { PUBLIC_PATHS } from "@/proxy/data/publicPaths.data";
 import { IVerifyAccessBackendResponse } from "@/types/user/response/backend/verifyAccessBackend.response";
 import { request } from "graphql-request";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
 import VerifyAccessQuery from "@/graphql/user/query/verifyAccess.query.graphql";
 
-export const middleware = async (req: NextRequest): Promise<NextResponse> => {
+export const proxy = async (req: NextRequest): Promise<NextResponse> => {
   const {pathname} = req.nextUrl;
   
   if (PUBLIC_PATHS.some((path: string): boolean => pathname.startsWith(path))) {
