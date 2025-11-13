@@ -19,18 +19,19 @@ import { ValidationErrorShared } from "@/components/shared/error/validation/vali
 export const SignUp = () => {
   const {setShowAuthPanel} = useShowAuthPanelStore();
   
+  const createUserMutation: UseMutationResult<IUserApiResponse, CustomError, ICreateUserVariables> = useCreateUser();
+  const {data, error, isError, isPending} = createUserMutation;
+  
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [reEnterPassword, setReEnterPassword] = useState<string>("");
+  const [showValidation, setShowValidation] = useState<boolean>(false);
   
   const {theme} = useThemeStore();
   
   const router: AppRouterInstance = useRouter();
-  
-  const createUserMutation: UseMutationResult<IUserApiResponse, CustomError, ICreateUserVariables> = useCreateUser();
-  const {data, error, isError, isPending} = createUserMutation;
   
   useEffect((): void => {
     if (createUserMutation.data?.success) {
@@ -40,6 +41,10 @@ export const SignUp = () => {
     // eslint-disable-next-line
   }, [createUserMutation.data]);
   
+  useEffect((): void => {
+    if (error) setShowValidation(error.isValidationError || false);
+  }, [error]);
+  
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     createUserMutation.mutate({name, username, email, password});
@@ -47,7 +52,7 @@ export const SignUp = () => {
   
   return (
     <main className={ clsx(
-      "w-full flex justify-center css-transition",
+      "w-full flex justify-center css-transition sm:rounded-b-xl",
       ifTheme(theme, "bg-zinc-700", "bg-zinc-200"),
     ) }>
       <form className={
@@ -126,7 +131,10 @@ export const SignUp = () => {
           </div>
         ) }
         {
-          (isError && error.isValidationError) && <ValidationErrorShared value={ error } />
+          (showValidation && error) &&
+          <ValidationErrorShared
+            setShowValidationAction={ setShowValidation }
+            value={ error } />
         }
         {
           data?.success && (

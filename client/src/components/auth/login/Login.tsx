@@ -42,7 +42,10 @@ export const Login = () => {
   };
   
   return (
-    <main className={ "w-full flex justify-center css-transition" }>
+    <main className={ clsx(
+      "w-full flex justify-center css-transition sm:rounded-b-xl",
+      ifTheme(theme, "bg-zinc-700", "bg-zinc-200"),
+    ) }>
       <form className={
         clsx(
           "flex flex-col space-y-4 justify-center items-center w-full pb-8 pt-12 rounded-xl sm:shadow-md")
