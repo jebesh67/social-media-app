@@ -15,15 +15,11 @@ export default function ThemeProvider({
   
   useEffect((): void => {
     if (initialTheme !== theme) setTheme(initialTheme);
-    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialTheme]);
   
   useEffect((): void => {
-    const body: HTMLElement = document.body;
-    
-    body.classList.remove(theme === "dark" ? "css-theme-light" : "css-theme-dark");
-    body.classList.add(theme === "dark" ? "css-theme-dark" : "css-theme-light");
+    document.body.setAttribute("data-theme", theme);
   }, [theme]);
   
   return <>{ children }</>;

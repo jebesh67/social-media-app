@@ -9,12 +9,10 @@ import { PageLoader } from "@/components/shared/loader/PageLoader";
 
 type Props = {
   children: React.ReactNode;
-  initialTheme: Theme;
 }
 
 export default function ClientAppShell({
   children,
-  initialTheme,
 }: Props) {
   const [loading, setLoading] = useState<boolean>(true);
   
@@ -26,12 +24,13 @@ export default function ClientAppShell({
   
   return (
     <ReactQueryProvider>
-      <ThemeProvider initialTheme={ initialTheme }>
-        { loading && <PageLoader /> }
-        
-        <div className="md:ml-15 pt-18 md:pt-6">{ children }</div>
-        <Navigation />
-      </ThemeProvider>
+      { loading && <PageLoader /> }
+      
+      <div className="md:ml-15 pt-18 md:pt-6">
+        { children }
+      </div>
+      
+      <Navigation />
     </ReactQueryProvider>
   );
 }

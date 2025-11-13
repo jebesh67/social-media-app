@@ -8,12 +8,12 @@ body {
 }
 
 /* Global Themes */
-.css-theme-light {
-  @apply bg-zinc-300 text-zinc-900;
+body[data-theme='dark'] {
+  @apply bg-zinc-800 text-zinc-100;
 }
 
-.css-theme-dark {
-  @apply bg-zinc-800 text-zinc-100;
+body[data-theme='light'] {
+  @apply bg-zinc-300 text-zinc-900;
 }
 
 /* Header Text */

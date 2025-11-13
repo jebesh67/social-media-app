@@ -3,6 +3,7 @@ import "@/app/globals.css";
 import { getTheme } from "@/common/utils/theme/util/server-only/getTheme.util";
 import ClientAppShell from "@/common/providers/client-layout/ClientAppShell";
 import { Theme } from "@/common/utils/theme/types/theme.types";
+import ThemeProvider from "@/common/providers/theme/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "SocialMedia",
@@ -18,10 +19,12 @@ export default async function RootLayout({
   
   return (
     <html lang="en">
-      <body>
-        <ClientAppShell initialTheme={ initialTheme }>
-          { children }
-        </ClientAppShell>
+      <body data-theme={ initialTheme }>
+        <ThemeProvider initialTheme={ initialTheme }>
+          <ClientAppShell>
+            { children }
+          </ClientAppShell>
+        </ThemeProvider>
       </body>
     </html>
   );

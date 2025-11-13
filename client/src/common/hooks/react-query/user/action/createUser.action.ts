@@ -19,6 +19,10 @@ export const createUser = async (name: string, username: string, email: string, 
     if (axios.isAxiosError(err) && err.response?.data) {
       const errorResponse = err.response.data as IApiError;
       
+      if (errorResponse.isValidationError) {
+        throw errorResponse as IApiError;
+      }
+      
       throw new Error(errorResponse.message ?? "Something went wrong");
     }
     
