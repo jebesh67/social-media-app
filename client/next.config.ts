@@ -4,7 +4,6 @@ const nextConfig: NextConfig = {
   /* config options here */
   turbopack: {
     rules: {
-      // tell Turbopack how to handle `.graphql` files
       "*.graphql": {
         loaders: ["graphql-tag/loader"],
         as: "*.js",
