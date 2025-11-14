@@ -52,7 +52,7 @@ export const SignUp = () => {
   
   return (
     <main className={ clsx(
-      "w-full flex justify-center css-transition sm:rounded-b-xl bg-inherit/70",
+      "w-full flex flex-col items-center justify-center css-transition sm:rounded-b-xl bg-inherit/70",
     ) }>
       <form className={
         clsx(
@@ -129,20 +129,19 @@ export const SignUp = () => {
           </div>
         ) }
         {
-          (showValidation && error) &&
-          <ValidationErrorShared
-            setShowValidationAction={ setShowValidation }
-            value={ error } />
-        }
-        {
           data?.success && (
             <div className={ "flex text-center px-6" }>
               <div className="text-green-500">{ data.message }</div>
             </div>
           )
         }
-      
       </form>
+      {
+        (showValidation && error) &&
+        <ValidationErrorShared
+          setShowValidationAction={ setShowValidation }
+          value={ error } />
+      }
     </main>
   );
 };

@@ -33,7 +33,7 @@ export const CustomInput = ({
   
   const [showPassword, setShowPassword] = useState<boolean>(false);
   
-  const baseStyles = clsx(
+  const baseStyles: string = clsx(
     "peer w-full rounded-xl px-5 pt-5 pb-3 text-xs bg-transparent outline-none resize-none transition-all duration-200",
     ifTheme(theme, "bg-zinc-800 text-zinc-400", "bg-zinc-300 text-zinc-800"),
     "placeholder-transparent focus:ring-0",
@@ -93,7 +93,7 @@ export const CustomInput = ({
       <label
         htmlFor={ id }
         className={ clsx(
-          "absolute left-5 top-4 text-xs transition-all duration-200 ease-in-out py-1",
+          "absolute left-5 top-4 text-xs transition-all duration-200 ease-in-out py-1 select-none",
           
           width === "small" && "w-55",
           width === "medium" && "w-70",
