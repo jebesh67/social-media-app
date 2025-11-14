@@ -1,7 +1,7 @@
 @jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZ3VtODAwMDE1M3cwN3llaWJmamkiLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc2MjI2MDE2MSwiZXhwIjoxNzYyODY0OTYxfQ.pk2O5rv-y2yWnw7yiA5AQk3qHxR28M0yIlYon61l9xc
-@sodaToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZzk1ZTAwMDA1M3cwdTdqcjZ2d28iLCJ1c2VybmFtZSI6Il9zb2RhIiwiaWF0IjoxNzYwNjkwMTQzLCJleHAiOjE3NjEyOTQ5NDN9.NDdsWLt0-qMPE9M5cU1tAhXzMaQ5XY9YvBAE8b7U5ho
+@sodaToken =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtaHlpMTZzcjAwMDA1M3Fjejlha21wNWoiLCJ1c2VybmFtZSI6Il9zb2RhIiwiaWF0IjoxNzYzMTAzMDQ4LCJleHAiOjE3NjM3MDc4NDh9.TKqzHnK-daGqVSXkOEZJPRnDBEUt_wLXzlxQwRWxjEo
 @lemonToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtaHloM3BuazAwMDA1M25mYnB0OGozOHQiLCJ1c2VybmFtZSI6ImxlbW9uMjIiLCJpYXQiOjE3NjMxMDE0ODYsImV4cCI6MTc2MzcwNjI4Nn0.qr_Xi6RTrxhofFXbw39rSYWXdWynOHIJwgYTmPlthY0
-@meopoToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3hnemx1ODAwMDA1M2tzZGw3M2dueGkiLCJ1c2VybmFtZSI6Im1lb3BvNjM2IiwiaWF0IjoxNzYwODY0MDQ2LCJleHAiOjE3NjE0Njg4NDZ9.EB1CLa6Zg93cMCsem0AOSQM-0IGEwygJ0F60xc7iCb4
+@meopoToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtaHlpNW94ajAwMDA1M3ZlNXlsczQ4ZzUiLCJ1c2VybmFtZSI6Im1lb3BvNjciLCJpYXQiOjE3NjMxMDMyNTgsImV4cCI6MTc2MzcwODA1OH0.jU-UjxKfGxKWBOEsO6h6FWab0toBme42ura3MhQS58Y
 
 ### Create user jebesh
 POST http://localhost:5000/graphql
@@ -14,7 +14,8 @@ Content-Type: application/json
       "name": "Jebesh",
       "username": "jebesh",
       "email": "jebesh67@gmail.com",
-      "password": "jebesh123"
+      "password": "jebesh123",
+      "confirmPassword": "jebesh123"
     }
   }
 }
@@ -30,7 +31,8 @@ Content-Type: application/json
       "name": "SodaPop",
       "username": "_soda",
       "email": "sodaeleven@gmail.com",
-      "password": "soda123"
+      "password": "soda123",
+      "confirmPassword": "soda123"
     }
   }
 }
@@ -46,7 +48,8 @@ Content-Type: application/json
       "name": "lemon",
       "username": "lemon22",
       "email": "lemon67@gmail.com",
-      "password": "lemon123"
+      "password": "lemon123",
+      "confirmPassword": "soda123"
     }
   }
 }
@@ -60,9 +63,10 @@ Content-Type: application/json
   "variables": {
     "input": {
       "name": "Meopo Jr",
-      "username": "meopo636",
+      "username": "meopo67",
       "email": "meopo67@gmail.com",
-      "password": "meopo123"
+      "password": "meopo123",
+      "confirmPassword": "meopo123"
     }
   }
 }
@@ -80,7 +84,7 @@ Content-Type: application/json
       "username": "je3b@e sh",
       "email": "jebesh67mail.com",
       "password": "je es",
-      "rePassword": ""
+      "confirmPassword": ""
     }
   }
 }
@@ -93,7 +97,7 @@ Content-Type: application/json
   "query": "mutation($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
   "variables": {
     "input": {
-      "username": "jebesh",
+      "username": "jebesh11",
       "password": "jebesh123"
     }
   }
@@ -108,7 +112,7 @@ Content-Type: application/json
   "query": "mutation($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
   "variables": {
     "input": {
-      "username": "jebesh11",
+      "username": "jebesh111",
       "password": "jebesh123"
     }
   }

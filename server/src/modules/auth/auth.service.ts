@@ -54,6 +54,9 @@ export class AuthService {
 
     if (isExistingUser) throw BackendError.Conflict('User already exists');
 
+    if (createUserInput.password !== createUserInput.confirmPassword)
+      throw BackendError.BadRequest('Passwords do not match');
+
     const hashedPassword: string = await bcrypt.hash(
       createUserInput.password,
       12,

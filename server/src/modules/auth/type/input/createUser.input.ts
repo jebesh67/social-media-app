@@ -36,4 +36,9 @@ export class CreateUserInput {
   @MinLength(6, { message: 'password must be at least 6 characters long' })
   @Matches(/^\S+$/, { message: 'password cannot contain spaces' })
   password: string;
+
+  @Field()
+  @IsNotEmpty({ message: 'confirm password cannot be empty' })
+  @IsString()
+  confirmPassword: string;
 }
