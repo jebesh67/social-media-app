@@ -30,7 +30,7 @@ Authorization: Bearer {{lemonToken}}
 ### Get invalid user
 POST http://localhost:5000/graphql
 Content-Type: application/json
-Authorization: Bearer {{jebeshToken}}
+Authorization: Bearer {{lemonToken}}
 
 {
   "query": "query($username: String!) { otherUserProfile(username: $username) { user { username } } }",
@@ -66,13 +66,13 @@ Content-Type: application/json
 ### Update user profile
 POST http://localhost:5000/graphql
 Content-Type: application/json
-Authorization: Bearer {{jebeshToken}}
+Authorization: Bearer {{lemonToken}}
 
 {
   "query": "mutation UpdateUserProfile($input: UpdateUserProfileInput!) {updateUserProfile(updateUserProfileInput: $input) {success message user {id name bio avatarUrl } } }",
   "variables": {
     "input": {
-      "name": "Jebesh",
+      "name": "Lemon Soda",
       "bio": "Very very very very very huge bio hahahahahaha",
       "avatarUrl": "/assets/user-profile/defaultProfile.jpg",
       "avatarPublicId": "wont tell you"
