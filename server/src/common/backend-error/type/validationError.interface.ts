@@ -1,4 +1,4 @@
-import { ValidationObjectType } from '@/common/types/validation/validationObject.type';
+import { ValidationObjectType } from '@/common/type/validation/validationObject.type';
 
 export interface IValidationError {
   isValidationError: boolean;

@@ -1,4 +1,4 @@
-import { ValidationObjectType } from '@/common/types/validation/validationObject.type';
+import { ValidationObjectType } from '@/common/type/validation/validationObject.type';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { IValidationError } from '@/common/backend-error/type/validationError.interface';
 

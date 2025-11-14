@@ -4,7 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { BackendError } from '@/common/backend-error/util/backendError.util';
 import { ValidationError } from 'class-validator';
 import { HandleValidationError } from '@/common/backend-error/util/validationError.util';
-import { ValidationObjectType } from '@/common/types/validation/validationObject.type';
+import { ValidationObjectType } from '@/common/type/validation/validationObject.type';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

@@ -1,21 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { User } from '@prisma/client';
-import * as bcrypt from 'bcrypt';
-import { sign } from 'jsonwebtoken';
 import { CacheService } from '@/common/cache/cache.service';
-import { LoginUserInput } from '@/modules/user/types/inputs/loginUser.input';
-import { CreateUserInput } from '@/modules/user/types/inputs/createUser.input';
-import { UserResponse } from '@/modules/user/types/response/user.response';
-import { AuthUserResponse } from '@/modules/user/types/response/authUser.response';
+import { UserResponse } from '@/modules/user/type/response/user.response';
 import { BackendError } from '@/common/backend-error/util/backendError.util';
-import { ExistingUsernameResponse } from '@/modules/user/types/response/existingUsername.response';
-import { VerifyAccessType } from '@/modules/user/types/objects/verifyAccess.object';
-import { VerifyAccessResponse } from '@/modules/user/types/response/verifyAccess.response';
-import { SafeUserType } from '@/modules/user/types/objects/safeUser.object';
-import { UserDataCount } from '@/modules/user/types/user.type';
-import { UpdateUserProfileInput } from '@/modules/user/types/inputs/updateUserProfile.input';
-import { UpdateUserProfileResponse } from '@/modules/user/types/response/updateUserProfile.response';
+import { ExistingUsernameResponse } from '@/modules/user/type/response/existingUsername.response';
+import { SafeUserType } from '@/modules/user/type/object/safeUser.object';
+import { UserDataCount } from '@/modules/user/type/user.type';
+import { UpdateUserProfileInput } from '@/modules/user/type/input/updateUserProfile.input';
+import { UpdateUserProfileResponse } from '@/modules/user/type/response/updateUserProfile.response';
 
 @Injectable()
 export class UserService {
@@ -23,32 +16,6 @@ export class UserService {
     private readonly prisma: PrismaService,
     private readonly cache: CacheService,
   ) {}
-
-  async verifyAccess(
-    currentUser: Partial<User>,
-  ): Promise<VerifyAccessResponse> {
-    if (!currentUser.id) {
-      return {
-        data: {
-          accessGranted: false,
-          username: '',
-          message: 'Access not granted',
-        },
-      };
-    }
-
-    const verifiedUser: User = currentUser as User;
-
-    const response: VerifyAccessType = {
-      accessGranted: true,
-      username: verifiedUser.username,
-      message: 'Access granted',
-    };
-
-    return {
-      data: response,
-    };
-  }
 
   async verifyUsername(username: string): Promise<ExistingUsernameResponse> {
     const isTaken: boolean = await this.checkExistingUser(username);
@@ -61,65 +28,6 @@ export class UserService {
           : `${username} is available`,
       },
     };
-  }
-
-  async createUser(createUserInput: CreateUserInput): Promise<User> {
-    const isExistingUser: boolean = await this.checkExistingUser(
-      createUserInput.username,
-    );
-
-    if (isExistingUser) throw BackendError.Conflict('User already exists');
-
-    const hashedPassword: string = await bcrypt.hash(
-      createUserInput.password,
-      12,
-    );
-
-    const createdUser: User = await this.prisma.user.create({
-      data: {
-        name: createUserInput.name,
-        username: createUserInput.username,
-        email: createUserInput.email,
-        password: hashedPassword,
-      },
-    });
-
-    // cache user
-    await this.cache.set<User>(`user:${createdUser.username}`, createdUser, 20);
-
-    return createdUser;
-  }
-
-  async loginUser(loginUserInput: LoginUserInput): Promise<User> {
-    const user: User | null = await this.getUserByUsername(
-      loginUserInput.username,
-    );
-
-    if (!user) {
-      throw BackendError.Unauthorized('Invalid credentials');
-    }
-
-    const isPasswordMatching: boolean = await bcrypt.compare(
-      loginUserInput.password,
-      user.password,
-    );
-
-    if (!isPasswordMatching) {
-      throw BackendError.Unauthorized('Invalid credentials');
-    }
-
-    // cache user
-    await this.cache.set<User>(`user:${user.username}`, user, 20);
-
-    return user;
-  }
-
-  async logoutUser(): Promise<void> {
-    try {
-      await this.cache.clearAll();
-    } catch (err) {
-      throw BackendError.Internal('Failed to clear caches');
-    }
   }
 
   async getCurrentUser(currentUser: Partial<User>): Promise<User> {
@@ -213,14 +121,6 @@ export class UserService {
     });
   }
 
-  generateToken(user: User | SafeUserType): string {
-    const payload = { id: user.id, username: user.username };
-
-    return sign(payload, process.env.JWT_SECRET!, {
-      expiresIn: '7d',
-    });
-  }
-
   async getUserCounts(user: User | SafeUserType): Promise<UserDataCount> {
     const [followersCount, followingCount, postsCount] = await Promise.all([
       this.prisma.follow.count({ where: { followingId: user.id } }),
@@ -245,19 +145,6 @@ export class UserService {
     return {
       ...safeUser,
       ...counts,
-    };
-  }
-
-  async generateAuthUserResponse(user: User): Promise<AuthUserResponse> {
-    const safeUser: SafeUserType = await this.generateSafeUser(user);
-
-    const token: string = this.generateToken(user);
-
-    return {
-      user: {
-        ...safeUser,
-      },
-      token,
     };
   }
 

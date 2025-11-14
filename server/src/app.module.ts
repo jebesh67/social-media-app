@@ -5,13 +5,15 @@ import { CacheService } from '@/common/cache/cache.service';
 import { CacheModule } from '@/common/cache/cache.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { createGraphQLContext } from '@/common/context/createGraphQLContext';
-import { AuthRequest } from '@/common/types/request/authRequest.interface';
+import { AuthRequest } from '@/common/type/request/authRequest.interface';
 import { GraphQLConfig } from '@/common/graphql/graphql.config';
 import { ContextType } from '@/common/context/type/context.type';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
     PrismaModule,
+    AuthModule,
     UserModule,
     CacheModule,
     GraphQLModule.forRoot({

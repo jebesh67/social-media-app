@@ -1,144 +1,17 @@
 @jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZ3VtODAwMDE1M3cwN3llaWJmamkiLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc2MjI2MDE2MSwiZXhwIjoxNzYyODY0OTYxfQ.pk2O5rv-y2yWnw7yiA5AQk3qHxR28M0yIlYon61l9xc
 @sodaToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZzk1ZTAwMDA1M3cwdTdqcjZ2d28iLCJ1c2VybmFtZSI6Il9zb2RhIiwiaWF0IjoxNzYwNjkwMTQzLCJleHAiOjE3NjEyOTQ5NDN9.NDdsWLt0-qMPE9M5cU1tAhXzMaQ5XY9YvBAE8b7U5ho
-@lemonToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsaDVuZzAwMDI1M3cweHRobHFtaGsiLCJ1c2VybmFtZSI6ImxlbW9uMjIiLCJpYXQiOjE3NjA2OTAxODUsImV4cCI6MTc2MTI5NDk4NX0.s8T-G4jAodri1JDzKNxEvdJYsOsGVsy03TTE7NZB1Ks
+@lemonToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtaHloM3BuazAwMDA1M25mYnB0OGozOHQiLCJ1c2VybmFtZSI6ImxlbW9uMjIiLCJpYXQiOjE3NjMxMDE0ODYsImV4cCI6MTc2MzcwNjI4Nn0.qr_Xi6RTrxhofFXbw39rSYWXdWynOHIJwgYTmPlthY0
 @meopoToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3hnemx1ODAwMDA1M2tzZGw3M2dueGkiLCJ1c2VybmFtZSI6Im1lb3BvNjM2IiwiaWF0IjoxNzYwODY0MDQ2LCJleHAiOjE3NjE0Njg4NDZ9.EB1CLa6Zg93cMCsem0AOSQM-0IGEwygJ0F60xc7iCb4
-
-### Create user jebesh
-POST http://localhost:5000/graphql
-Content-Type: application/json
-
-{
-  "query": "mutation($input: CreateUserInput!) { createUser(createUserInput: $input) { user { name, username, email, id }, token } }",
-  "variables": {
-    "input": {
-      "name": "Jebesh",
-      "username": "jebesh",
-      "email": "jebesh67@gmail.com",
-      "password": "jebesh123"
-    }
-  }
-}
-
-### Create user soda
-POST http://localhost:5000/graphql
-Content-Type: application/json
-
-{
-  "query": "mutation($input: CreateUserInput!) { createUser(createUserInput: $input) { user { name, username, email, id }, token } }",
-  "variables": {
-    "input": {
-      "name": "SodaPop",
-      "username": "_soda",
-      "email": "sodaeleven@gmail.com",
-      "password": "soda123"
-    }
-  }
-}
-
-### Create user lemon
-POST http://localhost:5000/graphql
-Content-Type: application/json
-
-{
-  "query": "mutation($input: CreateUserInput!) { createUser(createUserInput: $input) { user { name, username, email, id }, token } }",
-  "variables": {
-    "input": {
-      "name": "lemon",
-      "username": "lemon22",
-      "email": "lemon67@gmail.com",
-      "password": "lemon123"
-    }
-  }
-}
-
-### Create user meopo
-POST http://localhost:5000/graphql
-Content-Type: application/json
-
-{
-  "query": "mutation($input: CreateUserInput!) { createUser(createUserInput: $input) { user { name, username, email, id }, token } }",
-  "variables": {
-    "input": {
-      "name": "Meopo Jr",
-      "username": "meopo636",
-      "email": "meopo67@gmail.com",
-      "password": "meopo123"
-    }
-  }
-}
-
-
-### Create new user with invaild email and password
-POST http://localhost:5000/graphql
-Content-Type: application/json
-
-{
-  "query": "mutation($input: CreateUserInput!) { createUser(createUserInput: $input) { user { name, username, email, id }, token } }",
-  "variables": {
-    "input": {
-      "name": "lalala",
-      "username": "je3b@e sh",
-      "email": "jebesh67mail.com",
-      "password": "je es"
-    }
-  }
-}
-
-
-### Login with valid user
-POST http://localhost:5000/graphql
-Content-Type: application/json
-
-{
-  "query": "mutation($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
-  "variables": {
-    "input": {
-      "username": "jebesh",
-      "password": "jebesh123"
-    }
-  }
-}
-
-
-### Login with invalid username
-POST http://localhost:5000/graphql
-Content-Type: application/json
-
-{
-  "query": "mutation($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
-  "variables": {
-    "input": {
-      "username": "jebesh11",
-      "password": "jebesh123"
-    }
-  }
-}
-
-
-### Login with wong password
-POST http://localhost:5000/graphql
-Content-Type: application/json
-
-{
-  "query": "mutation($input: LoginUserInput!) { loginUser(loginUserInput: $input) { user { name, username, id }, token } }",
-  "variables": {
-    "input": {
-      "username": "jebesh",
-      "password": "jebesh127773"
-    }
-  }
-}
-
 
 ### Get other user
 POST http://localhost:5000/graphql
 Content-Type: application/json
-Authorization: Bearer {{jebeshToken}}
+Authorization: Bearer {{lemonToken}}
 
 {
   "query": "query($username: String!) { otherUserProfile(username: $username) { user { username, name, email, id, createdAt, updatedAt } } }",
   "variables": {
-    "username": "_soda"
+    "username": "jebesh"
   }
 }
 
@@ -146,10 +19,10 @@ Authorization: Bearer {{jebeshToken}}
 ### Get current user
 POST http://localhost:5000/graphql
 Content-Type: application/json
-Authorization: Bearer {{jebeshToken}}
+Authorization: Bearer {{lemonToken}}
 
 {
-  "query": "query { currentUserProfile { user { username name email id avatarUrl avatarPublicId createdAt updatedAt bio } } }"
+  "query": "query { currentUserProfile { user { username name email id bio avatarUrl avatarPublicId createdAt updatedAt bio } } }"
 }
 
 
@@ -177,17 +50,6 @@ Authorization: Bearer sagsdagasg
 }
 
 
-### logout
-POST http://localhost:5000/graphql
-Content-Type: application/json
-Authorization: Bearer {{jebeshToken}}
-
-{
-  "query": "query { logoutUser }"
-}
-
-
-
 ### Check for existing username
 POST http://localhost:5000/graphql
 Content-Type: application/json
@@ -199,15 +61,6 @@ Content-Type: application/json
       "username": "_jebexhh"
     }
   }
-}
-
-### Check access
-POST http://localhost:5000/graphql
-Content-Type: application/json
-Authorization: Bearer {{jebeshToken}}
-
-{
-  "query": "query VerifyAccess { verifyAccess { data { accessGranted username message } } } "
 }
 
 ### Update user profile

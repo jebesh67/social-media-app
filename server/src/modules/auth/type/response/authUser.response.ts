@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { SafeUserType } from '@/modules/user/types/objects/safeUser.object';
+import { SafeUserType } from '@/modules/user/type/object/safeUser.object';
 
 @ObjectType()
 export class AuthUserResponse {

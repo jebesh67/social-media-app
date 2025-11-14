@@ -30,11 +30,6 @@ type UserResponse {
   user: SafeUserType!
 }
 
-type AuthUserResponse {
-  user: SafeUserType!
-  token: String!
-}
-
 type UsernameStatusType {
   isAvailable: Boolean!
   message: String!
@@ -42,6 +37,12 @@ type UsernameStatusType {
 
 type ExistingUsernameResponse {
   username: UsernameStatusType!
+}
+
+type UpdateUserProfileResponse {
+  user: SafeUserType
+  message: String!
+  success: Boolean!
 }
 
 type VerifyAccessType {
@@ -54,18 +55,17 @@ type VerifyAccessResponse {
   data: VerifyAccessType!
 }
 
-type UpdateUserProfileResponse {
-  user: SafeUserType
-  message: String!
-  success: Boolean!
+type AuthUserResponse {
+  user: SafeUserType!
+  token: String!
 }
 
 type Query {
-  verifyUsername(input: UsernameInput!): ExistingUsernameResponse!
+  verifyAccess: VerifyAccessResponse!
   logoutUser: Boolean!
+  verifyUsername(input: UsernameInput!): ExistingUsernameResponse!
   currentUserProfile: UserResponse!
   otherUserProfile(username: String!): UserResponse!
-  verifyAccess: VerifyAccessResponse!
 }
 
 input UsernameInput {

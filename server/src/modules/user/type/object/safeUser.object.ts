@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { UserCountType } from '@/modules/user/types/objects/userCount.object';
+import { UserCountType } from '@/modules/user/type/object/userCount.object';
 
 @ObjectType()
 export class SafeUserType {

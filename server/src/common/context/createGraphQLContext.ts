@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 import { MyJwtPayload } from '@/common/jwt/type/myJwtPayload.interface';
-import { AuthRequest } from '@/common/types/request/authRequest.interface';
+import { AuthRequest } from '@/common/type/request/authRequest.interface';
 import { ContextType } from '@/common/context/type/context.type';
 import { decodeFromToken, extractToken } from '@/common/jwt/util/jwt.util';
 import { getUserById } from '@/common/context/helper/context.helper';
