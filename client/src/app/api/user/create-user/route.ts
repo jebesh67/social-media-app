@@ -13,7 +13,7 @@ import { setAuthToken } from "@/common/utils/cookie/cookie.helper";
 
 export const POST = async (req: Request): Promise<NextResponse<IUserApiResponse | IApiError>> => {
   try {
-    const {name, username, email, password} = await req.json();
+    const {name, username, email, password, confirmPassword} = await req.json();
     
     const response: ICreateUserBackendResponse = await request(GRAPHQL_URL, CreateUserMutation, {
       input: {
@@ -21,6 +21,7 @@ export const POST = async (req: Request): Promise<NextResponse<IUserApiResponse 
         username,
         email,
         password,
+        confirmPassword,
       },
     });
     

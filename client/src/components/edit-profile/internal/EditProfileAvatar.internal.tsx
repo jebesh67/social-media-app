@@ -1,7 +1,6 @@
 "use client";
 
 import clsx from "clsx";
-import Image from "next/image";
 import { FaImage } from "react-icons/fa";
 import { useRef, useState, RefObject } from "react";
 import Cropper, { Area } from "react-easy-crop";
@@ -18,6 +17,7 @@ import { UseMutationResult } from "@tanstack/react-query";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/updateProfileVariables.interface";
 import { uploadAvatarAction } from "@/components/edit-profile/action/uploadAvatar.action";
+import { AvatarImage } from "@/components/shared/image/AvatarImage.shared";
 
 type Props = {
   user: ClientUser;
@@ -100,14 +100,13 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
       >
         <div className="relative col-span-3 p-2 flex items-center justify-center">
           <div className="relative w-full aspect-square max-w-30">
-            <Image
+            <AvatarImage
               className="rounded-full shadow-md object-contain hover:cursor-pointer hover:scale-102"
               src={ avatarPreview || "/assets/user-profile/defaultProfile.jpg" }
               alt={ user.name }
               width={ 500 }
               height={ 500 }
               onClick={ handleFileSelect }
-              priority={ true }
             />
             
             <button

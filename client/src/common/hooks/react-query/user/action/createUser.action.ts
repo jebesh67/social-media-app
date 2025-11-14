@@ -4,14 +4,22 @@ import { IApiError } from "@/types/error/api-error/response/apiError.response";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import axios, { AxiosResponse } from "axios";
 import { CustomError } from "@/common/helper/error/customError.helper";
+import { ICreateUserVariables } from "@/common/hooks/react-query/user/type/createUserVariables.interface";
 
-export const createUser = async (name: string, username: string, email: string, password: string): Promise<IUserApiResponse> => {
+export const createUser = async ({
+  name,
+  username,
+  email,
+  password,
+  confirmPassword,
+}: ICreateUserVariables): Promise<IUserApiResponse> => {
   try {
     const response: AxiosResponse<IUserApiResponse> = await axios.post("/api/user/create-user", {
       name,
       username,
       email,
       password,
+      confirmPassword,
     });
     
     return response.data as IUserApiResponse;

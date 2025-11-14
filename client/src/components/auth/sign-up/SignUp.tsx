@@ -26,7 +26,7 @@ export const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [reEnterPassword, setReEnterPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [showValidation, setShowValidation] = useState<boolean>(false);
   
   const {theme} = useThemeStore();
@@ -47,7 +47,7 @@ export const SignUp = () => {
   
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    createUserMutation.mutate({name, username, email, password});
+    createUserMutation.mutate({name, username, email, password, confirmPassword});
   };
   
   return (
@@ -100,12 +100,11 @@ export const SignUp = () => {
         />
         
         <CustomInput
-          id="reEnterPassword"
+          id="confirmPassword"
           type="password"
-          value={ reEnterPassword }
-          onChange={ (e): void => setReEnterPassword(e.target.value) }
+          value={ confirmPassword }
+          onChange={ (e): void => setConfirmPassword(e.target.value) }
           placeholder="Re-Enter Password"
-          isRequired={ false }
         />
         
         <button

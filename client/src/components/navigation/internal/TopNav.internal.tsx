@@ -4,10 +4,10 @@ import { getNavButton, getNavButtonClass } from "@/components/navigation/util/na
 import { FaInstagram } from "react-icons/fa";
 import { navElement } from "@/components/navigation/data/navigation.data";
 import { NavElement } from "@/components/navigation/type/navigation.type";
-import Image from "next/image";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { usePathname } from "next/navigation";
 import { useUser } from "@/common/hooks/react-query/user/query/useUser";
+import { AvatarImage } from "@/components/shared/image/AvatarImage.shared";
 
 export const TopNavInternal = () => {
   const {theme, nextTheme} = useThemeStore();
@@ -63,12 +63,12 @@ export const TopNavInternal = () => {
             )
           }
         >
-          <Image src={ imageSrc }
-                 alt={ imageAlt }
-                 width={ 50 }
-                 height={ 50 }
-                 className={ "w-6 aspect-square object-contain rounded-full" }
-                 priority
+          <AvatarImage
+            src={ imageSrc }
+            alt={ imageAlt }
+            width={ 50 }
+            height={ 50 }
+            className={ "w-6 aspect-square object-contain rounded-full" }
           />
         </button>
       </Link>

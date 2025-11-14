@@ -8,8 +8,15 @@ export const useCreateUser = (): UseMutationResult<IUserApiResponse, CustomError
   const queryClient: QueryClient = useQueryClient();
   
   return useMutation<IUserApiResponse, CustomError, ICreateUserVariables>({
-    mutationFn: async ({name, username, email, password}: ICreateUserVariables): Promise<IUserApiResponse> => {
-      const response: IUserApiResponse = await createUser(name, username, email, password);
+    mutationFn: async ({
+      name,
+      username,
+      email,
+      password,
+      confirmPassword,
+    }: ICreateUserVariables): Promise<IUserApiResponse> => {
+      const input: ICreateUserVariables = {name, username, email, password, confirmPassword};
+      const response: IUserApiResponse = await createUser(input);
       
       if (!response.success) {
         throw new CustomError({message: response.message});
