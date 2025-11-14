@@ -19,9 +19,9 @@ export class CreateUserInput {
   @IsNotEmpty({ message: 'Username cannot be empty' })
   @IsString({ message: 'Username must be a string' })
   @MaxLength(14, { message: 'Username cannot exceed 14 characters' })
-  @Matches(/^[a-z0-9_]+$/, {
+  @Matches(/^[a-z0-9._]+$/, {
     message:
-      'Username can only contain lowercase letters, numbers, and underscores',
+      'Username can only contain lowercase letters, numbers, dots (.), and underscores (_).',
   })
   username: string;
 
