@@ -40,8 +40,9 @@ export const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [isInvalidConfirmPassword, setIsInvalidConfirmPassword] = useState<boolean>(false);
   
-  const [isInvalidInput, setIsInvalidInput] = useState<boolean>(false);
   const [showValidation, setShowValidation] = useState<boolean>(false);
+  
+  const isInvalidInput: boolean = isInvalidUsername || isInvalidEmail || isInvalidPassword || isInvalidConfirmPassword;
   
   const {theme} = useThemeStore();
   
@@ -54,10 +55,6 @@ export const SignUp = () => {
     }
     // eslint-disable-next-line
   }, [createUserMutation.data]);
-  
-  useEffect((): void => {
-    setIsInvalidInput(isInvalidUsername || isInvalidEmail || isInvalidPassword || isInvalidConfirmPassword);
-  }, [isInvalidUsername, isInvalidEmail, isInvalidPassword, isInvalidConfirmPassword]);
   
   useEffect((): void => {
     if (error) setShowValidation(error.isValidationError || false);
@@ -80,8 +77,10 @@ export const SignUp = () => {
   
   const handleSetPassword = (value: string): void => {
     setPassword(value);
-    setIsInvalidConfirmPassword(!((value === confirmPassword) && (value.length >= 6)));
     setIsInvalidPassword(passwordValidation(value));
+    
+    const isConfirmValid: boolean = (value === confirmPassword) && (value.length >= 6);
+    setIsInvalidConfirmPassword(!isConfirmValid);
   };
   
   const handleSetConfirmPassword = (value: string): void => {
