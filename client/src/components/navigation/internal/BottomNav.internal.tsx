@@ -3,11 +3,11 @@ import { getNavButtonClass } from "@/components/navigation/util/navigation.util"
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { usePathname } from "next/navigation";
-import { useShowAuthOptionsStore } from "@/common/stores/AuthControl/showAuthOptions.store";
+import { useShowOptionsMenuStore } from "@/common/stores/options-menu/showOptionsMenu.store";
 
 export const BottomNavInternal = () => {
   const {theme} = useThemeStore();
-  const {showAuthOptions, setShowAuthOptions} = useShowAuthOptionsStore();
+  const {showOptionsMenu, setShowOptionsMenu} = useShowOptionsMenuStore();
   
   const pathname: string = usePathname();
   
@@ -20,7 +20,7 @@ export const BottomNavInternal = () => {
             getNavButtonClass("no-background", pathname, theme),
           )
         }
-        onMouseDown={ () => setShowAuthOptions(!showAuthOptions) }
+        onMouseDown={ () => setShowOptionsMenu(!showOptionsMenu) }
       >
         <RxHamburgerMenu />
       </button>

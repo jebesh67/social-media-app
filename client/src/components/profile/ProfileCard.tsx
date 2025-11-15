@@ -10,7 +10,6 @@ import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { ProfileBioInternal } from "@/components/profile/internal/card/profileBio.internal";
 import { ProfileCardButtonInternal } from "@/components/profile/internal/card/profileCardButton.internal";
 
-
 export const ProfileCard = () => {
   const {data: currentUser, isLoading} = useUser();
   const {theme} = useThemeStore();

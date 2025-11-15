@@ -5,13 +5,13 @@ import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { MdClose } from "react-icons/md";
 import { RefObject, useEffect, useRef } from "react";
-import { useShowAuthOptionsStore } from "@/common/stores/AuthControl/showAuthOptions.store";
-import { useShowAuthPanelStore } from "@/common/stores/AuthControl/showAuthPanel.store";
+import { useShowOptionsMenuStore } from "@/common/stores/options-menu/showOptionsMenu.store";
+import { useShowAuthPanelStore } from "@/common/stores/auth-panel/showAuthPanel.store";
 import { useLogout } from "@/common/hooks/react-query/user/mutation/useLogout";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-export const AuthOptionsShared = () => {
+export const OptionsMenuShared = () => {
   const {theme} = useThemeStore();
   
   const router: AppRouterInstance = useRouter();
@@ -19,31 +19,31 @@ export const AuthOptionsShared = () => {
   const logoutMutation = useLogout();
   
   const {setShowAuthPanel} = useShowAuthPanelStore();
-  const {showAuthOptions, setShowAuthOptions} = useShowAuthOptionsStore();
+  const {showOptionsMenu, setShowOptionsMenu} = useShowOptionsMenuStore();
   
   const optionsRef: RefObject<HTMLDivElement | null> = useRef<HTMLDivElement>(null);
   
   useEffect((): () => void => {
     const handleOutsideClick = (event: MouseEvent): void => {
       if (optionsRef.current && !optionsRef.current.contains(event.target as Node)) {
-        setShowAuthOptions(false);
+        setShowOptionsMenu(false);
       }
     };
     
     document.addEventListener("mousedown", handleOutsideClick);
     
     return (): void => document.removeEventListener("mousedown", handleOutsideClick);
-  }, [setShowAuthOptions]);
+  }, [setShowOptionsMenu]);
   
   const handleShowPanel = () => {
-    setShowAuthOptions(false);
+    setShowOptionsMenu(false);
     setShowAuthPanel(true);
   };
   
   const handleLogout = (): void => {
     logoutMutation.mutate();
     
-    setShowAuthOptions(false);
+    setShowOptionsMenu(false);
     
     router.push("/auth");
   };
@@ -56,15 +56,15 @@ export const AuthOptionsShared = () => {
         className={ clsx(
           "flex flex-col space-y-2 shadow-xl mt-2 px-6 pb-6 pt-2 rounded-xl text-sm w-fit h-fit",
           ifTheme(theme,
-            "bg-zinc-800",
-            "bg-zinc-300",
+            "bg-zinc-800/80",
+            "bg-zinc-300/80",
           ),
         ) }>
         <div className={ "flex justify-end" }>
           <button
             className={ clsx("active:opacity-80 text-xl px-3 py-2 rounded-lg hover:cursor-pointer",
               ifTheme(theme, "hover:bg-red-500", "hover:bg-red-500/90")) }
-            onClick={ (): void => setShowAuthOptions(!showAuthOptions) }
+            onClick={ (): void => setShowOptionsMenu(!showOptionsMenu) }
           >
             <MdClose />
           </button>

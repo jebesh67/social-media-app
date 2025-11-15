@@ -2,15 +2,15 @@
 
 import { RenderNavs } from "@/components/navigation/internal/RenderNavs.internal";
 import { usePathname } from "next/navigation";
-import { AuthOptionsShared } from "@/components/shared/auth-options/AuthOptions.shared";
-import { useShowAuthOptionsStore } from "@/common/stores/AuthControl/showAuthOptions.store";
+import { OptionsMenuShared } from "@/components/shared/options-menu/OptionsMenu.shared";
+import { useShowOptionsMenuStore } from "@/common/stores/options-menu/showOptionsMenu.store";
 import { AuthShared } from "@/components/auth/Auth.shared";
-import { useShowAuthPanelStore } from "@/common/stores/AuthControl/showAuthPanel.store";
+import { useShowAuthPanelStore } from "@/common/stores/auth-panel/showAuthPanel.store";
 
 export const Navigation = () => {
   const pathname: string = usePathname();
   
-  const {showAuthOptions} = useShowAuthOptionsStore();
+  const {showOptionsMenu} = useShowOptionsMenuStore();
   const {showAuthPanel} = useShowAuthPanelStore();
   
   const showNavs: boolean = !pathname.startsWith("/auth");
@@ -26,8 +26,8 @@ export const Navigation = () => {
       }
       
       {
-        showAuthOptions && (
-          <AuthOptionsShared />
+        showOptionsMenu && (
+          <OptionsMenuShared />
         )
       }
       

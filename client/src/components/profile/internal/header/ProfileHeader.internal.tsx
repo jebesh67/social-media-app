@@ -5,12 +5,12 @@ import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 import { useUser } from "@/common/hooks/react-query/user/query/useUser";
-import { useShowAuthOptionsStore } from "@/common/stores/AuthControl/showAuthOptions.store";
+import { useShowOptionsMenuStore } from "@/common/stores/options-menu/showOptionsMenu.store";
 
 
 export const ProfileHeaderInternal = () => {
   const {theme} = useThemeStore();
-  const {showAuthOptions, setShowAuthOptions} = useShowAuthOptionsStore();
+  const {showOptionsMenu, setShowOptionsMenu} = useShowOptionsMenuStore();
   
   const {data: currentUser, isLoading, isFetched} = useUser();
   
@@ -25,7 +25,7 @@ export const ProfileHeaderInternal = () => {
     >
       <button
         className={ "hover:cursor-pointer" }
-        onMouseDown={ (): void => setShowAuthOptions(!showAuthOptions) }
+        onMouseDown={ (): void => setShowOptionsMenu(!showOptionsMenu) }
       >
         {
           isLoading ?

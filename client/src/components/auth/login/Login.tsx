@@ -12,7 +12,7 @@ import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { CustomInput } from "@/components/shared/input/CustomInput";
-import { useShowAuthPanelStore } from "@/common/stores/AuthControl/showAuthPanel.store";
+import { useShowAuthPanelStore } from "@/common/stores/auth-panel/showAuthPanel.store";
 
 export const Login = () => {
   const {setShowAuthPanel} = useShowAuthPanelStore();

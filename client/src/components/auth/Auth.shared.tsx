@@ -9,7 +9,7 @@ import { clsx } from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { MdClose } from "react-icons/md";
-import { useShowAuthPanelStore } from "@/common/stores/AuthControl/showAuthPanel.store";
+import { useShowAuthPanelStore } from "@/common/stores/auth-panel/showAuthPanel.store";
 
 type Props = {
   pagePath?: PageSwitchType;

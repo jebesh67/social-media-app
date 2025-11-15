@@ -12,7 +12,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { CustomInput } from "@/components/shared/input/CustomInput";
 import { ICreateUserVariables } from "@/common/hooks/react-query/user/type/createUserVariables.interface";
 import { useCreateUser } from "@/common/hooks/react-query/user/mutation/useCreateUser";
-import { useShowAuthPanelStore } from "@/common/stores/AuthControl/showAuthPanel.store";
+import { useShowAuthPanelStore } from "@/common/stores/auth-panel/showAuthPanel.store";
 import { CustomError } from "@/common/helper/error/customError.helper";
 import { ValidationErrorShared } from "@/components/shared/error/validation/validationError.shared";
 import { usernameValidation } from "@/components/auth/util/validation/usernameValidation.util";
