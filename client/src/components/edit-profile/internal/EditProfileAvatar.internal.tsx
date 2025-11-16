@@ -69,27 +69,27 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
     });
     
     await uploadToCloudinary(croppedFile);
+    
     setCropModal(false);
   };
   
   const uploadToCloudinary = async (file: File): Promise<void> => {
     try {
       setUploading(true);
+      setProgress(0);
       
-      const data: CloudinaryUploadResponse = await uploadAvatarAction(file);
-      setProgress(70);
+      const data: CloudinaryUploadResponse = await uploadAvatarAction(file, (percent: number): void => {
+        setProgress(percent);
+      });
       
       if (data.secure_url) {
         await deleteProfileAvatar((user.avatarPublicId));
-        setProgress(80);
         
         updateProfileMutation.mutate({avatarPublicId: data.public_id, avatarUrl: data.secure_url});
-        setProgress(90);
         
         setAvatarPreview(data.secure_url);
         onAvatarUrlChangeAction(data.secure_url);
         onAvatarPublicIdChangeAction(data.public_id);
-        setProgress(100);
       }
     } catch (err) {
       console.error("Cloudinary upload failed:", err);
@@ -184,8 +184,11 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
             
             {
               uploading && (
-                <div className={ "absolute flex justify-center items-center w-full h-full transition-all ease-linear bg-black/40" }>
-                  <CircularProgress progress={ progress } />
+                <div className={ "absolute flex justify-center items-center w-full h-full transition-all ease-linear bg-black/40 backdrop-blur-xs" }>
+                  <CircularProgress
+                    progress={ progress }
+                    stroke={ 12 }
+                  />
                 </div>
               )
             }

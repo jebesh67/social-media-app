@@ -26,7 +26,9 @@ export const CircularProgress = ({
   
   return (
     <svg height={ radius * 2 }
-         width={ radius * 2 }>
+         width={ radius * 2 }
+         style={ {filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3))"} }
+    >
       <defs>
         <linearGradient id="grad"
                         x1="0%"
