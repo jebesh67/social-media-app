@@ -18,6 +18,7 @@ import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/updateProfileVariables.interface";
 import { uploadAvatarAction } from "@/components/edit-profile/action/uploadAvatar.action";
 import { AvatarImage } from "@/components/shared/image/AvatarImage.shared";
+import { CircularProgress } from "@/components/shared/loader/CircularProgress.shared";
 
 type Props = {
   user: ClientUser;
@@ -30,9 +31,12 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
   
   const updateProfileMutation: UseMutationResult<IUserApiResponse, Error, IUpdateProfileVariables> = useUpdateProfile();
   
-  const [avatarPreview, setAvatarPreview] = useState<string>(user.avatarUrl);
-  const [uploading, setUploading] = useState(false);
   const fileInputRef: RefObject<HTMLInputElement | null> = useRef(null);
+  
+  const [avatarPreview, setAvatarPreview] = useState<string>(user.avatarUrl);
+  
+  const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState<number>(0);
   
   const [cropModal, setCropModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -73,20 +77,25 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
       setUploading(true);
       
       const data: CloudinaryUploadResponse = await uploadAvatarAction(file);
+      setProgress(70);
       
       if (data.secure_url) {
         await deleteProfileAvatar((user.avatarPublicId));
+        setProgress(80);
         
         updateProfileMutation.mutate({avatarPublicId: data.public_id, avatarUrl: data.secure_url});
+        setProgress(90);
         
         setAvatarPreview(data.secure_url);
         onAvatarUrlChangeAction(data.secure_url);
         onAvatarPublicIdChangeAction(data.public_id);
+        setProgress(100);
       }
     } catch (err) {
       console.error("Cloudinary upload failed:", err);
     } finally {
       setUploading(false);
+      setProgress(0);
     }
   };
   
@@ -172,7 +181,16 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
                 onCropComplete={ onCropComplete }
               />
             ) }
+            
+            {
+              uploading && (
+                <div className={ "absolute flex justify-center items-center w-full h-full transition-all ease-linear bg-black/40" }>
+                  <CircularProgress progress={ progress } />
+                </div>
+              )
+            }
           </div>
+          
           
           <div className="flex justify-center pt-4 space-x-3">
             <button
