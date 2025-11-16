@@ -35,7 +35,12 @@ export const OptionsMenuShared = () => {
     return (): void => document.removeEventListener("mousedown", handleOutsideClick);
   }, [setShowOptionsMenu]);
   
-  const handleShowPanel = () => {
+  const handleShowSettings = (): void => {
+    setShowOptionsMenu(false);
+    router.push("/settings");
+  };
+  
+  const handleShowAuthPanel = (): void => {
     setShowOptionsMenu(false);
     setShowAuthPanel(true);
   };
@@ -70,6 +75,24 @@ export const OptionsMenuShared = () => {
           </button>
         </div>
         
+        <div className={ clsx(
+          "border-b hidden md:block",
+          ifTheme(theme, "border-zinc-600", "border-zinc-400"),
+        ) }>
+          <button
+            className={ clsx(
+              "flex w-50 pl-4 py-2 rounded-xl hover:cursor-pointer active:opacity-80 hover:scale-105 css-transition mb-2",
+              ifTheme(theme,
+                "hover:bg-zinc-700",
+                "hover:bg-zinc-400/50",
+              ),
+            ) }
+            onClick={ handleShowSettings }
+          >
+            Settings
+          </button>
+        </div>
+        
         <button
           className={ clsx(
             "flex w-50 pl-4 py-2 rounded-xl hover:cursor-pointer active:opacity-80 hover:scale-105 css-transition",
@@ -78,7 +101,7 @@ export const OptionsMenuShared = () => {
               "hover:bg-zinc-400/50",
             ),
           ) }
-          onClick={ handleShowPanel }
+          onClick={ handleShowAuthPanel }
         >
           Switch user
         </button>
