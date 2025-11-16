@@ -17,6 +17,7 @@ interface CustomInputProps {
   width?: "full" | "large" | "medium" | "small";
   isRequired?: boolean;
   isInvalidInput?: boolean;
+  invalidMessage?: string;
 }
 
 export const CustomInput = ({
@@ -30,6 +31,7 @@ export const CustomInput = ({
   width = "small",
   isRequired = true,
   isInvalidInput = false,
+  invalidMessage,
 }: CustomInputProps) => {
   const {theme} = useThemeStore();
   
@@ -49,78 +51,87 @@ export const CustomInput = ({
   const inputType: string = isPassword && showPassword ? "text" : type;
   
   return (
-    <div className={ clsx(
-      "relative w-full",
-      
-      width === "small" && "max-w-65",
-      width === "medium" && "max-w-80",
-      width === "large" && "max-w-100",
-      width === "full" && "max-w-full",
-    ) }>
-      {
-        isMultiLine ? (
-          <textarea
-            id={ id }
-            value={ value }
-            onChange={ onChange }
-            placeholder={ placeholder }
-            required={ isRequired }
-            rows={ rows }
-            className={ baseStyles }
-          />
-        ) : (
-          <>
-            <input
+    <>
+      <div className={ clsx(
+        "relative w-full",
+        
+        width === "small" && "max-w-65",
+        width === "medium" && "max-w-80",
+        width === "large" && "max-w-100",
+        width === "full" && "max-w-full",
+      ) }>
+        {
+          isMultiLine ? (
+            <textarea
               id={ id }
-              type={ inputType }
               value={ value }
               onChange={ onChange }
               placeholder={ placeholder }
               required={ isRequired }
+              rows={ rows }
               className={ baseStyles }
             />
+          ) : (
+            <>
+              <input
+                id={ id }
+                type={ inputType }
+                value={ value }
+                onChange={ onChange }
+                placeholder={ placeholder }
+                required={ isRequired }
+                className={ baseStyles }
+              />
+              
+              { isPassword && (
+                <button
+                  type="button"
+                  onClick={ (): void => setShowPassword(!showPassword) }
+                  className="absolute right-3 top-4 text-zinc-500 hover:text-blue-500 hover:cursor-pointer transition-colors"
+                  tabIndex={ -1 }
+                >
+                  { showPassword ? <EyeOff size={ 16 } /> : <Eye size={ 16 } /> }
+                </button>
+              ) }
+            </>
+          )
+        }
+        
+        <label
+          htmlFor={ id }
+          className={ clsx(
+            "absolute left-5 top-4 text-xs transition-all duration-200 ease-in-out py-1 select-none",
             
-            { isPassword && (
-              <button
-                type="button"
-                onClick={ (): void => setShowPassword(!showPassword) }
-                className="absolute right-3 top-4 text-zinc-500 hover:text-blue-500 hover:cursor-pointer transition-colors"
-                tabIndex={ -1 }
-              >
-                { showPassword ? <EyeOff size={ 16 } /> : <Eye size={ 16 } /> }
-              </button>
-            ) }
-          </>
-        )
-      }
+            width === "small" && "w-55",
+            width === "medium" && "w-70",
+            width === "large" && "w-90",
+            width === "full" && "w-[calc(100%-40px)]",
+            
+            ifTheme(theme,
+              "text-zinc-500 ",
+              "text-zinc-600 ",
+            ),
+            
+            isMultiLine && (ifTheme(theme, "bg-zinc-800", "bg-zinc-300")),
+            
+            "peer-placeholder-shown:top-3 peer-placeholder-shown:text-xs peer-placeholder-shown:text-zinc-500",
+            
+            "peer-focus:top-1 peer-focus:text-[10px]",
+            isInvalidInput ? "peer-focus:text-red-500" : "peer-focus:text-blue-500",
+            
+            "peer-[&:not(:placeholder-shown)]:top-0 peer-[&:not(:placeholder-shown)]:text-[10px]",
+          ) }
+        >
+          { placeholder }
+        </label>
+      </div>
       
-      <label
-        htmlFor={ id }
-        className={ clsx(
-          "absolute left-5 top-4 text-xs transition-all duration-200 ease-in-out py-1 select-none",
-          
-          width === "small" && "w-55",
-          width === "medium" && "w-70",
-          width === "large" && "w-90",
-          width === "full" && "w-[calc(100%-40px)]",
-          
-          ifTheme(theme,
-            "text-zinc-500 ",
-            "text-zinc-600 ",
-          ),
-          
-          isMultiLine && (ifTheme(theme, "bg-zinc-800", "bg-zinc-300")),
-          
-          "peer-placeholder-shown:top-3 peer-placeholder-shown:text-xs peer-placeholder-shown:text-zinc-500",
-          
-          "peer-focus:top-1 peer-focus:text-[10px]",
-          isInvalidInput ? "peer-focus:text-red-500" : "peer-focus:text-blue-500",
-          
-          "peer-[&:not(:placeholder-shown)]:top-0 peer-[&:not(:placeholder-shown)]:text-[10px]",
-        ) }
-      >
-        { placeholder }
-      </label>
-    </div>
+      { (isInvalidInput && invalidMessage) && (
+        <div className={ "flex text-center text-xs px-6" }>
+          <div className="text-red-500 leading-3">{ invalidMessage }</div>
+        </div>
+      ) }
+    </>
+  
   );
 };

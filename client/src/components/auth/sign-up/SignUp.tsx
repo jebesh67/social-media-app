@@ -121,6 +121,7 @@ export const SignUp = () => {
           onChange={ (e): void => handleSetUsername(e.currentTarget.value) }
           placeholder="New Username"
           isInvalidInput={ isInvalidUsername }
+          invalidMessage={ "Username can only contain lowercase letters, numbers, dots (.), and underscores (_)." }
         />
         
         <CustomInput
@@ -129,6 +130,7 @@ export const SignUp = () => {
           onChange={ (e): void => handleSetEmail(e.target.value) }
           placeholder="Your Email"
           isInvalidInput={ isInvalidEmail }
+          invalidMessage={ "Email must be a valid email" }
         />
         
         <CustomInput
@@ -138,6 +140,7 @@ export const SignUp = () => {
           onChange={ (e): void => handleSetPassword(e.target.value) }
           placeholder="New Password"
           isInvalidInput={ isInvalidPassword }
+          invalidMessage={ "Password must be at least 6 characters long, and cannot contain spaces" }
         />
         
         <CustomInput
@@ -147,6 +150,7 @@ export const SignUp = () => {
           onChange={ (e): void => handleSetConfirmPassword(e.target.value) }
           placeholder="Confirm Password"
           isInvalidInput={ isInvalidConfirmPassword }
+          invalidMessage={ "Passwords do not match" }
         />
         
         <button
