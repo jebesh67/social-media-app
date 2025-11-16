@@ -50,7 +50,7 @@ export const OptionsMenuShared = () => {
   
   
   return (
-    <div className={ "fixed inset-0 z-30 pt-12 bg-black/30 backdrop-blur-xs w-full h-screen flex justify-center md:items-end md:justify-start md:pb-8 md:pl-18" }>
+    <div className={ "fixed inset-0 z-30 pt-12 bg-black/30 backdrop-blur-xs w-full h-screen flex justify-center md:items-end md:justify-start md:pb-8 md:pl-18 lg:pl-51" }>
       <div
         ref={ optionsRef }
         className={ clsx(

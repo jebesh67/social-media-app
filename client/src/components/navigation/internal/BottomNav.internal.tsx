@@ -16,13 +16,14 @@ export const BottomNavInternal = () => {
       <button
         className={
           clsx(
-            "css-react-icon-size",
+            "css-react-icon-size lg:flex gap-2 items-center lg:w-43",
             getNavButtonClass("no-background", pathname, theme),
           )
         }
-        onMouseDown={ () => setShowOptionsMenu(!showOptionsMenu) }
+        onMouseDown={ (): void => setShowOptionsMenu(!showOptionsMenu) }
       >
         <RxHamburgerMenu />
+        <p className={ "hidden lg:block text-base" }>Options</p>
       </button>
     </div>
   );

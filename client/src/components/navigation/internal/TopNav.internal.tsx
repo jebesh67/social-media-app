@@ -8,6 +8,7 @@ import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { usePathname } from "next/navigation";
 import { useUser } from "@/common/hooks/react-query/user/query/useUser";
 import { AvatarImage } from "@/components/shared/image/AvatarImage.shared";
+import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 
 export const TopNavInternal = () => {
   const {theme, nextTheme} = useThemeStore();
@@ -21,44 +22,57 @@ export const TopNavInternal = () => {
   return (
     <div className={ "w-full md:w-fit md:h-screen max-w-300 z-50 flex md:flex-col md:justify-start md:space-y-6 items-center justify-around" }>
       
-      <div className={ "hidden md:block" }>
+      <div className={ "w-full hidden md:block" }>
         <Link href={ "/" }>
           <button
             className={
               clsx(
-                "css-react-icon-size mb-8",
+                "css-react-icon-size mb-8 flex gap-2 items-center",
                 getNavButtonClass("no-background", pathname, theme),
               )
             }
           >
             <FaInstagram />
+            
+            <div className={ "hidden lg:block" }>
+              <ShinyText
+                text={ "SocialMedia" }
+                theme={ theme }
+                className={ "text-xl" }
+              />
+            </div>
+          
           </button>
         </Link>
       </div>
       
       
       { navElement.map((element: NavElement) => (
-        <div key={ element.name }>
+        <div className={ "lg:w-full" }
+             key={ element.name }>
           <Link href={ element.path }>
             <button
               className={
                 clsx(
-                  "css-react-icon-size",
+                  "css-react-icon-size lg:flex gap-2 items-center lg:w-43",
                   getNavButtonClass(element.path, pathname, theme),
                 )
               }
             >
               { getNavButton(element.icon, pathname, element.path) }
+              <p className={ "hidden lg:block text-base" }>{ element.name }</p>
             </button>
           </Link>
         </div>
       )) }
       
-      <Link href={ "/profile" }>
+      <Link href={ "/profile" }
+            className={ "lg:w-full" }
+      >
         <button
           className={
             clsx(
-              "css-react-icon-size",
+              "css-react-icon-size lg:flex gap-2 items-center lg:w-43",
               getNavButtonClass("/profile", pathname, theme),
             )
           }
@@ -70,13 +84,14 @@ export const TopNavInternal = () => {
             height={ 50 }
             className={ "w-6 aspect-square object-contain rounded-full" }
           />
+          <p className={ "hidden lg:block text-base" }>{ user?.name || "no user" }</p>
         </button>
       </Link>
       
       {/* Theme switch button */ }
       <button
         onClick={ (): void => nextTheme() }
-        className={ clsx("hover:font-semibold hover:cursor-pointer") }
+        className={ clsx("hover:font-semibold lg:flex lg:w-full hover:cursor-pointer") }
       >
         TE
       </button>

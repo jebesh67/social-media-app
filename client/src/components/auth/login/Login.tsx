@@ -11,7 +11,7 @@ import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { CustomInput } from "@/components/shared/input/CustomInput";
+import { CustomInputShared } from "@/components/shared/input/CustomInput.shared";
 import { useShowAuthPanelStore } from "@/common/stores/auth-panel/showAuthPanel.store";
 
 export const Login = () => {
@@ -65,14 +65,14 @@ export const Login = () => {
         
         <h2>Enter your credentials to login</h2>
         
-        <CustomInput
+        <CustomInputShared
           id="username"
           value={ username }
           onChange={ (e): void => setUsername(e.target.value) }
           placeholder="Username"
         />
         
-        <CustomInput
+        <CustomInputShared
           id="password"
           type="password"
           value={ password }

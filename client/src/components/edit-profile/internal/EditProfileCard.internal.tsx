@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import clsx from "clsx";
-import { CustomInput } from "@/components/shared/input/CustomInput";
+import { CustomInputShared } from "@/components/shared/input/CustomInput.shared";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { ClientUser } from "@/types/user/user.type";
 import { EditProfileAvatarInternal } from "@/components/edit-profile/internal/EditProfileAvatar.internal";
@@ -62,7 +62,7 @@ export const EditProfileCardInternal = ({user}: Props) => {
           onAvatarPublicIdChangeAction={ (id: string): void => setAvatarPublicId(id) }
         />
         
-        <CustomInput
+        <CustomInputShared
           id="updateName"
           value={ name }
           onChange={ (e): void => setName(e.target.value) }
@@ -71,7 +71,7 @@ export const EditProfileCardInternal = ({user}: Props) => {
           isRequired={ false }
         />
         
-        <CustomInput
+        <CustomInputShared
           id="updateBio"
           isMultiLine={ true }
           value={ bio }

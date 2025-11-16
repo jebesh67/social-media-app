@@ -9,7 +9,7 @@ import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { CustomInput } from "@/components/shared/input/CustomInput";
+import { CustomInputShared } from "@/components/shared/input/CustomInput.shared";
 import { ICreateUserVariables } from "@/common/hooks/react-query/user/type/createUserVariables.interface";
 import { useCreateUser } from "@/common/hooks/react-query/user/mutation/useCreateUser";
 import { useShowAuthPanelStore } from "@/common/stores/auth-panel/showAuthPanel.store";
@@ -114,14 +114,14 @@ export const SignUp = () => {
         
         <h2>Create account</h2>
         
-        <CustomInput
+        <CustomInputShared
           id="newName"
           value={ name }
           onChange={ (e): void => setName(e.target.value) }
           placeholder="Your Name"
         />
         
-        <CustomInput
+        <CustomInputShared
           id="newUsername"
           value={ username }
           onChange={ (e): void => handleSetUsername(e.currentTarget.value) }
@@ -130,7 +130,7 @@ export const SignUp = () => {
           invalidMessage={ "Username can only contain lowercase letters, numbers, dots (.), underscores (_), and max-14 characters." }
         />
         
-        <CustomInput
+        <CustomInputShared
           id="newEmail"
           value={ email }
           onChange={ (e): void => handleSetEmail(e.target.value) }
@@ -139,7 +139,7 @@ export const SignUp = () => {
           invalidMessage={ "Email must be a valid email" }
         />
         
-        <CustomInput
+        <CustomInputShared
           id="newPassword"
           type="password"
           value={ password }
@@ -149,7 +149,7 @@ export const SignUp = () => {
           invalidMessage={ "Password must be at least 6 characters long, and cannot contain spaces" }
         />
         
-        <CustomInput
+        <CustomInputShared
           id="confirmPassword"
           type="password"
           value={ confirmPassword }
