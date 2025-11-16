@@ -62,7 +62,13 @@ export const SignUp = () => {
   
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    createUserMutation.mutate({name, username, email, password, confirmPassword});
+    createUserMutation.mutate({
+      name: name.trim(),
+      username: username.trim(),
+      email: email.trim(),
+      password: password.trim(),
+      confirmPassword: confirmPassword.trim(),
+    });
   };
   
   const handleSetUsername = (value: string): void => {
@@ -121,7 +127,7 @@ export const SignUp = () => {
           onChange={ (e): void => handleSetUsername(e.currentTarget.value) }
           placeholder="New Username"
           isInvalidInput={ isInvalidUsername }
-          invalidMessage={ "Username can only contain lowercase letters, numbers, dots (.), and underscores (_)." }
+          invalidMessage={ "Username can only contain lowercase letters, numbers, dots (.), underscores (_), and max-14 characters." }
         />
         
         <CustomInput

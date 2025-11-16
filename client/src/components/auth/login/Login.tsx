@@ -38,7 +38,11 @@ export const Login = () => {
   
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    loginMutation.mutate({username, password});
+    
+    const trimmedUsername: string = username.trim();
+    const trimmedPassword: string = password.trim();
+    
+    loginMutation.mutate({username: trimmedUsername, password: trimmedPassword});
   };
   
   return (
