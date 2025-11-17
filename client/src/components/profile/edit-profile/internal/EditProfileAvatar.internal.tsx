@@ -10,13 +10,13 @@ import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { ClientUser } from "@/types/user/user.type";
 import { CloudinaryUploadResponse } from "@/types/cloudinary/response/api/cloudinaryUpload.response";
-import { getCroppedImg } from "@/components/edit-profile/helper/getCroppedImg.helper";
+import { getCroppedImg } from "@/components/profile/edit-profile/helper/getCroppedImg.helper";
 import { deleteProfileAvatar } from "@/lib/cloudinary/action/deleteProfileAvatar.action";
 import { useUpdateProfile } from "@/common/hooks/react-query/user/mutation/useUpdateProfile";
 import { UseMutationResult } from "@tanstack/react-query";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/updateProfileVariables.interface";
-import { uploadAvatarAction } from "@/components/edit-profile/action/uploadAvatar.action";
+import { uploadAvatarAction } from "@/components/profile/edit-profile/action/uploadAvatar.action";
 import { AvatarImage } from "@/components/shared/image/AvatarImage.shared";
 import { CircularProgress } from "@/components/shared/loader/CircularProgress.shared";
 

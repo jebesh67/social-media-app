@@ -1,4 +1,4 @@
-import { SettingsComponent } from "@/components/settings/SettingsComponent";
+import { SettingsComponent } from "@/components/settings/view/SettingsComponent";
 
 const SettingsPage = () => {
   return (

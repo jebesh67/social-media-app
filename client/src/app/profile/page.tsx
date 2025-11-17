@@ -1,5 +1,5 @@
-import { Profile } from "@/components/profile/Profile";
-import { ProfileHeader } from "@/components/profile/ProfileHeader";
+import { Profile } from "@/components/profile/view/Profile";
+import { ProfileHeader } from "@/components/profile/view/ProfileHeader";
 
 const ProfilePage = () => {
   return (

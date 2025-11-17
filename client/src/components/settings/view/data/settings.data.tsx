@@ -1,11 +1,11 @@
-import { SettingsElement } from "@/components/settings/type/settings.type";
+import { SettingsElement } from "@/components/settings/view/type/settings.type";
 import { FaUserShield } from "react-icons/fa";
 import { GiSettingsKnobs } from "react-icons/gi";
 
 export const settingsElement: SettingsElement[] = [
   {
-    name: "Account Management",
-    path: "/settings/account-management",
+    name: "Manage Account",
+    path: "/settings/manage-account",
     logo: <FaUserShield />,
   },
   {

@@ -1,4 +1,4 @@
-import { createImage } from "@/components/edit-profile/helper/createImage.helper";
+import { createImage } from "@/components/profile/edit-profile/helper/createImage.helper";
 import { PixelCropType } from "@/types/react-easy-crop/pixelCrop.type";
 
 export const getCroppedImg = async (imageSrc: string, pixelCrop: PixelCropType): Promise<Blob> => {

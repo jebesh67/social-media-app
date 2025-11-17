@@ -6,7 +6,9 @@ import clsx from "clsx";
 import { CustomInputShared } from "@/components/shared/input/CustomInput.shared";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { ClientUser } from "@/types/user/user.type";
-import { EditProfileAvatarInternal } from "@/components/edit-profile/internal/EditProfileAvatar.internal";
+import {
+  EditProfileAvatarInternal,
+} from "@/components/profile/edit-profile/internal/EditProfileAvatar.internal";
 import { useUpdateProfile } from "@/common/hooks/react-query/user/mutation/useUpdateProfile";
 import { UseMutationResult } from "@tanstack/react-query";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";

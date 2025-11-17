@@ -1,7 +1,7 @@
 "use client";
 
 import { CustomHeader } from "@/components/shared/header/CustomHeader.shared";
-import { EditProfileCardInternal } from "@/components/edit-profile/internal/EditProfileCard.internal";
+import { EditProfileCardInternal } from "@/components/profile/edit-profile/internal/EditProfileCard.internal";
 import { useUser } from "@/common/hooks/react-query/user/query/useUser";
 
 export const EditProfile = () => {

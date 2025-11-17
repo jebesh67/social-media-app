@@ -1,10 +1,11 @@
 "use client";
 
-import { settingsElement } from "@/components/settings/data/settings.data";
+import { settingsElement } from "@/components/settings/view/data/settings.data";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import Link from "next/link";
+import { SettingsElement } from "@/components/settings/view/type/settings.type";
 
 export const RenderSettingsInternal = () => {
   const {theme} = useThemeStore();
@@ -12,9 +13,9 @@ export const RenderSettingsInternal = () => {
   return (
     <div className={ "px-4 flex flex-col space-y-2 select-none" }>
       {
-        settingsElement.map((setting, idx) => (
+        settingsElement.map((setting: SettingsElement, idx: number) => (
           <Link key={ idx }
-                href={ `/${ setting.path }` }
+                href={ setting.path }
                 className={ "w-full" }
           >
             <button className={ clsx(

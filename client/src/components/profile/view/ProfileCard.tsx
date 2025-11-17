@@ -1,14 +1,14 @@
 "use client";
 
 import { useUser } from "@/common/hooks/react-query/user/query/useUser";
-import { ProfileInfoInternal } from "@/components/profile/internal/card/profileInfo.internal";
-import { ProfileAvatarInternal } from "@/components/profile/internal/card/profileAvatar.internal";
+import { ProfileInfoInternal } from "@/components/profile/view/internal/card/profileInfo.internal";
+import { ProfileAvatarInternal } from "@/components/profile/view/internal/card/profileAvatar.internal";
 import { ClientGridLoader } from "@/components/shared/loader/ClientGridLoader.shared";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
-import { ProfileBioInternal } from "@/components/profile/internal/card/profileBio.internal";
-import { ProfileCardButtonInternal } from "@/components/profile/internal/card/profileCardButton.internal";
+import { ProfileBioInternal } from "@/components/profile/view/internal/card/profileBio.internal";
+import { ProfileCardButtonInternal } from "@/components/profile/view/internal/card/profileCardButton.internal";
 
 export const ProfileCard = () => {
   const {data: currentUser, isLoading} = useUser();
