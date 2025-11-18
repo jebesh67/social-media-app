@@ -85,8 +85,7 @@ export const SignUp = () => {
     setPassword(value);
     setIsInvalidPassword(passwordValidation(value));
     
-    const isConfirmValid: boolean = (value === confirmPassword) && (value.length >= 6);
-    setIsInvalidConfirmPassword(!isConfirmValid);
+    setIsInvalidConfirmPassword(confirmPasswordValidation(value, confirmPassword));
   };
   
   const handleSetConfirmPassword = (value: string): void => {
@@ -166,7 +165,6 @@ export const SignUp = () => {
           isInvalidInput={ isInvalidInput }
           type="submit"
         />
-        
         
         { isError && (
           <div className={ "flex text-center px-6" }>
