@@ -16,6 +16,7 @@ import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/up
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useUser } from "@/common/hooks/react-query/user/query/useUser";
+import { CustomSubmitButtonShared } from "@/components/shared/button/CustomSubmitButton.shared";
 
 type Props = {
   user: ClientUser;
@@ -34,11 +35,11 @@ export const EditProfileCardInternal = ({user}: Props) => {
   
   const router: AppRouterInstance = useRouter();
   
-  const updateUserProfile: UseMutationResult<IUserApiResponse, Error, IUpdateProfileVariables> = useUpdateProfile();
+  const updateUserProfileMutation: UseMutationResult<IUserApiResponse, Error, IUpdateProfileVariables> = useUpdateProfile();
   
   const handleEditProfile = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-    updateUserProfile.mutate({name, bio, avatarUrl, avatarPublicId});
+    updateUserProfileMutation.mutate({name, bio, avatarUrl, avatarPublicId});
     
     await refetch();
     
@@ -83,19 +84,11 @@ export const EditProfileCardInternal = ({user}: Props) => {
           isRequired={ false }
         />
         
-        <button
-          className={
-            clsx(
-              "py-2 mt-2 px-3 rounded-xl w-65 font-semibold hover:cursor-pointer active:opacity-80 css-transition",
-              
-              ifTheme(theme, "bg-blue-900 hover:bg-blue-800", "bg-blue-500/90 hover:bg-blue-400"),
-            )
-          }
-          type="submit"
-        >
-          Save changes
-        </button>
-      
+        <CustomSubmitButtonShared
+          text={ "Save changes" }
+          pendingText={ "Saving..." }
+          isPending={ updateUserProfileMutation.isPending }
+        />
       
       </form>
     </main>
