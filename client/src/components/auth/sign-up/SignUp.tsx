@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { UseMutationResult } from "@tanstack/react-query";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import clsx from "clsx";
-import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { useRouter } from "next/navigation";
@@ -15,10 +14,11 @@ import { useCreateUser } from "@/common/hooks/react-query/user/mutation/useCreat
 import { useShowAuthPanelStore } from "@/common/stores/auth-panel/showAuthPanel.store";
 import { CustomError } from "@/common/helper/error/customError.helper";
 import { ValidationErrorShared } from "@/components/shared/error/validation/validationError.shared";
-import { usernameValidation } from "@/components/auth/util/validation/usernameValidation.util";
-import { emailValidation } from "@/components/auth/util/validation/emailValidation.util";
-import { passwordValidation } from "@/components/auth/util/validation/passwordValidation.util";
-import { confirmPasswordValidation } from "@/components/auth/util/validation/confirmPasswordValidation.util";
+import { usernameValidation } from "@/common/utils/validation/usernameValidation.util";
+import { emailValidation } from "@/common/utils/validation/emailValidation.util";
+import { passwordValidation } from "@/common/utils/validation/passwordValidation.util";
+import { confirmPasswordValidation } from "@/common/utils/validation/confirmPasswordValidation.util";
+import { CustomSubmitButtonShared } from "@/components/shared/button/CustomSubmitButton.shared";
 
 export const SignUp = () => {
   const {setShowAuthPanel} = useShowAuthPanelStore();
@@ -159,20 +159,13 @@ export const SignUp = () => {
           invalidMessage={ "Passwords do not match" }
         />
         
-        <button
-          className={
-            clsx(
-              "py-2 mt-2 px-3 rounded-xl w-65 font-semibold hover:cursor-pointer active:opacity-80 css-transition",
-              
-              ifTheme(theme, "bg-blue-900 hover:bg-blue-800", "bg-blue-500/90 hover:bg-blue-400"),
-              
-              (isPending || isInvalidInput) && "opacity-60 hover:cursor-default",
-            )
-          }
+        <CustomSubmitButtonShared
+          text={ "SignUp" }
+          pendingText={ "Signing up..." }
+          isPending={ isPending }
+          isInvalidInput={ isInvalidInput }
           type="submit"
-          disabled={ isPending || isInvalidInput }>
-          { isPending ? "Signing up..." : "Sign up" }
-        </button>
+        />
         
         
         { isError && (

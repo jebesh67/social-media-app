@@ -6,13 +6,13 @@ import { UseMutationResult } from "@tanstack/react-query";
 import { ILoginVariables } from "@/common/hooks/react-query/user/type/loginVariables.interface";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import clsx from "clsx";
-import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { CustomInputShared } from "@/components/shared/input/CustomInput.shared";
 import { useShowAuthPanelStore } from "@/common/stores/auth-panel/showAuthPanel.store";
+import { CustomSubmitButtonShared } from "@/components/shared/button/CustomSubmitButton.shared";
 
 export const Login = () => {
   const {setShowAuthPanel} = useShowAuthPanelStore();
@@ -80,20 +80,11 @@ export const Login = () => {
           placeholder="Password"
         />
         
-        <button
-          className={
-            clsx(
-              "py-2 mt-2 px-3 rounded-xl w-65 font-semibold hover:cursor-pointer active:opacity-80 css-transition",
-              
-              ifTheme(theme, "bg-blue-900 hover:bg-blue-800", "bg-blue-500/90 hover:bg-blue-400"),
-              
-              loginMutation.isPending && "opacity-60 hover:cursor-default",
-            )
-          }
-          type="submit"
-          disabled={ loginMutation.isPending }>
-          { loginMutation.isPending ? "Logging in..." : "Login" }
-        </button>
+        <CustomSubmitButtonShared
+          text={ "Login" }
+          pendingText={ "Logging in..." }
+          isPending={ loginMutation.isPending }
+        />
         
         { loginMutation.isError && (
           <div className={ "flex text-center px-6" }>
