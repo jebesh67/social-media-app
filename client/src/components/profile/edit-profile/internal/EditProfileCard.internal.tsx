@@ -46,11 +46,11 @@ export const EditProfileCardInternal = ({user}: Props) => {
   };
   
   return (
-    <main className={ "w-full max-w-200 lg:max-w-160 flex justify-center css-transition px-4" }>
+    <main className={ "css-card-width flex justify-center css-transition px-4" }>
       <form className={
         clsx(
           "flex flex-col space-y-4 justify-center items-center w-full pb-8 pt-12 px-4 rounded-xl shadow-md",
-          ifTheme(theme, "bg-zinc-700/40", "bg-zinc-400/40"),
+          ifTheme(theme, "css-dark-container", "css-light-container"),
         )
       }
             onSubmit={ handleEditProfile }

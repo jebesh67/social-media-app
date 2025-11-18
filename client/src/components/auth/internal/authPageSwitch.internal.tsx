@@ -20,10 +20,10 @@ export const AuthPageSwitchInternal = ({page, setPageAction}: Props) => {
         clsx(
           "py-2 px-5 rounded-xl hover:cursor-pointer hover:opacity-90 active:scale-102 font-semibold shadow-md",
           page === "login" && (ifTheme(theme,
-            "bg-zinc-800 ring-2 ring-zinc-600/50",
-            "bg-zinc-300 ring-2 ring-zinc-400/40")),
+            "bg-zinc-800 ring-2 ring-blue-600",
+            "bg-zinc-300 ring-2 ring-blue-400")),
           page === "sign-up" && (ifTheme(theme,
-            "bg-zinc-500",
+            "bg-zinc-700",
             "bg-zinc-300/40")),
         )
       }
@@ -34,11 +34,11 @@ export const AuthPageSwitchInternal = ({page, setPageAction}: Props) => {
         clsx(
           "py-2 px-5 rounded-xl hover:cursor-pointer hover:opacity-90 active:scale-102 font-semibold shadow-md",
           page === "login" && (ifTheme(theme,
-            "bg-zinc-500 ",
+            "bg-zinc-700 ",
             "bg-zinc-300/40")),
           page === "sign-up" && (ifTheme(theme,
-            "bg-zinc-800 ring-2 ring-zinc-600/50",
-            "bg-zinc-300 ring-2 ring-zinc-400/40")),
+            "bg-zinc-800 ring-2 ring-blue-600",
+            "bg-zinc-300 ring-2 ring-blue-400")),
         )
       }
               onClick={ (): void => setPageAction("sign-up") }>Sign up

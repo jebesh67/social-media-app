@@ -61,8 +61,8 @@ export const OptionsMenuShared = () => {
         className={ clsx(
           "flex flex-col space-y-2 shadow-xl mt-2 px-6 pb-6 pt-2 rounded-xl text-sm w-fit h-fit",
           ifTheme(theme,
-            "bg-zinc-800/80",
-            "bg-zinc-300/80",
+            "bg-zinc-900/80",
+            "bg-zinc-100/80",
           ),
         ) }>
         <div className={ "flex justify-end" }>

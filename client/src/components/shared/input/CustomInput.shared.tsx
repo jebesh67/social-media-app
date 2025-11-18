@@ -39,7 +39,7 @@ export const CustomInputShared = ({
   
   const baseStyles: string = clsx(
     "peer w-full rounded-xl px-5 pt-5 pb-3 text-xs bg-transparent outline-none resize-none transition-all duration-200",
-    ifTheme(theme, "bg-zinc-800 text-zinc-400", "bg-zinc-300 text-zinc-800"),
+    ifTheme(theme, "bg-zinc-800 text-zinc-400", "bg-zinc-200 text-zinc-800"),
     "placeholder-transparent focus:ring-0",
     
     "placeholder-transparent focus:ring-1 focus:shadow-[0px_0px_2px_2px]",
@@ -112,14 +112,14 @@ export const CustomInputShared = ({
               "text-zinc-600 ",
             ),
             
-            isMultiLine && (ifTheme(theme, "bg-zinc-800", "bg-zinc-300")),
+            isMultiLine && (ifTheme(theme, "bg-zinc-800", "bg-zinc-200")),
             
             "peer-placeholder-shown:top-3 peer-placeholder-shown:text-xs peer-placeholder-shown:text-zinc-500",
             
-            "peer-focus:top-1 peer-focus:text-[10px]",
+            "peer-focus:top-0.5 peer-focus:text-[10px]",
             isInvalidInput ? "peer-focus:text-red-500" : "peer-focus:text-blue-500",
             
-            "peer-[&:not(:placeholder-shown)]:top-0 peer-[&:not(:placeholder-shown)]:text-[10px]",
+            "peer-[&:not(:placeholder-shown)]:top-0.5 peer-[&:not(:placeholder-shown)]:text-[10px]",
           ) }
         >
           { placeholder }

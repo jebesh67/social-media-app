@@ -9,11 +9,11 @@ body {
 
 /* Global Themes */
 body[data-theme='dark'] {
-  @apply bg-zinc-800 text-zinc-100;
+  @apply bg-zinc-950 text-zinc-100;
 }
 
 body[data-theme='light'] {
-  @apply bg-zinc-300 text-zinc-900;
+  @apply bg-zinc-50 text-zinc-900;
 }
 
 /* Header Text */
@@ -25,6 +25,10 @@ body[data-theme='light'] {
 /* profile card username */
 .css-profile-card-username {
   @apply text-sm sm:text-2xl xl:text-xl;
+}
+
+.css-card-width {
+  @apply max-w-200 lg:max-w-160 w-full
 }
 
 /* Transitions */
@@ -51,30 +55,30 @@ body[data-theme='light'] {
 /* Active Buttons */
 .css-light-nav-button-active {
   @apply px-2 py-2 rounded-md hover:cursor-pointer;
-  @apply bg-zinc-400/40 backdrop-blur-md;
+  @apply bg-zinc-300/50 backdrop-blur-md;
 }
 
 .css-dark-nav-button-active {
   @apply px-2 py-2 rounded-md hover:cursor-pointer;
-  @apply bg-zinc-700/50 backdrop-blur-md;
+  @apply bg-zinc-800/50 backdrop-blur-md;
 }
 
 /* Navigation Container */
 .css-light-nav-container {
-  @apply bg-zinc-200/20 backdrop-blur-sm border-1 border-zinc-400/40;
+  @apply bg-zinc-100/20 backdrop-blur-sm border-1 border-zinc-200;
 }
 
 .css-dark-nav-container {
-  @apply bg-zinc-700/20 backdrop-blur-sm border-1 border-zinc-700/50;
+  @apply bg-zinc-800/20 backdrop-blur-sm border-1 border-zinc-800/50
 }
 
 /* Common Container */
 .css-light-container {
-  @apply bg-zinc-200/20;
+  @apply bg-zinc-100;
 }
 
 .css-dark-container {
-  @apply bg-zinc-700/20;
+  @apply bg-zinc-900/70;
 }
 
 /* Shiny Text */

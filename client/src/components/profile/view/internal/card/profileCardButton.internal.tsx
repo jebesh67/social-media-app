@@ -16,7 +16,7 @@ export const ProfileCardButtonInternal = () => {
         <button
           className={
             clsx("py-1.5 md:py-2 w-full max-w-40 rounded-xl hover:cursor-pointer active:opacity-60",
-              ifTheme(theme, "bg-zinc-700 hover:bg-zinc-600", "bg-zinc-400/40 hover:bg-zinc-400/80"))
+              ifTheme(theme, "bg-zinc-800 hover:bg-zinc-800/70", "bg-zinc-300/90 hover:bg-zinc-300/70"))
           }>
           Edit profile
         </button>

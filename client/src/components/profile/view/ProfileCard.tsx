@@ -18,7 +18,7 @@ export const ProfileCard = () => {
     <main className={ "px-4 w-full flex justify-center items-center" }>
       <div
         className={ clsx(
-          "grid grid-cols-10 max-w-200 lg:max-w-160 w-full p-6 rounded-lg shadow-md select-none",
+          "grid grid-cols-10 css-card-width p-6 rounded-lg shadow-md select-none",
           ifTheme(theme, "css-dark-container", "css-light-container"))
         }
       >

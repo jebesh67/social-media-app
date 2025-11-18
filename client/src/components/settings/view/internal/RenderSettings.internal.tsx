@@ -11,7 +11,7 @@ export const RenderSettingsInternal = () => {
   const {theme} = useThemeStore();
   
   return (
-    <div className={ "px-4 flex flex-col space-y-2 select-none" }>
+    <div className={ "px-4 flex flex-col w-full md:max-w-140 lg:max-w-120 space-y-2 select-none" }>
       {
         settingsElement.map((setting: SettingsElement, idx: number) => (
           <Link key={ idx }
@@ -20,7 +20,7 @@ export const RenderSettingsInternal = () => {
           >
             <button className={ clsx(
               "grid grid-cols-10 gap-x-3 w-full py-4 hover:cursor-pointer px-4 rounded-lg shadow-md css-transition hover:scale-103 active:opacity-85",
-              ifTheme(theme, "bg-zinc-700/70 hover:bg-zinc-700/50", "bg-zinc-200 hover:bg-zinc-100"),
+              ifTheme(theme, "bg-zinc-800/70 hover:bg-zinc-700/50", "bg-zinc-200/60 hover:bg-zinc-100"),
             ) }
                     key={ idx }>
               <div className={ "flex justify-center items-center text-2xl col-span-1" }>{ setting.logo }</div>

@@ -8,7 +8,7 @@ export const SettingsComponent = () => {
         type={ "back" }
         text={ "Settings" } />
       
-      <div>
+      <div className={ "flex justify-center md:mt-8" }>
         <RenderSettingsInternal />
       </div>
     </>

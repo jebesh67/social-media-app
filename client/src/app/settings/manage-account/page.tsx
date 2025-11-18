@@ -1,4 +1,5 @@
 import { CustomHeader } from "@/components/shared/header/CustomHeader.shared";
+import { ManageAccount } from "@/components/settings/manage-account/ManageAccount";
 
 const ManageAccountPage = () => {
   return (
@@ -6,6 +7,7 @@ const ManageAccountPage = () => {
       <CustomHeader
         type={ "back" }
         text={ "Manage Account" } />
+      <ManageAccount />
     </>
   );
 };

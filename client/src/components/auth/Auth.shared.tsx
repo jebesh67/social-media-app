@@ -33,7 +33,7 @@ export const AuthShared = (
       <main
         className={
           clsx("max-w-160 sm:max-w-120 w-full h-full sm:h-fit pt-8 sm:rounded-xl shadow-md",
-            ifTheme(theme, "bg-zinc-700/70", "bg-zinc-200/70"),
+            ifTheme(theme, "bg-zinc-900/90", "bg-zinc-50/90"),
           )
         }
       >

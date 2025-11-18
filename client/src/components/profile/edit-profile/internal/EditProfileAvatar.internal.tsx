@@ -104,7 +104,7 @@ export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvat
       <section
         className={ clsx(
           "grid grid-cols-10 w-full py-2 rounded-xl",
-          ifTheme(theme, "bg-zinc-800", "bg-zinc-300"),
+          ifTheme(theme, "bg-zinc-800", "bg-zinc-200"),
         ) }
       >
         <div className="relative col-span-3 p-2 flex items-center justify-center">

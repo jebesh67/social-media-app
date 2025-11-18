@@ -22,12 +22,12 @@ export const TopNavInternal = () => {
   return (
     <div className={ "w-full md:w-fit md:h-screen max-w-300 z-50 flex md:flex-col md:justify-start md:space-y-6 items-center justify-around" }>
       
-      <div className={ "w-full hidden md:block" }>
+      <div className={ "lg:w-full hidden md:block" }>
         <Link href={ "/" }>
           <button
             className={
               clsx(
-                "css-react-icon-size mb-8 flex gap-2 items-center",
+                "css-react-icon-size mb-8 lg:flex lg:w-43 gap-2 items-center",
                 getNavButtonClass("no-background", pathname, theme),
               )
             }
@@ -84,7 +84,7 @@ export const TopNavInternal = () => {
             height={ 50 }
             className={ "w-6 aspect-square object-contain rounded-full" }
           />
-          <p className={ "hidden lg:block text-base" }>{ user?.name || "no user" }</p>
+          <p className={ "hidden lg:block text-base" }>Profile</p>
         </button>
       </Link>
       
