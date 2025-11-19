@@ -23,7 +23,7 @@ export const ChangeUsernameInternal = () => {
       <section className={ "py-4 flex flex-col justify-center items-center gap-y-4" }>
         <div className={ "flex gap-2" }>
           <p className={ "font-semibold" }>Current username:</p>
-          <p>{ user?.username || "No user found!" }</p>
+          <p>{ user?.username || "null" }</p>
         </div>
         
         <div className={ "w-full flex flex-col justify-center items-center gap-2" }>
