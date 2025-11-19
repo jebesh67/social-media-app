@@ -6,6 +6,7 @@ mutation UpdateUserProfile($input: UpdateUserProfileInput!) {
             id
             username
             name
+            email
             bio
             avatarPublicId
             avatarUrl

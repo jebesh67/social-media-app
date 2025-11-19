@@ -4,6 +4,7 @@ query CurrentUserQuery {
             id
             username
             name
+            email
             bio
             avatarUrl
             avatarPublicId

@@ -5,33 +5,33 @@ import { ChangeEvent, useState } from "react";
 import { useUser } from "@/common/hooks/react-query/user/query/useUser";
 import { CustomSubmitButtonShared } from "@/components/shared/button/CustomSubmitButton.shared";
 
-export const ChangeUsernameInternal = () => {
+export const ChangeEmailInternal = () => {
     const {data: user} = useUser();
     
-    const [newUsername, setNewUsername] = useState<string>("");
+    const [newEMail, setNewEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     
     const handleSetUsername = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-      setNewUsername(e.target.value);
+      setNewEmail(e.target.value);
     };
     
     const handleUpdateUser = (): void => {
-      console.log("update user", newUsername);
+      console.log("update user", newEMail);
     };
     
     return (
       <section className={ "py-4 flex flex-col justify-center items-center gap-y-4" }>
         <div className={ "flex gap-2" }>
-          <p className={ "font-semibold" }>Current username:</p>
-          <p>{ user?.username || "No user found!" }</p>
+          <p className={ "font-semibold" }>Current email:</p>
+          <p>{ user?.email || "null" }</p>
         </div>
         
         <div className={ "w-full flex flex-col justify-center items-center gap-2" }>
           <CustomInputShared
-            id={ "newUsername" }
-            value={ newUsername }
+            id={ "newEMail" }
+            value={ newEMail }
             onChange={ handleSetUsername }
-            placeholder={ "Enter new username" }
+            placeholder={ "Enter new email" }
             width={ "large" }
           />
           

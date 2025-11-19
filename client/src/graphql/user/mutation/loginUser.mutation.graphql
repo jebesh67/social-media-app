@@ -4,6 +4,7 @@ mutation LoginUserMutation($input: LoginUserInput!) {
             id
             username
             name
+            email
             bio
             avatarPublicId
             avatarUrl
