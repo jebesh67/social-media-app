@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthPageSwitchInternal } from "@/components/auth/internal/authPageSwitch.internal";
+import { AuthPageSwitchInternal } from "@/components/auth/internal/AuthPageSwitch.internal";
 import { useState } from "react";
 import { PageSwitchType } from "@/components/auth/type/pageSwitch.type";
 import { Login } from "@/components/auth/login/Login";

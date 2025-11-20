@@ -13,7 +13,6 @@ type Props = {
 export const AuthPageSwitchInternal = ({page, setPageAction}: Props) => {
   const {theme} = useThemeStore();
   
-  
   return (
     <div className={ "flex justify-center items-center space-x-4 css-transition" }>
       <button className={
