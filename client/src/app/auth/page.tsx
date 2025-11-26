@@ -1,4 +1,4 @@
-import { Auth } from "@/components/auth/Auth.shared";
+import Auth from "@/features/auth/Auth.shared";
 
 const AuthPage = () => {
   return (

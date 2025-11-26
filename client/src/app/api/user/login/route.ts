@@ -3,13 +3,13 @@
 import { NextResponse } from "next/server";
 import { request, ClientError } from "graphql-request";
 import LoginUserMutation from "@/graphql/user/mutation/loginUser.mutation.graphql";
-import { IOriginalError } from "@/types/error/graphql-error/response/originalError.response";
-import { IApiError } from "@/types/error/api-error/response/apiError.response";
-import { IBackendErrorResponse } from "@/types/error/graphql-error/response/backendError.response";
-import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
-import { ILoginUserBackendResponse } from "@/types/user/response/backend/loginUserBackend.response";
+import { IOriginalError } from "@/core/types/error/graphql-error/response/originalError.response";
+import { IApiError } from "@/core/types/error/api-error/response/apiError.response";
+import { IBackendErrorResponse } from "@/core/types/error/graphql-error/response/backendError.response";
+import { IUserApiResponse } from "@/core/types/user/response/api/userApi.response";
+import { ILoginUserBackendResponse } from "@/core/types/user/response/backend/loginUserBackend.response";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
-import { setAuthToken } from "@/common/utils/cookie/cookie.helper";
+import { setAuthToken } from "@/core/utils/cookie/cookie.helper";
 
 export const POST = async (req: Request): Promise<NextResponse<IUserApiResponse | IApiError>> => {
   try {

@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getAuthToken } from "@/common/utils/cookie/cookie.helper";
-import { PUBLIC_PATHS } from "@/proxy/data/publicPaths.data";
-import { IVerifyAccessBackendResponse } from "@/types/user/response/backend/verifyAccessBackend.response";
+import { getAuthToken } from "@/core/utils/cookie/cookie.helper";
+import { PUBLIC_PATHS } from "@/core/proxy/data/publicPaths.data";
+import { IVerifyAccessBackendResponse } from "@/core/types/user/response/backend/verifyAccessBackend.response";
 import { request } from "graphql-request";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
 import VerifyAccessQuery from "@/graphql/user/query/verifyAccess.query.graphql";

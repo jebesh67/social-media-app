@@ -3,13 +3,13 @@
 import { NextResponse } from "next/server";
 import { request, ClientError } from "graphql-request";
 import LogoutUserQuery from "@/graphql/user/query/logoutUser.query.graphql";
-import { IOriginalError } from "@/types/error/graphql-error/response/originalError.response";
-import { IApiError } from "@/types/error/api-error/response/apiError.response";
-import { IBackendErrorResponse } from "@/types/error/graphql-error/response/backendError.response";
+import { IOriginalError } from "@/core/types/error/graphql-error/response/originalError.response";
+import { IApiError } from "@/core/types/error/api-error/response/apiError.response";
+import { IBackendErrorResponse } from "@/core/types/error/graphql-error/response/backendError.response";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
-import { clearAuthToken, getAuthToken } from "@/common/utils/cookie/cookie.helper";
-import { ILogoutUserBackendResponse } from "@/types/user/response/backend/logoutUserBackend.response";
-import { ILogoutApiResponse } from "@/types/user/response/api/logoutApi.response";
+import { clearAuthToken, getAuthToken } from "@/core/utils/cookie/cookie.helper";
+import { ILogoutUserBackendResponse } from "@/core/types/user/response/backend/logoutUserBackend.response";
+import { ILogoutApiResponse } from "@/core/types/user/response/api/logoutApi.response";
 
 export const POST = async (): Promise<NextResponse<ILogoutApiResponse | IApiError>> => {
   try {

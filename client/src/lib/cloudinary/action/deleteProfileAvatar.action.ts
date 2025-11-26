@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { IDeleteAvatarResponse } from "@/types/cloudinary/response/api/deleteAvatar.response";
+import { IDeleteAvatarResponse } from "@/core/types/cloudinary/response/api/deleteAvatar.response";
 
 export const deleteProfileAvatar = async (avatarPublicId: string): Promise<string> => {
   try {

@@ -1,5 +1,5 @@
-import { CustomHeader } from "@/components/shared/header/CustomHeader.shared";
-import { ManageAccount } from "@/components/settings/manage-account/ManageAccount";
+import { CustomHeader } from "@/features/shared/header/CustomHeader.shared";
+import ManageAccount from "@/features/settings/manage-account";
 
 const ManageAccountPage = () => {
   return (

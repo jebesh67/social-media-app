@@ -6,15 +6,15 @@ import {
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_UPLOAD_PRESET,
 } from "@/lib/env/cloudinary.variable";
-import { ISignCloudinaryResponse } from "@/types/cloudinary/response/api/ISIgnCloudinary.response";
-import { IApiError } from "@/types/error/api-error/response/apiError.response";
+import { ISignCloudinaryResponse } from "@/core/types/cloudinary/response/api/ISIgnCloudinary.response";
+import { IApiError } from "@/core/types/error/api-error/response/apiError.response";
 import { ClientError, request } from "graphql-request";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
-import { getAuthToken } from "@/common/utils/cookie/cookie.helper";
+import { getAuthToken } from "@/core/utils/cookie/cookie.helper";
 import VerifyAccessQuery from "@/graphql/user/query/verifyAccess.query.graphql";
-import { IVerifyAccessBackendResponse } from "@/types/user/response/backend/verifyAccessBackend.response";
-import { IBackendErrorResponse } from "@/types/error/graphql-error/response/backendError.response";
-import { IOriginalError } from "@/types/error/graphql-error/response/originalError.response";
+import { IVerifyAccessBackendResponse } from "@/core/types/user/response/backend/verifyAccessBackend.response";
+import { IBackendErrorResponse } from "@/core/types/error/graphql-error/response/backendError.response";
+import { IOriginalError } from "@/core/types/error/graphql-error/response/originalError.response";
 
 export const GET = async (): Promise<
   NextResponse<ISignCloudinaryResponse | IApiError>

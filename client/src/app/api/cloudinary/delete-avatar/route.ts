@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary/cloudinary.config";
-import { IApiError } from "@/types/error/api-error/response/apiError.response";
-import { IDeleteAvatarResponse } from "@/types/cloudinary/response/api/deleteAvatar.response";
-import { DeleteAvatarType } from "@/types/cloudinary/deleteAvatar.type";
-import { IVerifyAccessBackendResponse } from "@/types/user/response/backend/verifyAccessBackend.response";
+import { IApiError } from "@/core/types/error/api-error/response/apiError.response";
+import { IDeleteAvatarResponse } from "@/core/types/cloudinary/response/api/deleteAvatar.response";
+import { DeleteAvatarType } from "@/core/types/cloudinary/deleteAvatar.type";
+import { IVerifyAccessBackendResponse } from "@/core/types/user/response/backend/verifyAccessBackend.response";
 import { request } from "graphql-request";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
 import VerifyAccessQuery from "@/graphql/user/query/verifyAccess.query.graphql";
-import { getAuthToken } from "@/common/utils/cookie/cookie.helper";
+import { getAuthToken } from "@/core/utils/cookie/cookie.helper";
 
 export const POST = async (req: NextRequest): Promise<NextResponse<IApiError | IDeleteAvatarResponse>> => {
   try {

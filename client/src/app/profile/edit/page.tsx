@@ -1,4 +1,4 @@
-import { EditProfile } from "@/components/profile/edit-profile/EditProfile";
+import EditProfile from "@/features/profile/edit-profile";
 
 const EditProfilePage = () => {
   return (
