@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Theme } from "@/core/utils/theme/types/theme.types";
+import { Theme } from "@/core/utils/theme/type/theme.type";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
 
 

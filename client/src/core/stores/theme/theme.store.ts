@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { setCookie } from "cookies-next";
-import { ThemeState, Theme } from "@/core/utils/theme/types/theme.types";
+import { IThemeState, Theme } from "@/core/utils/theme/type/theme.type";
 
-export const useThemeStore = create<ThemeState>((set, get): ThemeState => ({
+export const useThemeStore = create<IThemeState>((set, get): IThemeState => ({
   theme: "light",
   
   setTheme: (newTheme: Theme): void => {

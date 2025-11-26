@@ -1,19 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useThemeStore } from "@/core/stores/theme/theme.store";
-import { Theme } from "@/core/utils/theme/types/theme.types";
+import { Theme } from "@/core/utils/theme/type/theme.type";
 
-export default function ThemeProvider({
+const ThemeProvider = ({
   children,
   initialTheme,
 }: {
   children: React.ReactNode;
   initialTheme: Theme;
-}) {
+}) => {
   const {theme, setTheme} = useThemeStore();
   
-  useEffect((): void => {
+  useLayoutEffect((): void => {
     if (initialTheme !== theme) setTheme(initialTheme);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialTheme]);
@@ -23,4 +23,6 @@ export default function ThemeProvider({
   }, [theme]);
   
   return <>{ children }</>;
-}
+};
+
+export default ThemeProvider;

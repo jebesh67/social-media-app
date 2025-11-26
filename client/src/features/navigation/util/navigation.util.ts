@@ -1,5 +1,5 @@
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
-import { Theme } from "@/core/utils/theme/types/theme.types";
+import { Theme } from "@/core/utils/theme/type/theme.type";
 import { ReactElement } from "react";
 
 export const getNavButtonClass = (path: string, pathname: string, theme: Theme): string =>

@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { Theme } from "@/core/utils/theme/types/theme.types";
+import { Theme } from "@/core/utils/theme/type/theme.type";
 
 export const getThemeFromReq = (req: NextRequest): Theme => {
   const cookieValue: string | undefined = req.cookies.get("theme")?.value;

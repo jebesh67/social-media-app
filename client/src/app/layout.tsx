@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import { getTheme } from "@/core/utils/theme/util/server-only/getTheme.util";
 import ClientAppShell from "@/core/providers/client-layout/ClientAppShell";
-import { Theme } from "@/core/utils/theme/types/theme.types";
+import { Theme } from "@/core/utils/theme/type/theme.type";
 import ThemeProvider from "@/core/providers/theme/ThemeProvider";
 
 export const metadata: Metadata = {
