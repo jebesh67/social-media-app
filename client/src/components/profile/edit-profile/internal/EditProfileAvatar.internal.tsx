@@ -26,7 +26,7 @@ type Props = {
   onAvatarPublicIdChangeAction: (id: string) => void;
 };
 
-export const EditProfileAvatarInternal = ({user, onAvatarUrlChangeAction, onAvatarPublicIdChangeAction}: Props) => {
+export const EditProfileAvatar = ({user, onAvatarUrlChangeAction, onAvatarPublicIdChangeAction}: Props) => {
   const {theme} = useThemeStore();
   
   const updateProfileMutation: UseMutationResult<IUserApiResponse, Error, IUpdateProfileVariables> = useUpdateProfile();

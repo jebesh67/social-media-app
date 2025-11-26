@@ -2,9 +2,9 @@
 
 import { RenderNavs } from "@/components/navigation/internal/RenderNavs.internal";
 import { usePathname } from "next/navigation";
-import { OptionsMenuShared } from "@/components/shared/options-menu/OptionsMenu.shared";
+import { OptionsMenu } from "@/components/shared/options-menu/OptionsMenu.shared";
 import { useShowOptionsMenuStore } from "@/common/stores/options-menu/showOptionsMenu.store";
-import { AuthShared } from "@/components/auth/Auth.shared";
+import { Auth } from "@/components/auth/Auth.shared";
 import { useShowAuthPanelStore } from "@/common/stores/auth-panel/showAuthPanel.store";
 
 export const Navigation = () => {
@@ -27,13 +27,13 @@ export const Navigation = () => {
       
       {
         showOptionsMenu && (
-          <OptionsMenuShared />
+          <OptionsMenu />
         )
       }
       
       {
         showAuthPanel && (
-          <AuthShared isFloating={ true } />
+          <Auth isFloating={ true } />
         )
       }
     </>

@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
-import { TopNavInternal } from "@/components/navigation/internal/TopNav.internal";
-import { BottomNavInternal } from "@/components/navigation/internal/BottomNav.internal";
+import { TopNav } from "@/components/navigation/internal/TopNav.internal";
+import { BottomNav } from "@/components/navigation/internal/BottomNav.internal";
 
 export const RenderNavs = () => {
   const {theme} = useThemeStore();
@@ -15,8 +15,8 @@ export const RenderNavs = () => {
       ) }
     >
       
-      <TopNavInternal />
-      <BottomNavInternal />
+      <TopNav />
+      <BottomNav />
     
     </nav>
   );

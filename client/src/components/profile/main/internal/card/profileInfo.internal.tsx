@@ -6,7 +6,7 @@ type Props = {
   currentUser: ClientUser,
 }
 
-export const ProfileInfoInternal = ({currentUser}: Props) => {
+export const ProfileInfo = ({currentUser}: Props) => {
   return (
     <div className={ "col-span-8 w-full place-content-center" }>
       <div className={ "ml-6 flex flex-col space-y-2 w-full sm:w-fit justify-center" }>

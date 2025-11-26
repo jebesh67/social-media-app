@@ -1,11 +1,11 @@
 "use client";
 
-import { CustomInputShared } from "@/components/shared/input/CustomInput.shared";
+import { CustomInput } from "@/components/shared/input/CustomInput";
 import { ChangeEvent, useState } from "react";
 import { useUser } from "@/common/hooks/react-query/user/query/useUser";
-import { CustomSubmitButtonShared } from "@/components/shared/button/CustomSubmitButton.shared";
+import { CustomSubmitButton } from "@/components/shared/button/CustomSubmitButton.shared";
 
-export const ChangeEmailInternal = () => {
+export const ChangeEmail = () => {
     const {data: user} = useUser();
     
     const [newEMail, setNewEmail] = useState<string>("");
@@ -27,7 +27,7 @@ export const ChangeEmailInternal = () => {
         </div>
         
         <div className={ "w-full flex flex-col justify-center items-center gap-2" }>
-          <CustomInputShared
+          <CustomInput
             id={ "newEMail" }
             value={ newEMail }
             onChange={ handleSetUsername }
@@ -35,7 +35,7 @@ export const ChangeEmailInternal = () => {
             width={ "large" }
           />
           
-          <CustomInputShared
+          <CustomInput
             id={ "currentPassword" }
             value={ password }
             onChange={ (e): void => setPassword(e.target.value) }
@@ -43,7 +43,7 @@ export const ChangeEmailInternal = () => {
             width={ "large" }
           />
           
-          <CustomSubmitButtonShared
+          <CustomSubmitButton
             text={ "Update" }
             pendingText={ "Updating..." }
             onClick={ handleUpdateUser }

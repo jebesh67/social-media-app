@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthPageSwitchInternal } from "@/components/auth/internal/AuthPageSwitch.internal";
+import { AuthPageSwitch } from "@/components/auth/internal/AuthPageSwitch.internal";
 import { useState } from "react";
 import { PageSwitchType } from "@/components/auth/type/pageSwitch.type";
 import { Login } from "@/components/auth/login/Login";
@@ -16,7 +16,7 @@ type Props = {
   isFloating?: boolean;
 }
 
-export const AuthShared = (
+export const Auth = (
   {pagePath = "login", isFloating = false}: Props,
 ) => {
   const [page, setPage] = useState<PageSwitchType>(pagePath);
@@ -51,7 +51,7 @@ export const AuthShared = (
           )
         }
         
-        <AuthPageSwitchInternal
+        <AuthPageSwitch
           page={ page }
           setPageAction={ setPage }
         />

@@ -6,7 +6,7 @@ type Props = {
   currentUser: ClientUser,
 }
 
-export const ProfileBioInternal = ({currentUser}: Props) => {
+export const ProfileBio = ({currentUser}: Props) => {
   const [expanded, setExpanded] = useState<boolean>(false);
   
   return (

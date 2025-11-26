@@ -8,17 +8,17 @@ import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { CustomInputShared } from "@/components/shared/input/CustomInput.shared";
+import { CustomInput } from "@/components/shared/input/CustomInput";
 import { ICreateUserVariables } from "@/common/hooks/react-query/user/type/createUserVariables.interface";
 import { useCreateUser } from "@/common/hooks/react-query/user/mutation/useCreateUser";
 import { useShowAuthPanelStore } from "@/common/stores/auth-panel/showAuthPanel.store";
 import { CustomError } from "@/common/helper/error/customError.helper";
-import { ValidationErrorShared } from "@/components/shared/error/validation/validationError.shared";
+import { ValidationError } from "@/components/shared/error/validation/validationError.shared";
 import { usernameValidation } from "@/common/utils/validation/usernameValidation.util";
 import { emailValidation } from "@/common/utils/validation/emailValidation.util";
 import { passwordValidation } from "@/common/utils/validation/passwordValidation.util";
 import { confirmPasswordValidation } from "@/common/utils/validation/confirmPasswordValidation.util";
-import { CustomSubmitButtonShared } from "@/components/shared/button/CustomSubmitButton.shared";
+import { CustomSubmitButton } from "@/components/shared/button/CustomSubmitButton.shared";
 
 export const SignUp = () => {
   const {setShowAuthPanel} = useShowAuthPanelStore();
@@ -113,14 +113,14 @@ export const SignUp = () => {
         
         <h2>Create account</h2>
         
-        <CustomInputShared
+        <CustomInput
           id="newName"
           value={ name }
           onChange={ (e): void => setName(e.target.value) }
           placeholder="Your Name"
         />
         
-        <CustomInputShared
+        <CustomInput
           id="newUsername"
           value={ username }
           onChange={ (e): void => handleSetUsername(e.currentTarget.value) }
@@ -129,7 +129,7 @@ export const SignUp = () => {
           invalidMessage={ "Username can only contain lowercase letters, numbers, dots (.), underscores (_), and max-14 characters." }
         />
         
-        <CustomInputShared
+        <CustomInput
           id="newEmail"
           value={ email }
           onChange={ (e): void => handleSetEmail(e.target.value) }
@@ -138,7 +138,7 @@ export const SignUp = () => {
           invalidMessage={ "Email must be a valid email" }
         />
         
-        <CustomInputShared
+        <CustomInput
           id="newPassword"
           type="password"
           value={ password }
@@ -148,7 +148,7 @@ export const SignUp = () => {
           invalidMessage={ "Password must be at least 6 characters long, and cannot contain spaces" }
         />
         
-        <CustomInputShared
+        <CustomInput
           id="confirmPassword"
           type="password"
           value={ confirmPassword }
@@ -158,7 +158,7 @@ export const SignUp = () => {
           invalidMessage={ "Passwords do not match" }
         />
         
-        <CustomSubmitButtonShared
+        <CustomSubmitButton
           text={ "SignUp" }
           pendingText={ "Signing up..." }
           isPending={ isPending }
@@ -181,7 +181,7 @@ export const SignUp = () => {
       </form>
       {
         (showValidation && error) &&
-        <ValidationErrorShared
+        <ValidationError
           setShowValidationAction={ setShowValidation }
           value={ error } />
       }

@@ -10,7 +10,7 @@ type Props = {
   setPageAction: React.Dispatch<React.SetStateAction<PageSwitchType>>;
 }
 
-export const AuthPageSwitchInternal = ({page, setPageAction}: Props) => {
+export const AuthPageSwitch = ({page, setPageAction}: Props) => {
   const {theme} = useThemeStore();
   
   return (

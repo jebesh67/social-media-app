@@ -1,14 +1,14 @@
 "use client";
 
 import { useUser } from "@/common/hooks/react-query/user/query/useUser";
-import { ProfileInfoInternal } from "@/components/profile/view/internal/card/profileInfo.internal";
-import { ProfileAvatarInternal } from "@/components/profile/view/internal/card/profileAvatar.internal";
+import { ProfileInfo } from "@/components/profile/main/internal/card/profileInfo.internal";
+import { ProfileAvatar } from "@/components/profile/main/internal/card/profileAvatar.internal";
 import { ClientGridLoader } from "@/components/shared/loader/ClientGridLoader.shared";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
-import { ProfileBioInternal } from "@/components/profile/view/internal/card/profileBio.internal";
-import { ProfileCardButtonInternal } from "@/components/profile/view/internal/card/profileCardButton.internal";
+import { ProfileBio } from "@/components/profile/main/internal/card/profileBio.internal";
+import { ProfileCardButton } from "@/components/profile/main/internal/card/profileCardButton.internal";
 
 export const ProfileCard = () => {
   const {data: currentUser, isLoading} = useUser();
@@ -32,10 +32,10 @@ export const ProfileCard = () => {
           ) : (
             (!isLoading && currentUser) && (
               <>
-                <ProfileAvatarInternal url={ currentUser.avatarUrl } />
-                <ProfileInfoInternal currentUser={ currentUser } />
-                <ProfileBioInternal currentUser={ currentUser } />
-                <ProfileCardButtonInternal />
+                <ProfileAvatar url={ currentUser.avatarUrl } />
+                <ProfileInfo currentUser={ currentUser } />
+                <ProfileBio currentUser={ currentUser } />
+                <ProfileCardButton />
               </>
             )
           )

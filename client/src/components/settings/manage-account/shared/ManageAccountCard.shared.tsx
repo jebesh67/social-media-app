@@ -11,7 +11,7 @@ type Props = {
   buttonText: string;
 }
 
-export const ManageAccountCardShared = ({
+export const ManageAccountCard = ({
   Component,
   buttonText,
 }: Props) => {

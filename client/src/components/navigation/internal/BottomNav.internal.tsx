@@ -5,7 +5,7 @@ import { useThemeStore } from "@/common/stores/theme/theme.store";
 import { usePathname } from "next/navigation";
 import { useShowOptionsMenuStore } from "@/common/stores/options-menu/showOptionsMenu.store";
 
-export const BottomNavInternal = () => {
+export const BottomNav = () => {
   const {theme} = useThemeStore();
   const {showOptionsMenu, setShowOptionsMenu} = useShowOptionsMenuStore();
   

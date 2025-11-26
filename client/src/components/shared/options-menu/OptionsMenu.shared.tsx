@@ -11,7 +11,7 @@ import { useLogout } from "@/common/hooks/react-query/user/mutation/useLogout";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-export const OptionsMenuShared = () => {
+export const OptionsMenu = () => {
   const {theme} = useThemeStore();
   
   const router: AppRouterInstance = useRouter();

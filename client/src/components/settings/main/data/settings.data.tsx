@@ -1,4 +1,4 @@
-import { SettingsElement } from "@/components/settings/view/type/settings.type";
+import { SettingsElement } from "@/components/settings/main/type/settings.type";
 import { FaUserShield } from "react-icons/fa";
 import { GiSettingsKnobs } from "react-icons/gi";
 

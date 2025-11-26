@@ -9,7 +9,7 @@ type Props = {
   setShowValidationAction: (showValidation: boolean) => void;
 }
 
-export const ValidationErrorShared = ({value, setShowValidationAction}: Props) => {
+export const ValidationError = ({value, setShowValidationAction}: Props) => {
   const {theme} = useThemeStore();
   
   const {username, email, password, confirmPassword} = value.validation!;

@@ -1,5 +1,5 @@
 import { CustomHeader } from "@/components/shared/header/CustomHeader.shared";
-import { RenderSettingsInternal } from "@/components/settings/view/internal/RenderSettings.internal";
+import { RenderSettings } from "@/components/settings/main/internal/RenderSettings.internal";
 
 export const SettingsComponent = () => {
   return (
@@ -9,7 +9,7 @@ export const SettingsComponent = () => {
         text={ "Settings" } />
       
       <div className={ "flex justify-center md:mt-8" }>
-        <RenderSettingsInternal />
+        <RenderSettings />
       </div>
     </>
   );

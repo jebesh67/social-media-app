@@ -11,7 +11,7 @@ type Props = {
   onClick?: () => void
 }
 
-export const CustomSubmitButtonShared = ({
+export const CustomSubmitButton = ({
   isPending = false,
   isInvalidInput = false,
   type = "submit",

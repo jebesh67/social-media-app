@@ -1,7 +1,7 @@
 "use client";
 
 import { CustomHeader } from "@/components/shared/header/CustomHeader.shared";
-import { EditProfileCardInternal } from "@/components/profile/edit-profile/internal/EditProfileCard.internal";
+import { EditProfileCard } from "@/components/profile/edit-profile/internal/EditProfileCard";
 import { useUser } from "@/common/hooks/react-query/user/query/useUser";
 
 export const EditProfile = () => {
@@ -21,7 +21,7 @@ export const EditProfile = () => {
         }
         
         {
-          (isFetched && user) && <EditProfileCardInternal user={ user } />
+          (isFetched && user) && <EditProfileCard user={ user } />
         }
         
         {

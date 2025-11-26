@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { IoChevronBackOutline } from "react-icons/io5";
 
-export const BackButtonInternal = () => {
+export const BackButton = () => {
   const {theme} = useThemeStore();
   
   const router = useRouter();

@@ -10,7 +10,7 @@ import { useUser } from "@/common/hooks/react-query/user/query/useUser";
 import { AvatarImage } from "@/components/shared/image/AvatarImage.shared";
 import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 
-export const TopNavInternal = () => {
+export const TopNav = () => {
   const {theme, nextTheme} = useThemeStore();
   const pathname: string = usePathname();
   

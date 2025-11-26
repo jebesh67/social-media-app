@@ -1,6 +1,6 @@
 "use client";
 
-import { CustomHeaderInternal } from "@/components/shared/header/internal/CustomHeader.internal";
+import { RenderCustomHeader } from "@/components/shared/header/internal/RenderCustomHeader.internal";
 
 type Props = {
   type: "back";
@@ -11,7 +11,7 @@ export const CustomHeader = ({type, text}: Props) => {
   return (
     <header className={ "fixed top-0 w-full flex flex-col items-center justify-center select-none z-40" }>
       
-      <CustomHeaderInternal
+      <RenderCustomHeader
         type={ type }
         text={ text }
       />

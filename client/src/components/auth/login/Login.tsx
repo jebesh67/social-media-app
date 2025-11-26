@@ -10,9 +10,9 @@ import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
 import { IUserApiResponse } from "@/types/user/response/api/userApi.response";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { CustomInputShared } from "@/components/shared/input/CustomInput.shared";
+import { CustomInput } from "@/components/shared/input/CustomInput";
 import { useShowAuthPanelStore } from "@/common/stores/auth-panel/showAuthPanel.store";
-import { CustomSubmitButtonShared } from "@/components/shared/button/CustomSubmitButton.shared";
+import { CustomSubmitButton } from "@/components/shared/button/CustomSubmitButton.shared";
 
 export const Login = () => {
   const {setShowAuthPanel} = useShowAuthPanelStore();
@@ -65,14 +65,14 @@ export const Login = () => {
         
         <h2>Enter your credentials to login</h2>
         
-        <CustomInputShared
+        <CustomInput
           id="username"
           value={ username }
           onChange={ (e): void => setUsername(e.target.value) }
           placeholder="Username"
         />
         
-        <CustomInputShared
+        <CustomInput
           id="password"
           type="password"
           value={ password }
@@ -80,7 +80,7 @@ export const Login = () => {
           placeholder="Password"
         />
         
-        <CustomSubmitButtonShared
+        <CustomSubmitButton
           text={ "Login" }
           pendingText={ "Logging in..." }
           isPending={ loginMutation.isPending }

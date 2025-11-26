@@ -4,14 +4,14 @@ import { useThemeStore } from "@/common/stores/theme/theme.store";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import ShinyText from "@/components/shared/effects/shinyText/ShinyText";
-import { BackButtonInternal } from "@/components/shared/header/internal/BackButton.internal";
+import { BackButton } from "@/components/shared/header/internal/BackButton.internal";
 
 type Props = {
   type: "back";
   text: string;
 }
 
-export const CustomHeaderInternal = ({type, text}: Props) => {
+export const RenderCustomHeader = ({type, text}: Props) => {
   const {theme} = useThemeStore();
   
   return (
@@ -24,7 +24,7 @@ export const CustomHeaderInternal = ({type, text}: Props) => {
       }
     >
       {
-        (type === "back") && <BackButtonInternal />
+        (type === "back") && <BackButton />
       }
       
       <ShinyText

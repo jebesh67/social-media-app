@@ -2,7 +2,7 @@
 
 import { AvatarImage } from "@/components/shared/image/AvatarImage.shared";
 
-export const ProfileAvatarInternal = ({url}: { url: string }) => {
+export const ProfileAvatar = ({url}: { url: string }) => {
   const isLocal: boolean = !url || url.startsWith("/");
   
   return (

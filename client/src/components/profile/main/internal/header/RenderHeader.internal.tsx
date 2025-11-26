@@ -10,7 +10,7 @@ import { IoIosSettings } from "react-icons/io";
 import Link from "next/link";
 
 
-export const ProfileHeaderInternal = () => {
+export const RenderHeader = () => {
   const {theme} = useThemeStore();
   const {showOptionsMenu, setShowOptionsMenu} = useShowOptionsMenuStore();
   

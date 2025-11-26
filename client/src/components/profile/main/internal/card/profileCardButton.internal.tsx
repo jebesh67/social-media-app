@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import Link from "next/link";
 
-export const ProfileCardButtonInternal = () => {
+export const ProfileCardButton = () => {
   const {theme} = useThemeStore();
   
   return (

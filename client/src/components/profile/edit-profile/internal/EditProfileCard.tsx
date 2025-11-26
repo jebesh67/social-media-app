@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import clsx from "clsx";
-import { CustomInputShared } from "@/components/shared/input/CustomInput.shared";
+import { CustomInput } from "@/components/shared/input/CustomInput";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { ClientUser } from "@/types/user/user.type";
 import {
-  EditProfileAvatarInternal,
+  EditProfileAvatar,
 } from "@/components/profile/edit-profile/internal/EditProfileAvatar.internal";
 import { useUpdateProfile } from "@/common/hooks/react-query/user/mutation/useUpdateProfile";
 import { UseMutationResult } from "@tanstack/react-query";
@@ -16,13 +16,13 @@ import { IUpdateProfileVariables } from "@/common/hooks/react-query/user/type/up
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useUser } from "@/common/hooks/react-query/user/query/useUser";
-import { CustomSubmitButtonShared } from "@/components/shared/button/CustomSubmitButton.shared";
+import { CustomSubmitButton } from "@/components/shared/button/CustomSubmitButton.shared";
 
 type Props = {
   user: ClientUser;
 }
 
-export const EditProfileCardInternal = ({user}: Props) => {
+export const EditProfileCard = ({user}: Props) => {
   
   const [name, setName] = useState<string>(user.name);
   const [bio, setBio] = useState<string>(user.bio);
@@ -59,13 +59,13 @@ export const EditProfileCardInternal = ({user}: Props) => {
         
         <h2>Edit profile</h2>
         
-        <EditProfileAvatarInternal
+        <EditProfileAvatar
           user={ user }
           onAvatarUrlChangeAction={ (url: string): void => setAvatarUrl(url) }
           onAvatarPublicIdChangeAction={ (id: string): void => setAvatarPublicId(id) }
         />
         
-        <CustomInputShared
+        <CustomInput
           id="updateName"
           value={ name }
           onChange={ (e): void => setName(e.target.value) }
@@ -74,7 +74,7 @@ export const EditProfileCardInternal = ({user}: Props) => {
           isRequired={ false }
         />
         
-        <CustomInputShared
+        <CustomInput
           id="updateBio"
           isMultiLine={ true }
           value={ bio }
@@ -84,7 +84,7 @@ export const EditProfileCardInternal = ({user}: Props) => {
           isRequired={ false }
         />
         
-        <CustomSubmitButtonShared
+        <CustomSubmitButton
           text={ "Save changes" }
           pendingText={ "Saving..." }
           isPending={ updateUserProfileMutation.isPending }

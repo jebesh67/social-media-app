@@ -1,13 +1,13 @@
 "use client";
 
-import { settingsElement } from "@/components/settings/view/data/settings.data";
+import { settingsElement } from "@/components/settings/main/data/settings.data";
 import clsx from "clsx";
 import { ifTheme } from "@/common/utils/theme/util/theme.util";
 import { useThemeStore } from "@/common/stores/theme/theme.store";
 import Link from "next/link";
-import { SettingsElement } from "@/components/settings/view/type/settings.type";
+import { SettingsElement } from "@/components/settings/main/type/settings.type";
 
-export const RenderSettingsInternal = () => {
+export const RenderSettings = () => {
   const {theme} = useThemeStore();
   
   return (

@@ -20,7 +20,7 @@ interface CustomInputProps {
   invalidMessage?: string;
 }
 
-export const CustomInputShared = ({
+export const CustomInput = ({
   id,
   type = "text",
   isMultiLine = false,
