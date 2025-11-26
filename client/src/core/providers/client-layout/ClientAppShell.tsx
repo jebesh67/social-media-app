@@ -12,7 +12,7 @@ type Props = {
 const ClientAppShell = ({
   children,
 }: Props) => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   
   useEffect(() => {
     const timer = setTimeout((): void => setLoading(false), 700);
