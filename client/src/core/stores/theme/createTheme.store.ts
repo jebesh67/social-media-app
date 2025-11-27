@@ -11,15 +11,4 @@ export const createThemeStore = (initialTheme: Theme): StoreApi<IThemeState> =>
       set({theme: newTheme});
       setCookie("theme", newTheme, {maxAge: 60 * 60 * 24 * 30});
     },
-    
-    nextTheme: (): void => {
-      set((state: IThemeState): { theme: Theme } => {
-        const newTheme: Theme = state.theme === "dark" ? "light" : "dark";
-        
-        document.body.setAttribute("data-theme", newTheme);
-        setCookie("theme", newTheme, {maxAge: 60 * 60 * 24 * 30});
-        
-        return {theme: newTheme};
-      });
-    },
   }));
