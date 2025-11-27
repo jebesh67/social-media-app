@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { UseMutationResult } from "@tanstack/react-query";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import clsx from "clsx";
 import ShinyText from "@/features/shared/effects/shinyText/ShinyText";
 import { IUserApiResponse } from "@/core/types/user/response/api/userApi.response";
@@ -19,6 +18,7 @@ import { emailValidation } from "@/core/utils/validation/emailValidation.util";
 import { passwordValidation } from "@/core/utils/validation/passwordValidation.util";
 import { confirmPasswordValidation } from "@/core/utils/validation/confirmPasswordValidation.util";
 import { CustomSubmitButton } from "@/features/shared/button/CustomSubmitButton.shared";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 export const SignUp = () => {
   const {setShowAuthPanel} = useShowAuthPanelStore();
@@ -44,7 +44,7 @@ export const SignUp = () => {
   
   const isInvalidInput: boolean = isInvalidUsername || isInvalidEmail || isInvalidPassword || isInvalidConfirmPassword;
   
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   const router: AppRouterInstance = useRouter();
   

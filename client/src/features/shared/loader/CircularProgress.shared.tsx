@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 interface Props {
   progress: number;
@@ -15,7 +15,7 @@ export const CircularProgress = ({
   radius = 50,
   stroke = 8,
 }: Props) => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   const normalizedRadius: number = radius - stroke / 2;
   const circumference: number = 2 * Math.PI * normalizedRadius;

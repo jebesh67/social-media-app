@@ -3,8 +3,8 @@
 import { ChangeEvent, useState } from "react";
 import clsx from "clsx";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import { Eye, EyeOff } from "lucide-react";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 interface CustomInputProps {
   id: string;
@@ -33,7 +33,7 @@ export const CustomInput = ({
   isInvalidInput = false,
   invalidMessage,
 }: CustomInputProps) => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   const [showPassword, setShowPassword] = useState<boolean>(false);
   

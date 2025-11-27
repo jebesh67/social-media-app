@@ -4,14 +4,15 @@ import { getNavButton, getNavButtonClass } from "@/features/navigation/util/navi
 import { FaInstagram } from "react-icons/fa";
 import { navElement } from "@/features/navigation/data/navigation.data";
 import { NavElement } from "@/features/navigation/type/navigation.type";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import { usePathname } from "next/navigation";
 import { useUser } from "@/core/hooks/react-query/user/query/useUser";
 import { AvatarImage } from "@/features/shared/image/AvatarImage.shared";
 import ShinyText from "@/features/shared/effects/shinyText/ShinyText";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 export const TopNav = () => {
-  const {theme, nextTheme} = useThemeStore();
+  const [theme, setTheme] = useTheme();
+  
   const pathname: string = usePathname();
   
   const {data: user} = useUser();
@@ -90,7 +91,7 @@ export const TopNav = () => {
       
       {/* Theme switch button */ }
       <button
-        onClick={ (): void => nextTheme() }
+        onClick={ (): void => setTheme(theme === "light" ? "dark" : "light") }
         className={ clsx("hover:font-semibold lg:flex lg:w-full hover:cursor-pointer") }
       >
         TE

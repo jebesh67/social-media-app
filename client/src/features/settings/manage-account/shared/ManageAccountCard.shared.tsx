@@ -1,10 +1,10 @@
 "use client";
 
 import clsx from "clsx";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
 import React, { useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 type Props = {
   Component: React.ComponentType;
@@ -15,7 +15,7 @@ export const ManageAccountCard = ({
   Component,
   buttonText,
 }: Props) => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   const [showComponent, setShowComponent] = useState<boolean>(false);
   
   return (

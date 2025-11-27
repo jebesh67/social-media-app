@@ -4,15 +4,15 @@ import { useUser } from "@/core/hooks/react-query/user/query/useUser";
 import { ProfileInfo } from "@/features/profile/main/internal/card/profileInfo.internal";
 import { ProfileAvatar } from "@/features/profile/main/internal/card/profileAvatar.internal";
 import { ClientGridLoader } from "@/features/shared/loader/ClientGridLoader.shared";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import clsx from "clsx";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
 import { ProfileBio } from "@/features/profile/main/internal/card/profileBio.internal";
 import { ProfileCardButton } from "@/features/profile/main/internal/card/profileCardButton.internal";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 export const ProfileCard = () => {
   const {data: currentUser, isLoading} = useUser();
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   return (
     <main className={ "px-4 w-full flex justify-center items-center" }>

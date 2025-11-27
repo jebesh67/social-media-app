@@ -2,16 +2,15 @@
 
 import clsx from "clsx";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import ShinyText from "@/features/shared/effects/shinyText/ShinyText";
 import { useUser } from "@/core/hooks/react-query/user/query/useUser";
 import { useShowOptionsMenuStore } from "@/core/stores/options-menu/showOptionsMenu.store";
 import { IoIosSettings } from "react-icons/io";
 import Link from "next/link";
-
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 export const RenderHeader = () => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   const {showOptionsMenu, setShowOptionsMenu} = useShowOptionsMenuStore();
   
   const {data: currentUser, isLoading, isFetched} = useUser();

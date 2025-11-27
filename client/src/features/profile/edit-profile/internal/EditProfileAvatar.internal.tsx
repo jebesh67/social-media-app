@@ -7,7 +7,6 @@ import Cropper, { Area } from "react-easy-crop";
 import { Dialog } from "@headlessui/react";
 import { BarLoader } from "react-spinners";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import { ClientUser } from "@/core/types/user/user.type";
 import { CloudinaryUploadResponse } from "@/core/types/cloudinary/response/api/cloudinaryUpload.response";
 import { getCroppedImg } from "@/features/profile/edit-profile/helper/getCroppedImg.helper";
@@ -19,6 +18,7 @@ import { IUpdateProfileVariables } from "@/core/hooks/react-query/user/type/upda
 import { uploadAvatarAction } from "@/features/profile/edit-profile/action/uploadAvatar.action";
 import { AvatarImage } from "@/features/shared/image/AvatarImage.shared";
 import { CircularProgress } from "@/features/shared/loader/CircularProgress.shared";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 type Props = {
   user: ClientUser;
@@ -27,7 +27,7 @@ type Props = {
 };
 
 export const EditProfileAvatar = ({user, onAvatarUrlChangeAction, onAvatarPublicIdChangeAction}: Props) => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   const updateProfileMutation: UseMutationResult<IUserApiResponse, Error, IUpdateProfileVariables> = useUpdateProfile();
   

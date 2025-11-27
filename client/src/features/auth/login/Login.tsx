@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useLogin } from "@/core/hooks/react-query/user/mutation/useLogin";
 import { UseMutationResult } from "@tanstack/react-query";
 import { ILoginVariables } from "@/core/hooks/react-query/user/type/loginVariables.interface";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import clsx from "clsx";
 import ShinyText from "@/features/shared/effects/shinyText/ShinyText";
 import { IUserApiResponse } from "@/core/types/user/response/api/userApi.response";
@@ -13,6 +12,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { CustomInput } from "@/features/shared/input/CustomInput";
 import { useShowAuthPanelStore } from "@/core/stores/auth-panel/showAuthPanel.store";
 import { CustomSubmitButton } from "@/features/shared/button/CustomSubmitButton.shared";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 export const Login = () => {
   const {setShowAuthPanel} = useShowAuthPanelStore();
@@ -20,7 +20,7 @@ export const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   const router: AppRouterInstance = useRouter();
   

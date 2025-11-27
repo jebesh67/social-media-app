@@ -1,11 +1,11 @@
 import clsx from "clsx";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
 import { TopNav } from "@/features/navigation/internal/TopNav.internal";
 import { BottomNav } from "@/features/navigation/internal/BottomNav.internal";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 export const RenderNavs = () => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   return (
     <nav

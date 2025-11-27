@@ -1,7 +1,6 @@
 "use client";
 
 import { clsx } from "clsx";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
 import { MdClose } from "react-icons/md";
 import { RefObject, useEffect, useRef } from "react";
@@ -10,9 +9,10 @@ import { useShowAuthPanelStore } from "@/core/stores/auth-panel/showAuthPanel.st
 import { useLogout } from "@/core/hooks/react-query/user/mutation/useLogout";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 export const OptionsMenu = () => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   const router: AppRouterInstance = useRouter();
   

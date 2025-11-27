@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 type Props = {
   isPending?: boolean;
@@ -19,7 +19,7 @@ export const CustomSubmitButton = ({
   pendingText = "Loading...",
   onClick,
 }: Props) => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   return (
     <button

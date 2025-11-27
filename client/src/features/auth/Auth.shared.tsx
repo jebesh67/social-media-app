@@ -7,9 +7,9 @@ import { Login } from "@/features/auth/login/Login";
 import { SignUp } from "@/features/auth/sign-up/SignUp";
 import { clsx } from "clsx";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import { MdClose } from "react-icons/md";
 import { useShowAuthPanelStore } from "@/core/stores/auth-panel/showAuthPanel.store";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 type Props = {
   pagePath?: PageSwitchType;
@@ -21,7 +21,7 @@ const Auth = (
 ) => {
   const [page, setPage] = useState<PageSwitchType>(pagePath);
   
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   const {setShowAuthPanel} = useShowAuthPanelStore();
   

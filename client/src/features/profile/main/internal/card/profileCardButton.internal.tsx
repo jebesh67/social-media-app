@@ -1,10 +1,10 @@
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import { clsx } from "clsx";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
 import Link from "next/link";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 export const ProfileCardButton = () => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   return (
     <div className={ "col-span-10 mt-4 flex justify-center items-center text-sm font-semibold select-none css-transition" }>

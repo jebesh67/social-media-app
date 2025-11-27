@@ -3,12 +3,12 @@
 import { settingsElement } from "@/features/settings/main/data/settings.data";
 import clsx from "clsx";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import Link from "next/link";
 import { SettingsElement } from "@/features/settings/main/type/settings.type";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 export const RenderSettings = () => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   return (
     <div className={ "px-4 flex flex-col w-full md:max-w-140 lg:max-w-120 space-y-2 select-none" }>

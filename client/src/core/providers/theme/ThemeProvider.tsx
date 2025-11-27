@@ -1,8 +1,11 @@
 "use client";
 
-import { useEffect, useLayoutEffect } from "react";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
-import { Theme } from "@/core/utils/theme/type/theme.type";
+import { Context, createContext, RefObject, useRef } from "react";
+import { IThemeState, Theme } from "@/core/utils/theme/type/theme.type";
+import { createThemeStore } from "@/core/stores/theme/createTheme.store";
+import { StoreApi } from "zustand/vanilla";
+
+export const ThemeStoreContext: Context<StoreApi<IThemeState> | null> = createContext<StoreApi<IThemeState> | null>(null);
 
 const ThemeProvider = ({
   children,
@@ -11,18 +14,13 @@ const ThemeProvider = ({
   children: React.ReactNode;
   initialTheme: Theme;
 }) => {
-  const {theme, setTheme} = useThemeStore();
+  const storeRef: RefObject<StoreApi<IThemeState>> = useRef(createThemeStore(initialTheme));
   
-  useLayoutEffect((): void => {
-    if (initialTheme !== theme) setTheme(initialTheme);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialTheme]);
-  
-  useEffect((): void => {
-    document.body.setAttribute("data-theme", theme);
-  }, [theme]);
-  
-  return <>{ children }</>;
+  return (
+    <ThemeStoreContext.Provider value={ storeRef.current }>
+      { children }
+    </ThemeStoreContext.Provider>
+  );
 };
 
 export default ThemeProvider;

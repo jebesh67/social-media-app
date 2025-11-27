@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import clsx from "clsx";
 import { CustomInput } from "@/features/shared/input/CustomInput";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
@@ -17,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useUser } from "@/core/hooks/react-query/user/query/useUser";
 import { CustomSubmitButton } from "@/features/shared/button/CustomSubmitButton.shared";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 type Props = {
   user: ClientUser;
@@ -29,7 +29,7 @@ export const EditProfileCard = ({user}: Props) => {
   const [avatarUrl, setAvatarUrl] = useState<string>(user.avatarUrl);
   const [avatarPublicId, setAvatarPublicId] = useState<string>(user.avatarPublicId);
   
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   const {refetch} = useUser();
   

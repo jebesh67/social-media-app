@@ -1,13 +1,13 @@
 "use client";
 
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 export const BackButton = () => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   const router = useRouter();
   

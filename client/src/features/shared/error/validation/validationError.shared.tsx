@@ -2,7 +2,7 @@ import { CustomError } from "@/core/helper/error/customError.helper";
 import { clsx } from "clsx";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
 import { MdClose } from "react-icons/md";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 type Props = {
   value: CustomError;
@@ -10,7 +10,7 @@ type Props = {
 }
 
 export const ValidationError = ({value, setShowValidationAction}: Props) => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   const {username, email, password, confirmPassword} = value.validation!;
   const errorArray: string[][] = [username, email, password, confirmPassword].filter((v: string[] | undefined): v is string[] => v !== undefined);

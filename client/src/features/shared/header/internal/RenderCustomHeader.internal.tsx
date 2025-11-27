@@ -1,10 +1,10 @@
 "use client";
 
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import clsx from "clsx";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
 import ShinyText from "@/features/shared/effects/shinyText/ShinyText";
 import { BackButton } from "@/features/shared/header/internal/BackButton.internal";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 type Props = {
   type: "back";
@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const RenderCustomHeader = ({type, text}: Props) => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   
   return (
     <div

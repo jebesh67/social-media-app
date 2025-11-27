@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import { getNavButtonClass } from "@/features/navigation/util/navigation.util";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { useThemeStore } from "@/core/stores/theme/theme.store";
 import { usePathname } from "next/navigation";
 import { useShowOptionsMenuStore } from "@/core/stores/options-menu/showOptionsMenu.store";
+import { useTheme } from "@/core/hooks/theme/useTheme";
 
 export const BottomNav = () => {
-  const {theme} = useThemeStore();
+  const [theme] = useTheme();
   const {showOptionsMenu, setShowOptionsMenu} = useShowOptionsMenuStore();
   
   const pathname: string = usePathname();
