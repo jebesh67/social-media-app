@@ -9,6 +9,8 @@ import { SafeUserType } from '@/modules/user/type/object/safeUser.object';
 import { UserDataCount } from '@/modules/user/type/user.type';
 import { UpdateUserProfileInput } from '@/modules/user/type/input/updateUserProfile.input';
 import { UpdateUserResponse } from '@/modules/user/type/response/updateUser.response';
+import { UpdateUsernameInput } from '@/modules/user/type/input/updateUsername.input';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -30,11 +32,7 @@ export class UserService {
     };
   }
 
-  async getCurrentUser(currentUser: Partial<User>): Promise<User> {
-    if (!currentUser?.id) {
-      throw BackendError.BadRequest('Invalid or expired token, User not found');
-    }
-
+  async getCurrentUser(currentUser: User): Promise<User> {
     const cacheKey = `user:${currentUser.username}`;
     const cachedUser: User | undefined = await this.cache.get<User>(cacheKey);
 
@@ -50,9 +48,10 @@ export class UserService {
 
   async getOtherUserProfile(
     username: string,
-    currentUser: Partial<User>,
+    currentUser: User,
   ): Promise<User> {
     if (currentUser.username === username) return currentUser as User;
+
     // check for caches
     const cachedUser: User | undefined = await this.cache.get<User>(
       `user:${username}`,
@@ -73,7 +72,7 @@ export class UserService {
   async updateUserProfile(
     currentUser: User,
     updateUserProfileInput: UpdateUserProfileInput,
-  ): Promise<UpdateUserResponse> {
+  ): Promise<User> {
     const data: Partial<UpdateUserProfileInput> = Object.fromEntries(
       Object.entries(updateUserProfileInput).filter(
         ([, value]: [string, any]): boolean =>
@@ -82,10 +81,7 @@ export class UserService {
     );
 
     if (Object.keys(data).length === 0) {
-      return {
-        success: false,
-        message: 'No valid fields provided to update.',
-      };
+      throw BackendError.BadRequest('No valid fields provided to update');
     }
 
     const updatedUser: User = await this.prisma.user.update({
@@ -96,24 +92,23 @@ export class UserService {
     // cache user
     await this.cache.set<User>(`user:${updatedUser.username}`, updatedUser, 20);
 
-    const safeUser: SafeUserType = await this.generateSafeUser(updatedUser);
-
-    return {
-      success: true,
-      message: 'Profile updated successfully.',
-      user: safeUser,
-    };
+    return updatedUser;
   }
 
   async updateUsername(
-    username: string,
-    currentUser: Partial<User>,
-  ): Promise<UpdateUserResponse> {
-    if (!currentUser?.id) {
-      throw BackendError.BadRequest('Invalid or expired token, User not found');
+    input: UpdateUsernameInput,
+    currentUser: User,
+  ): Promise<User> {
+    const isPasswordMatching: boolean = await bcrypt.compare(
+      input.password,
+      currentUser.password,
+    );
+
+    if (isPasswordMatching) {
+      throw BackendError.BadRequest('Wrong password!');
     }
 
-    const isTaken: boolean = await this.checkExistingUser(username);
+    const isTaken: boolean = await this.checkExistingUser(input.username);
 
     if (isTaken) {
       throw BackendError.Conflict('Username is already taken');
@@ -122,21 +117,17 @@ export class UserService {
     const updatedUser: User = await this.prisma.user.update({
       where: { id: currentUser.id },
       data: {
-        username: username,
+        username: input.username,
       },
     });
 
     // cache user
     await this.cache.set<User>(`user:${updatedUser.username}`, updatedUser, 20);
 
-    const safeUser: SafeUserType = await this.generateSafeUser(updatedUser);
-
-    return {
-      success: true,
-      user: { ...safeUser },
-      message: 'User updated successfully',
-    };
+    return updatedUser;
   }
+
+  // Helpers
 
   async checkExistingUser(username: string): Promise<boolean> {
     const existingUser: User | null = await this.prisma.user.findUnique({
@@ -188,6 +179,19 @@ export class UserService {
       user: {
         ...safeUser,
       },
+    };
+  }
+
+  async generateUpdateUserResponse(
+    user: User,
+    message: string,
+  ): Promise<UpdateUserResponse> {
+    const safeUser: SafeUserType = await this.generateSafeUser(user);
+
+    return {
+      success: true,
+      user: safeUser,
+      message,
     };
   }
 }

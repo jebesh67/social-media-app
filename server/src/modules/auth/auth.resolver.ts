@@ -18,7 +18,7 @@ export class AuthResolver {
   async verifyAccess(
     @CurrentUser() currentUser: Partial<User>,
   ): Promise<VerifyAccessResponse> {
-    return this.authService.verifyAccess(currentUser);
+    return this.authService.verifyAccess(currentUser as User);
   }
 
   @Mutation(() => AuthUserResponse)

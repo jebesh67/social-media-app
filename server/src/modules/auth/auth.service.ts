@@ -21,9 +21,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async verifyAccess(
-    currentUser: Partial<User>,
-  ): Promise<VerifyAccessResponse> {
+  async verifyAccess(currentUser: User): Promise<VerifyAccessResponse> {
     if (!currentUser.id) {
       return {
         data: {

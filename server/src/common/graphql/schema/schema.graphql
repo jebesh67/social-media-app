@@ -76,7 +76,7 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): AuthUserResponse!
   loginUser(loginUserInput: LoginUserInput!): AuthUserResponse!
   updateUserProfile(updateUserProfileInput: UpdateUserProfileInput!): UpdateUserResponse!
-  updateUsername(updateUsernameInput: UsernameInput!): UpdateUserResponse!
+  updateUsername(updateUsernameInput: UpdateUsernameInput!): UpdateUserResponse!
 }
 
 input CreateUserInput {
@@ -97,4 +97,9 @@ input UpdateUserProfileInput {
   bio: String
   avatarUrl: String
   avatarPublicId: String
+}
+
+input UpdateUsernameInput {
+  username: String!
+  password: String!
 }

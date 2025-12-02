@@ -9,6 +9,7 @@ import { ExistingUsernameResponse } from '@/modules/user/type/response/existingU
 import { UsernameInput } from '@/modules/user/type/input/username.input';
 import { UpdateUserProfileInput } from '@/modules/user/type/input/updateUserProfile.input';
 import { UpdateUserResponse } from '@/modules/user/type/response/updateUser.response';
+import { UpdateUsernameInput } from '@/modules/user/type/input/updateUsername.input';
 
 @Resolver()
 export class UserResolver {
@@ -26,7 +27,9 @@ export class UserResolver {
   async currentUserProfile(
     @CurrentUser() currentUser: Partial<User>,
   ): Promise<UserResponse> {
-    const user: User = await this.userService.getCurrentUser(currentUser);
+    const user: User = await this.userService.getCurrentUser(
+      currentUser as User,
+    );
     return this.userService.generateUserResponse(user);
   }
 
@@ -38,7 +41,7 @@ export class UserResolver {
   ): Promise<UserResponse> {
     const user: User = await this.userService.getOtherUserProfile(
       username,
-      currentUser,
+      currentUser as User,
     );
     return this.userService.generateUserResponse(user);
   }
@@ -52,9 +55,13 @@ export class UserResolver {
 
     @CurrentUser() currentUser: Partial<User>,
   ): Promise<UpdateUserResponse> {
-    return this.userService.updateUserProfile(
+    const updatedUser: User = await this.userService.updateUserProfile(
       currentUser as User,
       updateUserProfileInput,
+    );
+    return this.userService.generateUpdateUserResponse(
+      updatedUser,
+      'Profile updated successfully',
     );
   }
 
@@ -62,9 +69,16 @@ export class UserResolver {
   @UseGuards(AuthGuard)
   @UsePipes(new ValidationPipe({ whitelist: true }))
   async updateUsername(
-    @Args('updateUsernameInput') input: UsernameInput,
+    @Args('updateUsernameInput') input: UpdateUsernameInput,
     @CurrentUser() currentUser: Partial<User>,
   ): Promise<UpdateUserResponse> {
-    return this.userService.updateUsername(input.username, currentUser);
+    const updatedUser: User = await this.userService.updateUsername(
+      input,
+      currentUser as User,
+    );
+    return this.userService.generateUpdateUserResponse(
+      updatedUser,
+      'Username updated successfully',
+    );
   }
 }
