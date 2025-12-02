@@ -104,7 +104,7 @@ export class UserService {
       currentUser.password,
     );
 
-    if (isPasswordMatching) {
+    if (!isPasswordMatching) {
       throw BackendError.BadRequest('Wrong password!');
     }
 
@@ -123,6 +123,10 @@ export class UserService {
 
     // cache user
     await this.cache.set<User>(`user:${updatedUser.username}`, updatedUser, 20);
+
+    if (currentUser.username !== updatedUser.username) {
+      await this.cache.del(`user:${currentUser.username}`);
+    }
 
     return updatedUser;
   }
