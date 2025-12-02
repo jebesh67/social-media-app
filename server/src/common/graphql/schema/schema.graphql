@@ -39,7 +39,7 @@ type ExistingUsernameResponse {
   username: UsernameStatusType!
 }
 
-type UpdateUserProfileResponse {
+type UpdateUserResponse {
   user: SafeUserType
   message: String!
   success: Boolean!
@@ -75,7 +75,8 @@ input UsernameInput {
 type Mutation {
   createUser(createUserInput: CreateUserInput!): AuthUserResponse!
   loginUser(loginUserInput: LoginUserInput!): AuthUserResponse!
-  updateUserProfile(updateUserProfileInput: UpdateUserProfileInput!): UpdateUserProfileResponse!
+  updateUserProfile(updateUserProfileInput: UpdateUserProfileInput!): UpdateUserResponse!
+  updateUsername(updateUsernameInput: UsernameInput!): UpdateUserResponse!
 }
 
 input CreateUserInput {

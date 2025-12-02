@@ -8,7 +8,7 @@ import { UserResponse } from '@/modules/user/type/response/user.response';
 import { ExistingUsernameResponse } from '@/modules/user/type/response/existingUsername.response';
 import { UsernameInput } from '@/modules/user/type/input/username.input';
 import { UpdateUserProfileInput } from '@/modules/user/type/input/updateUserProfile.input';
-import { UpdateUserProfileResponse } from '@/modules/user/type/response/updateUserProfile.response';
+import { UpdateUserResponse } from '@/modules/user/type/response/updateUser.response';
 
 @Resolver()
 export class UserResolver {
@@ -43,7 +43,7 @@ export class UserResolver {
     return this.userService.generateUserResponse(user);
   }
 
-  @Mutation(() => UpdateUserProfileResponse)
+  @Mutation(() => UpdateUserResponse)
   @UseGuards(AuthGuard)
   @UsePipes(new ValidationPipe({ whitelist: true }))
   async updateUserProfile(
@@ -51,10 +51,20 @@ export class UserResolver {
     updateUserProfileInput: UpdateUserProfileInput,
 
     @CurrentUser() currentUser: Partial<User>,
-  ): Promise<UpdateUserProfileResponse> {
+  ): Promise<UpdateUserResponse> {
     return this.userService.updateUserProfile(
       currentUser as User,
       updateUserProfileInput,
     );
+  }
+
+  @Mutation(() => UpdateUserResponse)
+  @UseGuards(AuthGuard)
+  @UsePipes(new ValidationPipe({ whitelist: true }))
+  async updateUsername(
+    @Args('updateUsernameInput') input: UsernameInput,
+    @CurrentUser() currentUser: Partial<User>,
+  ): Promise<UpdateUserResponse> {
+    return this.userService.updateUsername(input.username, currentUser);
   }
 }

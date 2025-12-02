@@ -1,4 +1,6 @@
-@jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZ3VtODAwMDE1M3cwN3llaWJmamkiLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc2MjI2MDE2MSwiZXhwIjoxNzYyODY0OTYxfQ.pk2O5rv-y2yWnw7yiA5AQk3qHxR28M0yIlYon61l9xc
+
+
+@jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtaTQ1bWJ6czAwMDA1MzQyZzJ6dnJmMHEiLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc2NDIzNzE4NCwiZXhwIjoxNzY0ODQxOTg0fQ.dmjNR3lr3UYzvrsraBMowfjY8qVyY7v4tXNtDQiFtAw
 @sodaToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZzk1ZTAwMDA1M3cwdTdqcjZ2d28iLCJ1c2VybmFtZSI6Il9zb2RhIiwiaWF0IjoxNzYwNjkwMTQzLCJleHAiOjE3NjEyOTQ5NDN9.NDdsWLt0-qMPE9M5cU1tAhXzMaQ5XY9YvBAE8b7U5ho
 @lemonToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtaHloM3BuazAwMDA1M25mYnB0OGozOHQiLCJ1c2VybmFtZSI6ImxlbW9uMjIiLCJpYXQiOjE3NjMxMDE0ODYsImV4cCI6MTc2MzcwNjI4Nn0.qr_Xi6RTrxhofFXbw39rSYWXdWynOHIJwgYTmPlthY0
 @meopoToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3hnemx1ODAwMDA1M2tzZGw3M2dueGkiLCJ1c2VybmFtZSI6Im1lb3BvNjM2IiwiaWF0IjoxNzYwODY0MDQ2LCJleHAiOjE3NjE0Njg4NDZ9.EB1CLa6Zg93cMCsem0AOSQM-0IGEwygJ0F60xc7iCb4
@@ -19,7 +21,7 @@ Authorization: Bearer {{lemonToken}}
 ### Get current user
 POST http://localhost:5000/graphql
 Content-Type: application/json
-Authorization: Bearer {{lemonToken}}
+Authorization: Bearer {{jebeshToken}}
 
 {
   "query": "query { currentUserProfile { user { username name email id bio avatarUrl avatarPublicId createdAt updatedAt bio } } }"
@@ -76,6 +78,20 @@ Authorization: Bearer {{lemonToken}}
       "bio": "Very very very very very huge bio hahahahahaha",
       "avatarUrl": "/assets/user-profile/defaultProfile.jpg",
       "avatarPublicId": "wont tell you"
+    }
+  }
+}
+
+### Update username
+POST http://localhost:5000/graphql
+Content-Type: application/json
+Authorization: Bearer {{jebeshToken}}
+
+{
+  "query": "mutation UpdateUsername($input: UsernameInput!) {updateUsername(updateUsernameInput: $input) {success user {username id name bio} message}} ",
+  "variables": {
+    "input": {
+      "username": "jebesh"
     }
   }
 }

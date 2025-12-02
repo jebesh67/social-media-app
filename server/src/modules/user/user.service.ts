@@ -8,7 +8,7 @@ import { ExistingUsernameResponse } from '@/modules/user/type/response/existingU
 import { SafeUserType } from '@/modules/user/type/object/safeUser.object';
 import { UserDataCount } from '@/modules/user/type/user.type';
 import { UpdateUserProfileInput } from '@/modules/user/type/input/updateUserProfile.input';
-import { UpdateUserProfileResponse } from '@/modules/user/type/response/updateUserProfile.response';
+import { UpdateUserResponse } from '@/modules/user/type/response/updateUser.response';
 
 @Injectable()
 export class UserService {
@@ -73,7 +73,7 @@ export class UserService {
   async updateUserProfile(
     currentUser: User,
     updateUserProfileInput: UpdateUserProfileInput,
-  ): Promise<UpdateUserProfileResponse> {
+  ): Promise<UpdateUserResponse> {
     const data: Partial<UpdateUserProfileInput> = Object.fromEntries(
       Object.entries(updateUserProfileInput).filter(
         ([, value]: [string, any]): boolean =>
@@ -102,6 +102,39 @@ export class UserService {
       success: true,
       message: 'Profile updated successfully.',
       user: safeUser,
+    };
+  }
+
+  async updateUsername(
+    username: string,
+    currentUser: Partial<User>,
+  ): Promise<UpdateUserResponse> {
+    if (!currentUser?.id) {
+      throw BackendError.BadRequest('Invalid or expired token, User not found');
+    }
+
+    const isTaken: boolean = await this.checkExistingUser(username);
+
+    if (isTaken) {
+      throw BackendError.Conflict('Username is already taken');
+    }
+
+    const updatedUser: User = await this.prisma.user.update({
+      where: { id: currentUser.id },
+      data: {
+        username: username,
+      },
+    });
+
+    // cache user
+    await this.cache.set<User>(`user:${updatedUser.username}`, updatedUser, 20);
+
+    const safeUser: SafeUserType = await this.generateSafeUser(updatedUser);
+
+    return {
+      success: true,
+      user: { ...safeUser },
+      message: 'User updated successfully',
     };
   }
 
