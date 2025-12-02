@@ -14,6 +14,8 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
+  private readonly USER_CACHE_TTL: number = 20;
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly cache: CacheService,
@@ -39,7 +41,7 @@ export class UserService {
     if (cachedUser) return cachedUser;
 
     // cache user
-    await this.cache.set<User>(cacheKey, currentUser, 20);
+    await this.cache.set<User>(cacheKey, currentUser, this.USER_CACHE_TTL);
 
     return currentUser;
   }
@@ -62,7 +64,7 @@ export class UserService {
     if (!user) throw BackendError.NotFound('User not found!');
 
     // cache user
-    await this.cache.set<User>(`user:${username}`, user, 20);
+    await this.cache.set<User>(`user:${username}`, user, this.USER_CACHE_TTL);
 
     return user;
   }
@@ -88,7 +90,11 @@ export class UserService {
     });
 
     // cache user
-    await this.cache.set<User>(`user:${updatedUser.username}`, updatedUser, 20);
+    await this.cache.set<User>(
+      `user:${updatedUser.username}`,
+      updatedUser,
+      this.USER_CACHE_TTL,
+    );
 
     return updatedUser;
   }
@@ -120,7 +126,11 @@ export class UserService {
     });
 
     // cache user
-    await this.cache.set<User>(`user:${updatedUser.username}`, updatedUser, 20);
+    await this.cache.set<User>(
+      `user:${updatedUser.username}`,
+      updatedUser,
+      this.USER_CACHE_TTL,
+    );
 
     if (currentUser.username !== updatedUser.username) {
       await this.cache.del(`user:${currentUser.username}`);
