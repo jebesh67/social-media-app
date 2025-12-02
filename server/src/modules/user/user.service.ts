@@ -38,12 +38,10 @@ export class UserService {
 
     if (cachedUser) return cachedUser;
 
-    const newUser = currentUser as User;
-
     // cache user
-    await this.cache.set<User>(cacheKey, newUser, 20);
+    await this.cache.set<User>(cacheKey, currentUser, 20);
 
-    return newUser;
+    return currentUser;
   }
 
   async getOtherUserProfile(
