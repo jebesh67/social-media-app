@@ -65,11 +65,16 @@ type Query {
   logoutUser: Boolean!
   verifyUsername(input: UsernameInput!): ExistingUsernameResponse!
   currentUserProfile: UserResponse!
-  otherUserProfile(username: String!): UserResponse!
+  otherUserProfile(otherUserProfileInput: OtherUserProfileInput!): UserResponse!
 }
 
 input UsernameInput {
   username: String!
+}
+
+input OtherUserProfileInput {
+  username: String!
+  id: String!
 }
 
 type Mutation {

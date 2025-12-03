@@ -11,6 +11,7 @@ import { UpdateUserProfileInput } from '@/modules/user/type/input/updateUserProf
 import { UpdateUserResponse } from '@/modules/user/type/response/updateUser.response';
 import { UpdateUsernameInput } from '@/modules/user/type/input/updateUsername.input';
 import * as bcrypt from 'bcrypt';
+import { OtherUserProfileInput } from '@/modules/user/type/input/otherUserProfile.input';
 
 @Injectable()
 export class UserService {
@@ -35,7 +36,7 @@ export class UserService {
   }
 
   async getCurrentUser(currentUser: User): Promise<User> {
-    const cacheKey = `user:${currentUser.username}`;
+    const cacheKey = `user:${currentUser.id}`;
     const cachedUser: User | undefined = await this.cache.get<User>(cacheKey);
 
     if (cachedUser) return cachedUser;
@@ -47,24 +48,28 @@ export class UserService {
   }
 
   async getOtherUserProfile(
-    username: string,
+    otherUser: OtherUserProfileInput,
     currentUser: User,
   ): Promise<User> {
-    if (currentUser.username === username) return currentUser as User;
+    if (currentUser.username === otherUser.username) return currentUser as User;
 
     // check for caches
     const cachedUser: User | undefined = await this.cache.get<User>(
-      `user:${username}`,
+      `user:${otherUser.id}`,
     );
     if (cachedUser) {
       return cachedUser;
     }
 
-    const user: User | null = await this.getUserByUsername(username);
+    const user: User | null = await this.getUserByUsername(otherUser.username);
     if (!user) throw BackendError.NotFound('User not found!');
 
     // cache user
-    await this.cache.set<User>(`user:${username}`, user, this.USER_CACHE_TTL);
+    await this.cache.set<User>(
+      `user:${otherUser.id}`,
+      user,
+      this.USER_CACHE_TTL,
+    );
 
     return user;
   }
@@ -91,7 +96,7 @@ export class UserService {
 
     // cache user
     await this.cache.set<User>(
-      `user:${updatedUser.username}`,
+      `user:${updatedUser.id}`,
       updatedUser,
       this.USER_CACHE_TTL,
     );
@@ -127,14 +132,10 @@ export class UserService {
 
     // cache user
     await this.cache.set<User>(
-      `user:${updatedUser.username}`,
+      `user:${updatedUser.id}`,
       updatedUser,
       this.USER_CACHE_TTL,
     );
-
-    if (currentUser.username !== updatedUser.username) {
-      await this.cache.del(`user:${currentUser.username}`);
-    }
 
     return updatedUser;
   }

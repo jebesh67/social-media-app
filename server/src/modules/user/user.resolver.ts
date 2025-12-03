@@ -10,6 +10,7 @@ import { UsernameInput } from '@/modules/user/type/input/username.input';
 import { UpdateUserProfileInput } from '@/modules/user/type/input/updateUserProfile.input';
 import { UpdateUserResponse } from '@/modules/user/type/response/updateUser.response';
 import { UpdateUsernameInput } from '@/modules/user/type/input/updateUsername.input';
+import { OtherUserProfileInput } from '@/modules/user/type/input/otherUserProfile.input';
 
 @Resolver()
 export class UserResolver {
@@ -36,11 +37,11 @@ export class UserResolver {
   @Query(() => UserResponse)
   @UseGuards(AuthGuard)
   async otherUserProfile(
-    @Args('username') username: string,
+    @Args('otherUserProfileInput') input: OtherUserProfileInput,
     @CurrentUser() currentUser: Partial<User>,
   ): Promise<UserResponse> {
     const user: User = await this.userService.getOtherUserProfile(
-      username,
+      input,
       currentUser as User,
     );
     return this.userService.generateUserResponse(user);
