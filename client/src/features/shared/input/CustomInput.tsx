@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import clsx from "clsx";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
 import { Eye, EyeOff } from "lucide-react";
@@ -35,6 +35,7 @@ export const CustomInput = ({
 }: CustomInputProps) => {
   const [theme] = useTheme();
   
+  const inputRef = useRef<HTMLInputElement>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   
   const baseStyles: string = clsx(
@@ -63,6 +64,7 @@ export const CustomInput = ({
         {
           isMultiLine ? (
             <textarea
+              ref={ inputRef }
               id={ id }
               value={ value }
               onChange={ onChange }
@@ -74,6 +76,7 @@ export const CustomInput = ({
           ) : (
             <>
               <input
+                ref={ inputRef }
                 id={ id }
                 type={ inputType }
                 value={ value }
@@ -98,9 +101,10 @@ export const CustomInput = ({
         }
         
         <label
+          onClick={ () => inputRef.current?.focus() }
           htmlFor={ id }
           className={ clsx(
-            "absolute left-5 top-4 text-xs transition-all duration-200 ease-in-out py-1 select-none",
+            "cursor-text absolute left-5 top-4 text-xs transition-all duration-200 ease-in-out py-1 select-none",
             
             width === "small" && "w-55",
             width === "medium" && "w-70",
@@ -119,7 +123,7 @@ export const CustomInput = ({
             "peer-focus:top-0.5 peer-focus:text-[10px]",
             isInvalidInput ? "peer-focus:text-red-500" : "peer-focus:text-blue-500",
             
-            "peer-[&:not(:placeholder-shown)]:top-0.5 peer-[&:not(:placeholder-shown)]:text-[10px]",
+            "peer-not-placeholder-shown:top-0.5 peer-not-placeholder-shown:text-[10px]",
           ) }
         >
           { placeholder }

@@ -1,4 +1,4 @@
-import Explore from "@/features/explore/main";
+import Explore from "@/features/explore/main/Index";
 
 const ExplorePage = () => {
   return (
