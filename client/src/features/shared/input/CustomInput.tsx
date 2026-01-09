@@ -36,6 +36,7 @@ export const CustomInput = ({
   const [theme] = useTheme();
   
   const inputRef = useRef<HTMLInputElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   
   const baseStyles: string = clsx(
@@ -64,7 +65,7 @@ export const CustomInput = ({
         {
           isMultiLine ? (
             <textarea
-              ref={ inputRef }
+              ref={ textAreaRef }
               id={ id }
               value={ value }
               onChange={ onChange }
