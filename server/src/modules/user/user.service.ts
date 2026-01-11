@@ -12,6 +12,8 @@ import { UpdateUserResponse } from '@/modules/user/type/response/updateUser.resp
 import { UpdateUsernameInput } from '@/modules/user/type/input/updateUsername.input';
 import * as bcrypt from 'bcrypt';
 import { OtherUserProfileInput } from '@/modules/user/type/input/otherUserProfile.input';
+import { SearchUserObject } from '@/modules/user/type/object/searchUser.object';
+import { SearchUserResponse } from '@/modules/user/type/response/searchUser.response';
 
 @Injectable()
 export class UserService {
@@ -140,6 +142,11 @@ export class UserService {
     return updatedUser;
   }
 
+  async findUsers(username: string): Promise<SearchUserObject[]> {
+    if (!username) return [];
+    return await this.filterUsersByUsername(username);
+  }
+
   // Helpers
 
   async checkExistingUser(username: string): Promise<boolean> {
@@ -155,6 +162,27 @@ export class UserService {
   async getUserByUsername(username: string): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: { username },
+    });
+  }
+
+  async filterUsersByUsername(username: string): Promise<SearchUserObject[]> {
+    return this.prisma.user.findMany({
+      where: {
+        username: {
+          startsWith: username,
+          mode: 'insensitive',
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        avatarUrl: true,
+      },
+      take: 10,
+      orderBy: {
+        username: 'asc',
+      },
     });
   }
 
@@ -205,6 +233,12 @@ export class UserService {
       success: true,
       user: safeUser,
       message,
+    };
+  }
+
+  generateFindUsersResponse(users: SearchUserObject[]): SearchUserResponse {
+    return {
+      users,
     };
   }
 }

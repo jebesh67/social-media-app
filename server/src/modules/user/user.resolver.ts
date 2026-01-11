@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthGuard } from '@/common/guard/auth.guard';
@@ -11,6 +11,8 @@ import { UpdateUserProfileInput } from '@/modules/user/type/input/updateUserProf
 import { UpdateUserResponse } from '@/modules/user/type/response/updateUser.response';
 import { UpdateUsernameInput } from '@/modules/user/type/input/updateUsername.input';
 import { OtherUserProfileInput } from '@/modules/user/type/input/otherUserProfile.input';
+import { SearchUserResponse } from '@/modules/user/type/response/searchUser.response';
+import { SearchUserObject } from '@/modules/user/type/object/searchUser.object';
 
 @Resolver()
 export class UserResolver {
@@ -81,5 +83,17 @@ export class UserResolver {
       updatedUser,
       'Username updated successfully',
     );
+  }
+
+  @Query(() => SearchUserResponse)
+  @UseGuards(AuthGuard)
+  @UsePipes(new ValidationPipe({ whitelist: true }))
+  async findUsers(
+    @Args('input') input: UsernameInput,
+  ): Promise<SearchUserResponse> {
+    const users: SearchUserObject[] = await this.userService.findUsers(
+      input.username,
+    );
+    return this.userService.generateFindUsersResponse(users);
   }
 }

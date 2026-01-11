@@ -45,6 +45,17 @@ type UpdateUserResponse {
   success: Boolean!
 }
 
+type SearchUserObject {
+  id: String!
+  name: String!
+  username: String!
+  avatarUrl: String!
+}
+
+type SearchUserResponse {
+  users: [SearchUserObject!]!
+}
+
 type VerifyAccessType {
   accessGranted: Boolean!
   username: String!
@@ -66,6 +77,7 @@ type Query {
   verifyUsername(input: UsernameInput!): ExistingUsernameResponse!
   currentUserProfile: UserResponse!
   otherUserProfile(otherUserProfileInput: OtherUserProfileInput!): UserResponse!
+  findUsers(input: UsernameInput!): SearchUserResponse!
 }
 
 input UsernameInput {
