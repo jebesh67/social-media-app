@@ -1,3 +1,5 @@
+"use server";
+
 import { ISignCloudinaryResponse } from "@/core/types/cloudinary/response/api/ISIgnCloudinary.response";
 import { IApiError } from "@/core/types/error/api-error/response/apiError.response";
 import { signCloudinaryAction } from "@/features/profile/edit-profile/action/signCloudinary.action";

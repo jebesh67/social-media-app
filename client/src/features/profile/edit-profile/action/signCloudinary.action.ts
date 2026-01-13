@@ -1,3 +1,5 @@
+"use server";
+
 import axios, { AxiosResponse } from "axios";
 import { IApiError } from "@/core/types/error/api-error/response/apiError.response";
 import { ISignCloudinaryResponse } from "@/core/types/cloudinary/response/api/ISIgnCloudinary.response";

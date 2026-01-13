@@ -14,11 +14,8 @@ export const useUpdateProfile = (): UseMutationResult<IUserApiResponse, Error, I
         throw new Error(response.message);
       }
       
+      queryClient.setQueryData(["user", "CURRENT_USER"], response.user);
       return response as IUserApiResponse;
-    },
-    
-    onSuccess: (res: IUserApiResponse): void => {
-      queryClient.setQueryData(["user", "CURRENT_USER"], res.user);
     },
   });
 };
