@@ -33,13 +33,20 @@ input LoginUserInput {
 type Mutation {
   createUser(createUserInput: CreateUserInput!): AuthUserResponse!
   loginUser(loginUserInput: LoginUserInput!): AuthUserResponse!
-  updateUserProfile(updateUserProfileInput: UpdateUserProfileInput!): UpdateUserProfileResponse!
+  updateUserProfile(updateUserProfileInput: UpdateUserProfileInput!): UpdateUserResponse!
+  updateUsername(updateUsernameInput: UpdateUsernameInput!): UpdateUserResponse!
+}
+
+input OtherUserProfileInput {
+  id: String!
+  username: String!
 }
 
 type Query {
   currentUserProfile: UserResponse!
+  findUsers(input: UsernameInput!): SearchUserResponse!
   logoutUser: Boolean!
-  otherUserProfile(username: String!): UserResponse!
+  otherUserProfile(otherUserProfileInput: OtherUserProfileInput!): UserResponse!
   verifyAccess: VerifyAccessResponse!
   verifyUsername(input: UsernameInput!): ExistingUsernameResponse!
 }
@@ -57,6 +64,17 @@ type SafeUserType {
   username: String!
 }
 
+type SearchUserObject {
+  avatarUrl: String!
+  id: String!
+  name: String!
+  username: String!
+}
+
+type SearchUserResponse {
+  users: [SearchUserObject!]!
+}
+
 input UpdateUserProfileInput {
   avatarPublicId: String
   avatarUrl: String
@@ -64,10 +82,15 @@ input UpdateUserProfileInput {
   name: String
 }
 
-type UpdateUserProfileResponse {
+type UpdateUserResponse {
   message: String!
   success: Boolean!
   user: SafeUserType
+}
+
+input UpdateUsernameInput {
+  password: String!
+  username: String!
 }
 
 type UserCountType {

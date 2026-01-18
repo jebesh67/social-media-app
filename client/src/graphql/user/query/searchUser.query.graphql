@@ -1,0 +1,11 @@
+query FindUsersQuery($input: UsernameInput!) {
+    findUsers(input: $input) {
+        users
+        {
+            id
+            name
+            username
+            avatarUrl
+        }
+    }
+}

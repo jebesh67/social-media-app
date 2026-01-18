@@ -1,5 +1,5 @@
 
-@jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtamR6aGV2NjAwMDBpam1oMDV4YzhvcG4iLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc2Nzc4NTI1NywiZXhwIjoxNzY4MzkwMDU3fQ.iT1Arig4qVPPqMn2pLnOsUxqHMCz2hhhfefa5HJ7ICg
+@jebeshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtamR6aGV2NjAwMDBpam1oMDV4YzhvcG4iLCJ1c2VybmFtZSI6ImplYmVzaCIsImlhdCI6MTc2ODE1Mjc3NCwiZXhwIjoxNzY4NzU3NTc0fQ.vg7uE17o_sEVy9U3EVlT7iBY_qMq5BUc1IiFZf5KiQ0
 @sodaToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3VsZzk1ZTAwMDA1M3cwdTdqcjZ2d28iLCJ1c2VybmFtZSI6Il9zb2RhIiwiaWF0IjoxNzYwNjkwMTQzLCJleHAiOjE3NjEyOTQ5NDN9.NDdsWLt0-qMPE9M5cU1tAhXzMaQ5XY9YvBAE8b7U5ho
 @lemonToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtaHloM3BuazAwMDA1M25mYnB0OGozOHQiLCJ1c2VybmFtZSI6ImxlbW9uMjIiLCJpYXQiOjE3NjMxMDE0ODYsImV4cCI6MTc2MzcwNjI4Nn0.qr_Xi6RTrxhofFXbw39rSYWXdWynOHIJwgYTmPlthY0
 @meopoToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZ3hnemx1ODAwMDA1M2tzZGw3M2dueGkiLCJ1c2VybmFtZSI6Im1lb3BvNjM2IiwiaWF0IjoxNzYwODY0MDQ2LCJleHAiOjE3NjE0Njg4NDZ9.EB1CLa6Zg93cMCsem0AOSQM-0IGEwygJ0F60xc7iCb4
@@ -105,7 +105,7 @@ Authorization: Bearer {{jebeshToken}}
   "query": "query findUsers($input: UsernameInput!) { findUsers(input: $input) { users { id name username avatarUrl } } }",
   "variables": {
     "input": {
-      "username": "gh"
+      "username": "jebesh"
     }
   }
 }
