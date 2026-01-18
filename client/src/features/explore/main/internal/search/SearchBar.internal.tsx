@@ -5,6 +5,7 @@ import { ifTheme } from "@/core/utils/theme/util/theme.util";
 import { ChangeEvent, useRef, useState } from "react";
 import { useSearchUser } from "@/core/hooks/react-query/user/mutation/useSearchUser";
 import { SearchUserType } from "@/core/types/user/searchUser.type";
+import { UseMutationResult } from "@tanstack/react-query";
 
 export const SearchBar = () => {
   const [theme] = useTheme();
