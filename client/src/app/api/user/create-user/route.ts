@@ -5,11 +5,11 @@ import { request, ClientError } from "graphql-request";
 import CreateUserMutation from "@/graphql/user/mutation/createUser.mutation.graphql";
 import { IOriginalError } from "@/core/types/error/graphql-error/response/originalError.response";
 import { IApiError } from "@/core/types/error/api-error/response/apiError.response";
-import { IBackendErrorResponse } from "@/core/types/error/graphql-error/response/backendError.response";
 import { IUserApiResponse } from "@/core/types/user/response/api/userApi.response";
 import { ICreateUserBackendResponse } from "@/core/types/user/response/backend/createUserBackend.response";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
 import { setAuthToken } from "@/core/utils/cookie/cookie.helper";
+import { extractOriginalError } from "@/core/helper/error/extractOriginalError.helper";
 
 export const POST = async (req: Request): Promise<NextResponse<IUserApiResponse | IApiError>> => {
   try {
@@ -38,10 +38,7 @@ export const POST = async (req: Request): Promise<NextResponse<IUserApiResponse 
     return res;
   } catch (err: unknown) {
     if (err instanceof ClientError) {
-      const backendError: IBackendErrorResponse = err as unknown as IBackendErrorResponse;
-      
-      const originalError: IOriginalError =
-        backendError.response.errors[0].extensions.originalError;
+      const originalError: IOriginalError = extractOriginalError(err);
       
       if (originalError.isValidationError) {
         return NextResponse.json<IApiError>({

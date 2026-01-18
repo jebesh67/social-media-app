@@ -5,11 +5,11 @@ import { request, ClientError } from "graphql-request";
 import LogoutUserQuery from "@/graphql/user/query/logoutUser.query.graphql";
 import { IOriginalError } from "@/core/types/error/graphql-error/response/originalError.response";
 import { IApiError } from "@/core/types/error/api-error/response/apiError.response";
-import { IBackendErrorResponse } from "@/core/types/error/graphql-error/response/backendError.response";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
 import { clearAuthToken, getAuthToken } from "@/core/utils/cookie/cookie.helper";
 import { ILogoutUserBackendResponse } from "@/core/types/user/response/backend/logoutUserBackend.response";
 import { ILogoutApiResponse } from "@/core/types/user/response/api/logoutApi.response";
+import { extractOriginalError } from "@/core/helper/error/extractOriginalError.helper";
 
 export const POST = async (): Promise<NextResponse<ILogoutApiResponse | IApiError>> => {
   try {
@@ -30,10 +30,7 @@ export const POST = async (): Promise<NextResponse<ILogoutApiResponse | IApiErro
     return res;
   } catch (err: unknown) {
     if (err instanceof ClientError) {
-      const backendError: IBackendErrorResponse = err as unknown as IBackendErrorResponse;
-      
-      const originalError: IOriginalError =
-        backendError.response.errors[0].extensions.originalError;
+      const originalError: IOriginalError = extractOriginalError(err);
       
       return NextResponse.json<IApiError>({
         success: false,

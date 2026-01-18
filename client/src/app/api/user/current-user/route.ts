@@ -10,9 +10,9 @@ import {
 import { getAuthToken } from "@/core/utils/cookie/cookie.helper";
 import { IOriginalError } from "@/core/types/error/graphql-error/response/originalError.response";
 import { IApiError } from "@/core/types/error/api-error/response/apiError.response";
-import { IBackendErrorResponse } from "@/core/types/error/graphql-error/response/backendError.response";
 import { IUserApiResponse } from "@/core/types/user/response/api/userApi.response";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
+import { extractOriginalError } from "@/core/helper/error/extractOriginalError.helper";
 
 export const GET = async (): Promise<NextResponse<IUserApiResponse | IApiError>> => {
   try {
@@ -30,10 +30,7 @@ export const GET = async (): Promise<NextResponse<IUserApiResponse | IApiError>>
     
   } catch (err: unknown) {
     if (err instanceof ClientError) {
-      const backendError: IBackendErrorResponse = err as unknown as IBackendErrorResponse;
-      
-      const originalError: IOriginalError =
-        backendError.response.errors[0].extensions.originalError;
+      const originalError: IOriginalError = extractOriginalError(err);
       
       return NextResponse.json<IApiError>({
         success: false,

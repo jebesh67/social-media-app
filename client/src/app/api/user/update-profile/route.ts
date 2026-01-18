@@ -4,12 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { GRAPHQL_URL } from "@/lib/env/url.variable";
 import UpdateUserProfile from "@/graphql/user/mutation/updateUserProfile.mutation.graphql";
 import { IUpdateProfileVariables } from "@/core/hooks/react-query/user/type/updateProfileVariables.interface";
-import { IBackendErrorResponse } from "@/core/types/error/graphql-error/response/backendError.response";
 import { IOriginalError } from "@/core/types/error/graphql-error/response/originalError.response";
 import { IUserApiResponse } from "@/core/types/user/response/api/userApi.response";
 import { IApiError } from "@/core/types/error/api-error/response/apiError.response";
 import { IUpdateUserProfileBackendResponse } from "@/core/types/user/response/backend/updateProfileBackend.response";
 import { UpdateProfileType } from "@/core/types/user/updateProfile.type";
+import { extractOriginalError } from "@/core/helper/error/extractOriginalError.helper";
 
 export const POST = async (req: NextRequest): Promise<NextResponse<IUserApiResponse | IApiError>> => {
   try {
@@ -35,8 +35,7 @@ export const POST = async (req: NextRequest): Promise<NextResponse<IUserApiRespo
     
   } catch (err: unknown) {
     if (err instanceof ClientError) {
-      const backendError = err as unknown as IBackendErrorResponse;
-      const originalError: IOriginalError = backendError.response.errors[0].extensions.originalError;
+      const originalError: IOriginalError = extractOriginalError(err);
       
       return NextResponse.json<IApiError>({
         success: false,
@@ -58,6 +57,5 @@ export const POST = async (req: NextRequest): Promise<NextResponse<IUserApiRespo
       message: "Oops! Something went wrong",
       statusCode: 500,
     }, {status: 500});
-    
   }
 };

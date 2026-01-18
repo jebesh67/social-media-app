@@ -13,8 +13,8 @@ import { GRAPHQL_URL } from "@/lib/env/url.variable";
 import { getAuthToken } from "@/core/utils/cookie/cookie.helper";
 import VerifyAccessQuery from "@/graphql/user/query/verifyAccess.query.graphql";
 import { IVerifyAccessBackendResponse } from "@/core/types/user/response/backend/verifyAccessBackend.response";
-import { IBackendErrorResponse } from "@/core/types/error/graphql-error/response/backendError.response";
 import { IOriginalError } from "@/core/types/error/graphql-error/response/originalError.response";
+import { extractOriginalError } from "@/core/helper/error/extractOriginalError.helper";
 
 export const GET = async (): Promise<
   NextResponse<ISignCloudinaryResponse | IApiError>
@@ -68,8 +68,7 @@ export const GET = async (): Promise<
     
   } catch (err: unknown) {
     if (err instanceof ClientError) {
-      const errorResponse = err as unknown as IBackendErrorResponse;
-      const originalError: IOriginalError = errorResponse.response.errors[0].extensions.originalError;
+      const originalError: IOriginalError = extractOriginalError(err);
       
       return NextResponse.json<IApiError>({
         success: false,
