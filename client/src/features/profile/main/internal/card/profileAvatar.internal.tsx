@@ -8,7 +8,7 @@ export const ProfileAvatar = ({url}: { url: string }) => {
   return (
     <div className={ "col-span-2 flex items-center" }>
       <AvatarImage
-        className={ " rounded-full w-full aspect-square object-contain" }
+        className={ "rounded-full w-full aspect-square object-contain" }
         src={ url || "/assets/user-profile/defaultProfile.jpg" }
         alt="Default Profile"
         width={ 500 }

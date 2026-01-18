@@ -1,6 +1,6 @@
 import { QueryClient, QueryKey, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useSubscribeToCache = <T, >(
+export const useReadFromCache = <T, >(
   queryKey: QueryKey,
   fallback: T,
 ) => {
@@ -12,6 +12,3 @@ export const useSubscribeToCache = <T, >(
       queryClient.getQueryData<T>(queryKey) ?? fallback,
   });
 };
-
-export class useSubscribeToCacke {
-}

@@ -2,15 +2,19 @@ import { CustomInput } from "@/features/shared/input/CustomInput";
 import { useTheme } from "@/core/hooks/theme/useTheme";
 import { clsx } from "clsx";
 import { ifTheme } from "@/core/utils/theme/util/theme.util";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, SetStateAction, useRef, useState } from "react";
 import { useSearchUser } from "@/core/hooks/react-query/user/mutation/useSearchUser";
 import { SearchUserType } from "@/core/types/user/searchUser.type";
 import { UseMutationResult } from "@tanstack/react-query";
 
-export const SearchBar = () => {
+type SearchBarProps = {
+  setShowUserAction: React.Dispatch<SetStateAction<boolean>>
+}
+
+export const SearchBar = ({setShowUserAction}: SearchBarProps) => {
   const [theme] = useTheme();
   
-  const searchUserMutation: UseMutationResult<SearchUserType[], Error, string> = useSearchUser();
+  const searchUserMutation: UseMutationResult<SearchUserType[] | undefined, Error, string> = useSearchUser();
   
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [username, setUsername] = useState<string>("");
@@ -25,6 +29,12 @@ export const SearchBar = () => {
     
     timeoutRef.current = setTimeout((): void => {
       searchUserMutation.mutate(value);
+      
+      if (value === "") {
+        setShowUserAction(false);
+      } else {
+        setShowUserAction(true);
+      }
     }, 300);
   };
   
