@@ -1,5 +1,3 @@
-"use server";
-
 import { ISignCloudinaryResponse } from "@/core/types/cloudinary/response/api/ISIgnCloudinary.response";
 import { IApiError } from "@/core/types/error/api-error/response/apiError.response";
 import { signCloudinaryAction } from "@/features/profile/edit-profile/action/signCloudinary.action";
@@ -12,7 +10,10 @@ export const uploadAvatarAction = async (
 ): Promise<CloudinaryUploadResponse> => {
   const signatureResponse: ISignCloudinaryResponse | IApiError = await signCloudinaryAction();
   
-  if (!signatureResponse.success) throw new Error(signatureResponse.message);
+  if (!signatureResponse.success) {
+    console.error(signatureResponse);
+    throw new Error(signatureResponse.message);
+  }
   
   const goodResponse = signatureResponse as ISignCloudinaryResponse;
   const {timestamp, signature, cloudName, apiKey, uploadPreset} = goodResponse.data;
