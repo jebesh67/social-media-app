@@ -23,7 +23,7 @@ export const SearchBar = () => {
       clearTimeout(timeoutRef.current);
     }
     
-    timeoutRef.current = setTimeout(() => {
+    timeoutRef.current = setTimeout((): void => {
       searchUserMutation.mutate(value);
     }, 300);
   };
